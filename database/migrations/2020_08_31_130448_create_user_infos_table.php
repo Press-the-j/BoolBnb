@@ -20,7 +20,7 @@ class CreateUserInfosTable extends Migration
             $table->string('address')->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')->reference('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

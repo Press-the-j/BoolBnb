@@ -15,13 +15,13 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('flats_id');
+            $table->unsignedBigInteger('flat_id');
             $table->string('email_sender');
             $table->text('content');
             $table->boolean('is_read')->default(0);
             $table->timestamps();
 
-            $table->foreign('flat_id')->reference('id')->on('flats');
+            $table->foreign('flat_id')->references('id')->on('flats');
         });
     }
 

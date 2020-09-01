@@ -26,7 +26,7 @@ class CreateFlatInfosTable extends Migration
             $table->tinyInteger('max_guest');
             $table->timestamps();
 
-            $table->foreign('flat_id')->reference('id')->on('flats');
+            $table->foreign('flat_id')->references('id')->on('flats');
         });
     }
 

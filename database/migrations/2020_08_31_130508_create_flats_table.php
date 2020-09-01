@@ -17,13 +17,13 @@ class CreateFlatsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('title');
-            $table->sting('slug');
+            $table->string('slug')->unique();
             $table->point('position');
-            $table->boolean('is_promoted');
-            $table->boolean('is_hidden');
+            $table->boolean('is_promoted')->default(0);
+            $table->boolean('is_hidden')->default(0);
             $table->timestamps();
 
-            $table->foreign('user_id')->reference('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
