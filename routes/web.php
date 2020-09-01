@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Request;
+use App\Flat;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,8 +23,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-/* Route::get('/test', function (Request $request) {
-  $user = Auth::user(); //getting the current logged in user
+Route::get('/test', function (Request $request) {
+  //$user = Auth::user(); //getting the current logged in user
+  $flat=Flat::find(1);
+  dd($flat->position->getLat());
   //dd($user->hasRole('dev')); // and so on
-  dd($user->can('suck'));
-}); */
+ //dd($user->can('suck'));
+});

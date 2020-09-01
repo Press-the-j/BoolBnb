@@ -20,7 +20,7 @@ class CreateFlatInfosTable extends Migration
             $table->text('description');
             $table->string('city');
             $table->string('address');
-            $table->integer('postal_code');
+            $table->string('postal_code');
             $table->integer('square_meters');
             $table->float('price', 6 ,2);
             $table->tinyInteger('max_guest');
