@@ -1,0 +1,49 @@
+.flat-container{
+  padding:20px;
+
+  .image-flat{
+
+    img {
+      border-radius: 8px;
+      -webkit-border-radius: 8px;
+      -moz-border-radius: 8px;
+      -ms-border-radius: 8px;
+      -o-border-radius: 8px;
+    }
+  }
+
+  .title-flat-row{
+    margin:  10px 0 ;
+  }
+
+  /* .description-flat-row{
+  
+  } */
+  
+  .flat-info-row{
+
+    .flat-info{
+      list-style: none;
+      padding:0;
+      li{
+        margin:10px 0;
+      }
+
+    }
+
+  }
+
+}
+
+
+
+
+
+/* display: grid;
+  grid-template-columns: repeat(2,1fr);
+  grid-template-rows: auto;
+  grid-template-areas: 
+  "img         img"
+  "title       title"
+  "description description"
+  "position    info"; */

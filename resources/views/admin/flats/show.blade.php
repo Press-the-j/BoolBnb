@@ -5,7 +5,7 @@
   <div class="row">
     <div class="flat-container">
       <div class="image-flat">
-        <img src="
+        <img class="img-fluid"src="
         @if ($flat->flatInfo->image_path)
           {{asset('storage/' . $flat->flatInfo->image_path)}}
         @else
@@ -17,32 +17,40 @@
         <h3 class="title-flat">{{$flat->title}}</h3>
       </div>
       <div class="description-flat-row">
-        <p class="description-flat lead">{{$flat->flatInfo->description}}</p>
-      </div>
-      <div class="flat-map-container">
-        <div class="flat-position-info-row">
-          <ul class="flat-position-info">
-            <li>Indirizzo:</li>
-            <li>Città:</li>
-            <li>Codice-Postale</li>
-          </ul>
-        </div>
-        <div class="map-address-flat"></div>
+        <p class="description-flat ">{{$flat->flatInfo->description}}</p>
       </div>
       <div class="flat-info-row">
         <ul class="flat-info">
           <li>Metri Quadrati: {{$flat->flatInfo->square_meters}}</li>
           <li>Limite Ospiti: {{$flat->flatInfo->max_guest}}</li>
-        </ul>
-        <span class="price-box">
-          {{$flat->flatInfo->price}} &euro 
-        </span>
-      </div>
-      <div class="services-flat-row">
-        <ul class="services-flat">
+          {{-- da qui ci sarà un for per i servizi --}}
           <li>fakeservizio1</li>
           <li>fakeservizio2</li>
         </ul>
+        <span class="price-box">
+          {{$flat->flatInfo->price}} &euro; 
+        </span>
+      </div>
+      
+      <div class="flat-position-info-row">
+        <ul class="flat-position-info list-group ">
+          <li class="list-group-item">
+            <strong> Indirizzo: </strong>
+            {{$flat->flatInfo->address}}
+          </li>
+          <li class="list-group-item">
+            <strong>città: </strong>
+            {{$flat->flatInfo->city}}
+          </li>
+          <li class="list-group-item">
+          <strong>Codice-Postale: </strong>
+          {{$flat->flatInfo->postal_code}}
+          </li>
+        </ul>
+      </div>
+      <div class="map-container-flat">
+        {{-- qui andrà renderizzata la mappa --}}
+        <div class="map"></div>
       </div>
     </div>
   </div>
