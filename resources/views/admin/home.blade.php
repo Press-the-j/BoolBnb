@@ -5,9 +5,7 @@
     <div class="row justify-content-center">
         <h1>Pagina ADMIN</h1>
         <div class="col-md-8">
-            @if(Auth::user())
-            <button class="new-flat">+ aggiungi un appartamento</button>
-            @endif
+            <a href="{{route(admin.flat.create)}}" class="new-flat">+ aggiungi un appartamento</a>
             <form>
                 <div class="form-group">
                     <input type="text" class="form-control" id="search-input" placeholder="Cerca un appartamento...">
@@ -17,7 +15,6 @@
         </div>
     </div>
 </div>
-
 
 
 @endsection
