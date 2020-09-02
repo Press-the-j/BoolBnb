@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Flat;
 use App\FlatInfo;
+use App\Service;
 
 class FlatController extends Controller
 {
@@ -33,7 +34,9 @@ class FlatController extends Controller
      */
     public function create()
     {
-        return view('admin.flats.create');
+      //richiamiamo tutti i servizi
+        $services=Service::all();
+        return view('admin.flats.create', compact('services'));
     }
 
     /**
@@ -45,6 +48,7 @@ class FlatController extends Controller
     public function store(Request $request)
     {
        $data= $request->all();
+       
        $slug= Str::of($data['title'])->slug('-');
 
        $data['position'] = new Point(33.5567, -50.5050);
@@ -58,6 +62,8 @@ class FlatController extends Controller
        $flat->fill($flatData);
        $flat->save();
        $flatId=$flat->id;
+
+
        /* $flat->flatInfo= new FlatInfo(); */
        if (isset($data['image'])){
          $img_path=Storage::put('uploads', $data['image']);
@@ -81,6 +87,11 @@ class FlatController extends Controller
        $flatInfo= new FlatInfo();
        $flatInfo->fill($flatInfoData);
        $flatInfo->save();
+       if(!empty($data['services'])){
+         $flat->services()->sync($data['services']);
+       }
+
+
 
 
        return redirect()->route('admin.home');
@@ -104,9 +115,9 @@ class FlatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Flat $flat)
     {
-        //
+      return view('admin.flats.edit', compact('flat'));
     }
 
     /**

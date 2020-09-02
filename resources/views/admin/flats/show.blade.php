@@ -23,9 +23,11 @@
         <ul class="flat-info">
           <li>Metri Quadrati: {{$flat->flatInfo->square_meters}}</li>
           <li>Limite Ospiti: {{$flat->flatInfo->max_guest}}</li>
-          {{-- da qui ci sarà un for per i servizi --}}
-          <li>fakeservizio1</li>
-          <li>fakeservizio2</li>
+          @forelse ($flat->services as $service)
+            <li>{{$service->name}}</li>
+          @empty
+            <li></li>
+          @endforelse
         </ul>
         <span class="price-box">
           {{$flat->flatInfo->price}} &euro; 
