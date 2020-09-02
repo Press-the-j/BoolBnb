@@ -24,7 +24,7 @@ class FlatController extends Controller
      */
     public function create()
     {
-        return view('admin.flats.controller');
+        return view('admin.flats.create');
     }
 
     /**
