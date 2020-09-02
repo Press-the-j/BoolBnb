@@ -6,7 +6,9 @@
     <h1>Pagina GUEST</h1>
     <div class="col-md-8">
       @if(Auth::user())
-      <button class="new-flat">+ aggiungi un appartamento</button>
+          <a href="">
+              <button class="new-flat">+ aggiungi un appartamento</button>
+          </a>
       @endif
       <form>
         <div class="form-group">
