@@ -14,14 +14,23 @@ use App\Flat;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', 'HomeController@index')->name('home');
 
-  return view('welcome');
-});
+Route::prefix('/auth')
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+/* Route::get('/home', 'HomeController@index')->name('home'); */
+
+
+
+
+
+
+
+
+
+
 
 Route::get('/test', function (Request $request) {
   //$user = Auth::user(); //getting the current logged in user
