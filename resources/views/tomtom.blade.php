@@ -18,19 +18,10 @@
 </head>
 
 <body>
+
+
     <div id='map' class='map'></div>
-    <script>
-        var map = tt.map({
-            key: 'zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU',
-            container: 'map',
-            style: 'tomtom://vector/1/basic-main',
-            center: [-0.12634, 51.50276],
-            zoom: 13
-        });
-
-
-
-    </script>
+    <script src="{{asset('js/app.js')}}"></script>
 </body>
 
 </html>
