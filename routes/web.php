@@ -16,7 +16,7 @@ use App\Flat;
 
 Route::get('/', function () {
 
-    return view('welcome');
+  return view('welcome');
 });
 
 Auth::routes();
@@ -25,8 +25,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/test', function (Request $request) {
   //$user = Auth::user(); //getting the current logged in user
-  $flat=Flat::find(1);
+  $flat = Flat::find(1);
   dd($flat->position->getLat());
   //dd($user->hasRole('dev')); // and so on
- //dd($user->can('suck'));
+  //dd($user->can('suck'));
+});
+
+Route::get('/tomtom', function () {
+  return view('tomtom');
 });
