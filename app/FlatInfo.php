@@ -12,6 +12,7 @@ class FlatInfo extends Model
   }
 
   protected $fillable = [
+    'flat_id',
     'image_path',
     'description',
     'city',

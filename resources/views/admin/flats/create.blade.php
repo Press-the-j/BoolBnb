@@ -38,6 +38,10 @@
         <label for="price">Prezzo per notte:</label>
         <input name="price" type="text" class="form-control" id="price">
       </div>
+      <div class="form-group">
+        <label for="max_guest">Ospiti Max:</label>
+        <input name="max_guest" type="text" class="form-control" id="max_guest">
+      </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     </div>
