@@ -34,3 +34,5 @@ Route::get('/test', function (Request $request) {
 Route::get('/tomtom', function () {
   return view('tomtom');
 });
+
+Route::get('/prova_home', )
