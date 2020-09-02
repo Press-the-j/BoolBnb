@@ -21,7 +21,7 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->middleware('auth')->
   Route::resource('/flats', 'FlatController');
 });
 
-'ciao'
+
 
 Auth::routes();
 
