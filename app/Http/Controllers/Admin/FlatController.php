@@ -20,7 +20,10 @@ class FlatController extends Controller
      */
     public function index()
     {
-        //
+        $flats=Flat::where('is_promoted', 0)->where('user_id', Auth::id())->get();
+        $flatsPromoted=Flat::where('is_promoted', 1)->where('user_id', Auth::id())->get();
+
+        return view('admin.flats.index', compact('flats', 'flatsPromoted'));
     }
 
     /**
@@ -58,13 +61,14 @@ class FlatController extends Controller
        /* $flat->flatInfo= new FlatInfo(); */
        if (isset($data['image'])){
          $img_path=Storage::put('uploads', $data['image']);
+         /* $data['image_path']=$img_path; */
        }
        
 
 
        $flatInfoData=[
          'flat_id'=>$flatId,
-         'image_path'=> $img_path,
+         'image_path'=> $img_path ?? '',
          'description' => $data['description'],
          'city'=>$data['city'],
          'address'=>$data['address'],
@@ -88,9 +92,10 @@ class FlatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Flat $flat)
     {
-        //
+        
+        return view('admin.flats.show', compact('flat'));
     }
 
     /**
