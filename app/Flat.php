@@ -9,41 +9,50 @@ use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
 class Flat extends Model
 {
 
-  
-    use SpatialTrait;
 
-    public function flatInfo()
-    {
-      return $this->hasOne('App\FlatInfo');
-    }
+  use SpatialTrait;
 
-    public function user()
-    {
-      return $this->belongsTo('App\User');
-    }
+  public function flatInfo()
+  {
+    return $this->hasOne('App\FlatInfo');
+  }
 
-    public function views()
-    {
-      return $this->hasMany('App\View');
-    }
+  public function user()
+  {
+    return $this->belongsTo('App\User');
+  }
 
-    public function messages()
-    {
-      return $this->hasMany('App\Message');
-    }
-    
-    public function services()
-    {
-      return $this->belongsToMany('App\Service');
-    }
+  public function views()
+  {
+    return $this->hasMany('App\View');
+  }
 
-    public function promotions()
-    {
-      return $this->belongsToMany('App\Promotion');
-    }
+  public function messages()
+  {
+    return $this->hasMany('App\Message');
+  }
 
-    protected $spatialFields = [
-      //deve essere il nome della colonna in cui mettiamo le coordinate
-      'position'
-    ];
+  public function services()
+  {
+    return $this->belongsToMany('App\Service');
+  }
+
+  public function promotions()
+  {
+    return $this->belongsToMany('App\Promotion');
+  }
+
+  protected $spatialFields = [
+    //deve essere il nome della colonna in cui mettiamo le coordinate
+    'position'
+  ];
+
+  protected $fillable = [
+    'user_id',
+    'title',
+    'slug',
+    'position',
+    'is_promoted',
+    'is_hidden',
+  ];
 }

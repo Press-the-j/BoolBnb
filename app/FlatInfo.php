@@ -10,4 +10,15 @@ class FlatInfo extends Model
   {
     return $this->belongsTo('App\Flat');
   }
+
+  protected $fillable = [
+    'image_path',
+    'description',
+    'city',
+    'address',
+    'postal_code',
+    'square_meters',
+    'price',
+    'max_guest',
+  ];
 }
