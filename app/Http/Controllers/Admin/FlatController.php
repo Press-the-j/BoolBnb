@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Grimzy\LaravelMysqlSpatial\Types\Point;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -55,9 +56,15 @@ class FlatController extends Controller
        $flat->save();
        $flatId=$flat->id;
        /* $flat->flatInfo= new FlatInfo(); */
+       if (isset($data['image'])){
+         $img_path=Storage::put('uploads', $data['image']);
+       }
+       
+
+
        $flatInfoData=[
          'flat_id'=>$flatId,
-         'image_path'=> 'default',
+         'image_path'=> $img_path,
          'description' => $data['description'],
          'city'=>$data['city'],
          'address'=>$data['address'],
@@ -66,9 +73,12 @@ class FlatController extends Controller
          'price'=>$data['price'],
          'max_guest'=>$data['max_guest']
        ];
+
        $flatInfo= new FlatInfo();
        $flatInfo->fill($flatInfoData);
        $flatInfo->save();
+
+
        return redirect()->route('admin.home');
     }
 

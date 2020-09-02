@@ -16,7 +16,7 @@ class CreateFlatInfosTable extends Migration
         Schema::create('flat_infos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('flat_id');
-            $table->string('image_path');//se non dovesse essere caricata caricheremo una img default
+            $table->string('image_path')->nullable();//se non dovesse essere caricata caricheremo una img default
             $table->text('description');
             $table->string('city');
             $table->string('address');
