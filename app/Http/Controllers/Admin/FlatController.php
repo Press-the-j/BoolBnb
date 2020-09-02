@@ -35,7 +35,9 @@ class FlatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       $data= $request->all();
+       dd($data);
+       return redirect()->route('admin.home');
     }
 
     /**
