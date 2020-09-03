@@ -20,6 +20,8 @@ class FlatInfosSeeder extends Seeder
         $flat_info1->address= 'via del corso';
         $flat_info1->postal_code= '00186';
         $flat_info1->square_meters = 44;
+        $flat_info1->rooms=4;
+        $flat_info1->baths=2;
         $flat_info1->price= 50;
         $flat_info1->max_guest=4;
         $flat_info1->save();

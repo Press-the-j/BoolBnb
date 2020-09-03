@@ -44,6 +44,11 @@
               <h5 class="card-title">{{$flat->title}}</h5>
               <p class="card-text">{{$flat->flatInfo->description}}</p>
             </div>
+            <form action="{{route('admin.flats.destroy', ['flat'=>$flat->id])}}" method="post">
+              @method('DELETE')
+              @csrf
+              <button type="submit" class="btn btn-danger">Elimina</button>
+            </form>
             <a href="{{route('admin.flats.edit', ['flat'=>$flat->id])}}" class="btn btn-primary">Modifica</a>
             <a href="{{route('admin.flats.show', ['flat'=>$flat->id])}}" class="btn btn-primary">Dettagli</a>
           </div>

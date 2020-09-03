@@ -23,6 +23,8 @@
         <ul class="flat-info">
           <li>Metri Quadrati: {{$flat->flatInfo->square_meters}}</li>
           <li>Limite Ospiti: {{$flat->flatInfo->max_guest}}</li>
+          <li>Numero di stanze: {{$flat->flatInfo->rooms}}</li>
+          <li>Numero di bagni: {{$flat->flatInfo->baths}}</li>
           @forelse ($flat->services as $service)
             <li>{{$service->name}}</li>
           @empty

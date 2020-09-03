@@ -21,12 +21,13 @@ class CreateFlatInfosTable extends Migration
             $table->string('city');
             $table->string('address');
             $table->string('postal_code');
-            $table->integer('square_meters');
+            $table->integer('square_meters')->unsigned();
             $table->float('price', 6 ,2);
-            $table->tinyInteger('max_guest');
+            $table->unsignedTinyInteger('max_guest');
+            $table->unsignedTinyInteger('rooms');
+            $table->unsignedTinyInteger('baths');
             $table->timestamps();
-
-            $table->foreign('flat_id')->references('id')->on('flats');
+            $table->foreign('flat_id')->references('id')->on('flats')->onDelete('cascade');
         });
     }
 

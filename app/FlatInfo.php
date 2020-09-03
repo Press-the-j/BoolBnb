@@ -19,6 +19,8 @@ class FlatInfo extends Model
     'address',
     'postal_code',
     'square_meters',
+    'rooms',
+    'baths',
     'price',
     'max_guest',
   ];

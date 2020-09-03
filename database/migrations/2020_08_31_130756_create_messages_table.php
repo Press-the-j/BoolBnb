@@ -21,7 +21,7 @@ class CreateMessagesTable extends Migration
             $table->boolean('is_read')->default(0);
             $table->timestamps();
 
-            $table->foreign('flat_id')->references('id')->on('flats');
+            $table->foreign('flat_id')->references('id')->on('flats')->onDelete('cascade');
         });
     }
 

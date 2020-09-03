@@ -43,6 +43,14 @@
           <input name="max_guest" type="text" class="form-control" id="max_guest">
         </div>
         <div class="form-group">
+          <label for="rooms">Numero di stanze:</label>
+          <input name="rooms" type="text" class="form-control" id="rooms">
+        </div>
+        <div class="form-group">
+          <label for="baths">Numero di bagni:</label>
+          <input name="baths" type="text" class="form-control" id="baths">
+        </div>
+        <div class="form-group">
           @foreach ($services as $service)
           <input type="checkbox" value="{{$service->id}}" name="services[]" id="{{$service->name}}">
           <label for="{{$service->name}}">{{$service->name}}</label>

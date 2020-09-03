@@ -12,8 +12,11 @@ use App\Flat;
 use App\FlatInfo;
 use App\Service;
 
+
 class FlatController extends Controller
 {
+
+  /* use MakeSlugTrait; */
     /**
      * Display a listing of the resource.
      *
@@ -49,7 +52,16 @@ class FlatController extends Controller
     {
        $data= $request->all();
        
-       $slug= Str::of($data['title'])->slug('-');
+        $slugTemp= Str::of($data['title'])->slug('-');
+        $controlledSlug = control_slug($slugTemp);
+       /*  $count=0;
+        $foundTitle=Flat::where('slug', $slug)->first();
+         while ($foundTitle) {
+           $count++;
+           $slug = $slugTemp . '-' . $count;
+           $foundTitle=Flat::where('slug', $slug)->first();
+         } */
+       
 
        $data['position'] = new Point(33.5567, -50.5050);
        $flat= new Flat();
@@ -57,7 +69,7 @@ class FlatController extends Controller
          'user_id' =>Auth::id(),
          'title'=> $data['title'],
          'position'=>$data['position'],
-         'slug'=>$slug
+         'slug'=>$controlledSlug
        ];
        $flat->fill($flatData);
        $flat->save();
@@ -81,7 +93,9 @@ class FlatController extends Controller
          'postal_code'=>$data['postal_code'],
          'square_meters'=>$data['square_meters'],
          'price'=>$data['price'],
-         'max_guest'=>$data['max_guest']
+         'max_guest'=>$data['max_guest'],
+         'rooms'=>$data['rooms'],
+         'baths'=>$data['baths']
        ];
 
        $flatInfo= new FlatInfo();
@@ -117,7 +131,8 @@ class FlatController extends Controller
      */
     public function edit(Flat $flat)
     {
-      return view('admin.flats.edit', compact('flat'));
+      $services=Service::all();
+      return view('admin.flats.edit', compact('flat', 'services'));
     }
 
     /**
@@ -127,9 +142,74 @@ class FlatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Flat $flat)
     {
-        //
+        $data=$request->all();
+        $slugTemp=Str::of($data['title'])->slug('-');
+
+        $slug = update_control_slug($slugTemp, $flat) ;
+        
+        /* $count=0;
+        $foundTitle=Flat::where('slug', $slug)->first();
+         while ($foundTitle && $foundTitle->id !=$flat->id) {
+           $count++;
+           $slug = $slugTemp . '-' . $count;
+           $foundTitle=Flat::where('slug', $slug)->first();
+         } */
+
+
+
+        $data['position'] = new Point(33.5567, -50.5050);
+
+        //dd($data);
+
+        $flatToUpdate = Flat::find($flat)->first();
+        
+        $flatInfoToUpdate= FlatInfo::where('flat_id', $flat->flatInfo->flat_id)->first();
+        
+        
+
+        $dataFlatToUpdate= [
+          'user_id' =>Auth::id(),
+          'title'=> $data['title'],
+          'position'=>$data['position'],
+          'slug'=>$slug
+        ];
+        $flatToUpdate->update($dataFlatToUpdate);
+        $flatToUpdateId=$flatToUpdate->id;
+        
+        if (isset($data['image'])){
+          $img_path=Storage::put('uploads', $data['image']);
+        } elseif ($flatToUpdate->flatInfo->image_path){
+          $img_path=$flatToUpdate->flatInfo->image_path;
+        } 
+        
+
+        $dataFlatInfoToUpdate=[
+         'flat_id'=>$flatToUpdateId,
+         'image_path'=> $img_path ?? '',
+         'description' => $data['description'],
+         'city'=>$data['city'],
+         'address'=>$data['address'],
+         'postal_code'=>$data['postal_code'],
+         'square_meters'=>$data['square_meters'],
+         'price'=>$data['price'],
+         'max_guest'=>$data['max_guest'],
+         'rooms'=>$data['rooms'],
+         'baths'=>$data['baths']
+        ];
+
+
+        $flatInfoToUpdate->update($dataFlatInfoToUpdate);
+
+        if(!empty($data['services'])){
+          $flatToUpdate->services()->sync($data['services']);
+        } else {
+          $flatToUpdate->services()->detach();
+        }
+
+        return redirect()->route('admin.flats.index');
+
     }
 
     /**
@@ -138,8 +218,12 @@ class FlatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Flat $flat)
     {
-        //
+      $flat=Flat::find($flat)->first();
+
+      $flat->delete();
+
+      return redirect()->route('admin.flats.index');
     }
 }
