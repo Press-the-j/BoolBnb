@@ -51,7 +51,7 @@ class FlatController extends Controller
     public function store(Request $request)
     {
        $data= $request->all();
-       
+       dd($data);
         $slugTemp= Str::of($data['title'])->slug('-');
         $controlledSlug = control_slug($slugTemp);
        /*  $count=0;

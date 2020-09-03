@@ -37264,19 +37264,63 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(process) {__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // require("dotenv").config();
-// const fs = require("fs");
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+/* var map = tt.map({
+    key: process.env.MIX_TOMTOM_API_KEY,
+    container: "map",
+    style: "tomtom://vector/1/basic-main",
+    center: [-0.12634, 51.50276],
+    zoom: 13
+}); */
 
 
-var map = tt.map({
-  key: process.env.TOMTOM_API_KEY,
-  container: "map",
-  style: "tomtom://vector/1/basic-main",
-  center: [-0.12634, 51.50276],
-  zoom: 13
+$('#geocoding').click(function (event) {
+  var address = 'via del corso Roma 00178';
+  $.ajax({
+    url: 'https://api.tomtom.com/search/2/search/' + address + '.JSON',
+    method: 'GET',
+    data: {
+      key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
+      countrySet: 'IT'
+    },
+    success: function success(object) {
+      var result = object.results;
+      var position = getCoordinates(result);
+    },
+    error: function error(err) {
+      console.log(err);
+    }
+  });
 });
-console.log(process.env);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/process/browser.js */ "./node_modules/process/browser.js")))
+$('#submit-create').click(function (event) {
+  var street = $('#address-create').val();
+  var postalCode = $('#postal_code-create').val();
+  var city = $('#city-create').val();
+  var address = street + ' ' + city + ' ' + postalCode;
+  $.ajax({
+    url: 'https://api.tomtom.com/search/2/search/' + address + '.JSON',
+    method: 'GET',
+    data: {
+      key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
+      countrySet: 'IT'
+    },
+    success: function success(object) {
+      var result = object.results;
+      var position = getCoordinates(result);
+      $('#create-lat').val(position.lat);
+      $('#create-long').val(position.lon);
+      return;
+    },
+    error: function error(err) {
+      console.log(err);
+    }
+  });
+});
+
+function getCoordinates(result) {
+  var coordinates = result[0].position;
+  return coordinates;
+}
 
 /***/ }),
 

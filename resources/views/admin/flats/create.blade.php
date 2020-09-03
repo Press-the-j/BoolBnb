@@ -3,52 +3,52 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-      <form action="{{route('admin.flats.store')}}" method="post" enctype="multipart/form-data">
+      <form action="{{route('admin.flats.store')}}" method="post"  enctype="multipart/form-data">
         @csrf
         <div class="form-group">
-          <label class="col-form-label text-md-left" for="image">Immagine di copertina</label>
-          <input id="image" type="file" name="image" class="form-control-file">
+          <label class="col-form-label text-md-left" for="image-create">Immagine di copertina</label>
+          <input id="image-create" type="file" name="image" class="form-control-file">
         </div>
         <div class="form-group">
-          <label for="title">Titolo:</label>
-          <input name="title" type="text" class="form-control" id="title" aria-describedby="title" placeholder="Inserisci un titolo">
-          <small id="title" class="form-text text-muted">inserisci un titolo al tuo annuncio</small>
+          <label for="title-create">Titolo:</label>
+          <input name="title" type="text" class="form-control" id="title-create" aria-describedby="title" placeholder="Inserisci un titolo">
+          <small id="title-create" class="form-text text-muted">inserisci un titolo al tuo annuncio</small>
         </div>
         <div class="form-group">
-          <label for="description">Descrizione:</label>
-          <textarea name="description" type="text" class="form-control" id="description" placeholder="Descrizione.."></textarea>
+          <label for="description-create">Descrizione:</label>
+          <textarea name="description" type="text" class="form-control" id="description-create" placeholder="Descrizione.."></textarea>
         </div>
         <div class="form-group">
-          <label for="city">Città:</label>
-          <input name="city" type="text" class="form-control" id="city" placeholder="Città..">
+          <label for="city-create">Città:</label>
+          <input name="city" type="text" class="form-control" id="city-create" placeholder="Città..">
         </div>
         <div class="form-group">
-          <label for="address">Indirizzo:</label>
-          <input name="address" type="text" class="form-control" id="address" placeholder="Indirizzo..">
+          <label for="address-create">Indirizzo:</label>
+          <input name="address" type="text" class="form-control" id="address-create" placeholder="Indirizzo..">
         </div>
         <div class="form-group">
-          <label for="postal_code">Codice Postale:</label>
-          <input name="postal_code" type="text" class="form-control" id="postal_code">
+          <label for="postal_code-create">Codice Postale:</label>
+          <input name="postal_code" type="text" class="form-control" id="postal_code-create">
         </div>
         <div class="form-group">
-          <label for="square_meters">Metri quadrati:</label>
-          <input name="square_meters" type="text" class="form-control" id="square_meters">
+          <label for="square_meters-create">Metri quadrati:</label>
+          <input name="square_meters" type="text" class="form-control" id="square_meters-create">
         </div>
         <div class="form-group">
-          <label for="price">Prezzo per notte:</label>
-          <input name="price" type="text" class="form-control" id="price">
+          <label for="price-create">Prezzo per notte:</label>
+          <input name="price" type="text" class="form-control" id="price-create">
         </div>
         <div class="form-group">
-          <label for="max_guest">Ospiti Max:</label>
-          <input name="max_guest" type="text" class="form-control" id="max_guest">
+          <label for="max_guest-create">Ospiti Max:</label>
+          <input name="max_guest" type="text" class="form-control" id="max_guest-create">
         </div>
         <div class="form-group">
-          <label for="rooms">Numero di stanze:</label>
-          <input name="rooms" type="text" class="form-control" id="rooms">
+          <label for="rooms-create">Numero di stanze:</label>
+          <input name="rooms" type="text" class="form-control" id="rooms-create">
         </div>
         <div class="form-group">
-          <label for="baths">Numero di bagni:</label>
-          <input name="baths" type="text" class="form-control" id="baths">
+          <label for="baths-create">Numero di bagni:</label>
+          <input name="baths" type="text" class="form-control" id="baths-create">
         </div>
         <div class="form-group">
           @foreach ($services as $service)
@@ -56,7 +56,9 @@
           <label for="{{$service->name}}">{{$service->name}}</label>
           @endforeach
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <input name="lat" type="text" value="" id="create-lat">
+        <input name="long" type="text" value="" id="create-long">
+        <button id="submit-create" type="submit" class="btn btn-primary" >Submit</button>
       </form>
     </div>
 </div>

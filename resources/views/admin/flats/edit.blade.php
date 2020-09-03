@@ -17,8 +17,8 @@
         " alt="">
       </div>
       <div class="form-group">
-        <label for="image">Immagine di copertina</label>
-      <input name="image" type="file" class="form-control" id="image">
+        <label for="image-edit">Immagine di copertina</label>
+      <input name="image" type="file" class="form-control" id="image-edit">
       </div>
       <div class="form-group">
         <label for="title">Titolo:</label>
@@ -45,20 +45,20 @@
         <input name="square_meters" type="text" class="form-control" id="square_meters" value="{{old('square_meters', $flat->flatInfo->square_meters) ?? $flat->flatInfo->square_meters}}">
       </div>
       <div class="form-group">
-        <label for="price">Prezzo per notte:</label>
-        <input name="price" type="text" class="form-control" id="price" value="{{old('price', $flat->flatInfo->price) ?? $flat->flatInfo->price}}">
+        <label for="price-edit">Prezzo per notte:</label>
+        <input name="price" type="text" class="form-control" id="price-edit" value="{{old('price', $flat->flatInfo->price) ?? $flat->flatInfo->price}}">
       </div>
       <div class="form-group">
-        <label for="max_guest">Ospiti Max:</label>
-        <input name="max_guest" type="text" class="form-control" id="max_guest" value="{{old('max_guest', $flat->flatInfo->max_guest) ?? $flat->flatInfo->max_guest}}">
+        <label for="max_guest-edit">Ospiti Max:</label>
+        <input name="max_guest" type="text" class="form-control" id="max_guest-edit" value="{{old('max_guest', $flat->flatInfo->max_guest) ?? $flat->flatInfo->max_guest}}">
       </div>
       <div class="form-group">
-        <label for="rooms">Numero di stanze:</label>
-        <input name="rooms" type="text" class="form-control" id="rooms" value="{{old('rooms', $flat->flatInfo->rooms) ?? $flat->flatInfo->rooms}}">
+        <label for="rooms-edit">Numero di stanze:</label>
+        <input name="rooms" type="text" class="form-control" id="rooms-edit" value="{{old('rooms', $flat->flatInfo->rooms) ?? $flat->flatInfo->rooms}}">
       </div>
       <div class="form-group">
-        <label for="baths">Numero di bagni:</label>
-        <input name="baths" type="text" class="form-control" id="baths" value="{{old('baths', $flat->flatInfo->baths) ??$flat->flatInfo->baths}}">
+        <label for="baths-edit">Numero di bagni:</label>
+        <input name="baths" type="text" class="form-control" id="baths-edit" value="{{old('baths', $flat->flatInfo->baths) ??$flat->flatInfo->baths}}">
       </div>
       <div class="form-group">
         @foreach ($services as $service)

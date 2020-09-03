@@ -19,7 +19,7 @@
 
 <body>
 
-
+    <button id="geocoding">cliccami</button>
     <div id='map' class='map'></div>
     <script src="{{asset('js/app.js')}}"></script>
 </body>
