@@ -3,7 +3,13 @@
 @section('content')
 <div class="container">
   <div class="row">
-    <div class="flat-container">
+
+    <div class="coordinate-hide">
+      <span class="lat">{{$lat}}</span>
+      <span class="lon">{{$lon}}</span>
+    </div>
+
+  <div class="flat-container" >
       <div class="image-flat">
         <img class="img-fluid"src="
         @if ($flat->flatInfo->image_path)
@@ -54,7 +60,9 @@
       </div>
       <div class="map-container-flat">
         {{-- qui andrà renderizzata la mappa --}}
-        <div class="map"></div>
+        <div id="map">
+         
+        </div>
       </div>
     </div>
   </div>

@@ -51,7 +51,7 @@ class FlatController extends Controller
     public function store(Request $request)
     {
        $data= $request->all();
-       dd($data);
+       
         $slugTemp= Str::of($data['title'])->slug('-');
         $controlledSlug = control_slug($slugTemp);
        /*  $count=0;
@@ -63,7 +63,7 @@ class FlatController extends Controller
          } */
        
 
-       $data['position'] = new Point(33.5567, -50.5050);
+       $data['position'] = new Point($data['lat'], $data['long']);
        $flat= new Flat();
        $flatData =[
          'user_id' =>Auth::id(),
@@ -119,8 +119,9 @@ class FlatController extends Controller
      */
     public function show(Flat $flat)
     {
-        
-        return view('admin.flats.show', compact('flat'));
+        $lat=$flat->position->getLat();
+        $lon=$flat->position->getLng();
+        return view('admin.flats.show', compact('flat', 'lat', 'lon'));
     }
 
     /**
@@ -159,7 +160,7 @@ class FlatController extends Controller
 
 
 
-        $data['position'] = new Point(33.5567, -50.5050);
+        $data['position'] = new Point($data['lat'],$data['long'] );
 
         //dd($data);
 

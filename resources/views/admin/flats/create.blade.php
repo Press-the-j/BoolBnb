@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-      <form action="{{route('admin.flats.store')}}" method="post"  enctype="multipart/form-data">
+      <form action="{{route('admin.flats.store')}}" method="post"  enctype="multipart/form-data" id="flats-create">
         @csrf
         <div class="form-group">
           <label class="col-form-label text-md-left" for="image-create">Immagine di copertina</label>

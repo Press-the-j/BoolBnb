@@ -4,7 +4,7 @@
 <div class="container">
   <div class="row">
     <div class="flat-container">
-    <form action="{{route('admin.flats.update', ['flat'=>$flat->id])}}" method="post" enctype="multipart/form-data">
+    <form action="{{route('admin.flats.update', ['flat'=>$flat->id])}}" method="post" enctype="multipart/form-data" id="flats-edit">
       @csrf
       @method('PUT')
       <div class="image-flat">
@@ -21,28 +21,28 @@
       <input name="image" type="file" class="form-control" id="image-edit">
       </div>
       <div class="form-group">
-        <label for="title">Titolo:</label>
-      <input name="title" type="text" class="form-control" id="title" value="{{old('title', $flat->title) ?? $flat->title}}">
+        <label for="title-edit">Titolo:</label>
+      <input name="title" type="text" class="form-control" id="title-edit" value="{{old('title', $flat->title) ?? $flat->title}}">
       </div>
       <div class="form-group">
-        <label for="description">Descrizione:</label>
-        <textarea name="description" type="text" class="form-control" id="description"> {{old('description', $flat->flatInfo->description) ?? $flat->flatInfo->description}} </textarea>
+        <label for="description-edit">Descrizione:</label>
+        <textarea name="description" type="text" class="form-control" id="description-edit"> {{old('description', $flat->flatInfo->description) ?? $flat->flatInfo->description}} </textarea>
       </div>
       <div class="form-group">
-        <label for="city">Città:</label>
-        <input name="city" type="text" class="form-control" id="city" value="{{old('city', $flat->flatInfo->city) ?? $flat->flatInfo->city}}">
+        <label for="city-edit">Città:</label>
+        <input name="city" type="text" class="form-control" id="city-edit" value="{{old('city', $flat->flatInfo->city) ?? $flat->flatInfo->city}}">
       </div>
       <div class="form-group">
-        <label for="address">Indirizzo:</label>
-        <input name="address" type="text" class="form-control" id="address" value="{{old('address',$flat->flatInfo->address) ?? $flat->flatInfo->address}}">
+        <label for="address-edit">Indirizzo:</label>
+        <input name="address" type="text" class="form-control" id="address-edit" value="{{old('address',$flat->flatInfo->address) ?? $flat->flatInfo->address}}">
       </div>
       <div class="form-group">
-        <label for="postal_code">Codice Postale:</label>
-        <input name="postal_code" type="text" class="form-control" id="postal_code" value="{{old('postal_code', $flat->flatInfo->postal_code) ?? $flat->flatInfo->postal_code}}">
+        <label for="postal_code-edit">Codice Postale:</label>
+        <input name="postal_code" type="text" class="form-control" id="postal_code-edit" value="{{old('postal_code', $flat->flatInfo->postal_code) ?? $flat->flatInfo->postal_code}}">
       </div>
       <div class="form-group">
-        <label for="square_meters">Metri quadrati:</label>
-        <input name="square_meters" type="text" class="form-control" id="square_meters" value="{{old('square_meters', $flat->flatInfo->square_meters) ?? $flat->flatInfo->square_meters}}">
+        <label for="square_meters-edit">Metri quadrati:</label>
+        <input name="square_meters" type="text" class="form-control" id="square_meters-edit" value="{{old('square_meters', $flat->flatInfo->square_meters) ?? $flat->flatInfo->square_meters}}">
       </div>
       <div class="form-group">
         <label for="price-edit">Prezzo per notte:</label>
@@ -72,7 +72,9 @@
         <label for="{{$service->name}}">{{$service->name}}</label>
         @endforeach
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <input name="lat" type="text" value="" id="edit-lat">
+      <input name="long" type="text" value="" id="edit-long">
+      <button id="submit-edit"type="submit" class="btn btn-primary">Submit</button>
     </form>
       
     </div>

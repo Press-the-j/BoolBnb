@@ -11285,6 +11285,11 @@ template {
   display: none;
 }
 
+#map {
+  width: 800px;
+  height: 600px;
+}
+
 .flat-container {
   padding: 20px;
   /* .description-flat-row{

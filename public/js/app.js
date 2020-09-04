@@ -37265,14 +37265,34 @@ module.exports = function(module) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+/* $('#details-flat').click(function(){
+  let lat = $(this).closest('.card-flat').data('lat');
+  let lon =  $(this).closest('.card-flat').data('lon');
+  console.log(lat + ' ' + lon); */
+
 /* var map = tt.map({
-    key: process.env.MIX_TOMTOM_API_KEY,
-    container: "map",
-    style: "tomtom://vector/1/basic-main",
-    center: [-0.12634, 51.50276],
-    zoom: 13
+  key: process.env.MIX_TOMTOM_API_KEY,
+  container: "map",
+  style: "tomtom://vector/1/basic-main",
+  center: [33.5555, 12.6667],
+  zoom: 13
 }); */
 
+/* }) */
+
+
+if ($('#map').length) {
+  var lat = $('.lat').text();
+  var lon = $('.lon').text();
+  var coordinates = [lon, lat];
+  var map = tt.map({
+    key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
+    container: "map",
+    style: "tomtom://vector/1/basic-main",
+    center: coordinates,
+    zoom: 13
+  });
+}
 
 $('#geocoding').click(function (event) {
   var address = 'via del corso Roma 00178';
@@ -37292,7 +37312,8 @@ $('#geocoding').click(function (event) {
     }
   });
 });
-$('#submit-create').click(function (event) {
+$('#submit-create ').click(function (event) {
+  event.preventDefault();
   var street = $('#address-create').val();
   var postalCode = $('#postal_code-create').val();
   var city = $('#city-create').val();
@@ -37304,23 +37325,45 @@ $('#submit-create').click(function (event) {
       key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
       countrySet: 'IT'
     },
-    success: function success(object) {
-      var result = object.results;
-      var position = getCoordinates(result);
-      $('#create-lat').val(position.lat);
-      $('#create-long').val(position.lon);
-      return;
+    success: function success(data) {
+      var result = data.results;
+      var lat = result[0].position.lat;
+      var lon = result[0].position.lon;
+      $('#create-lat').val(lat);
+      $('#create-long').val(lon);
+      $('#flats-create').submit();
     },
     error: function error(err) {
       console.log(err);
     }
   });
 });
-
-function getCoordinates(result) {
-  var coordinates = result[0].position;
-  return coordinates;
-}
+$('#submit-edit').click(function (event) {
+  event.preventDefault();
+  var street = $(' #address-edit').val();
+  var postalCode = $(' #postal_code-edit').val();
+  var city = $(' #city-edit').val();
+  var address = street + ' ' + city + ' ' + postalCode;
+  $.ajax({
+    url: 'https://api.tomtom.com/search/2/search/' + address + '.JSON',
+    method: 'GET',
+    data: {
+      key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
+      countrySet: 'IT'
+    },
+    success: function success(data) {
+      var result = data.results;
+      var lat = result[0].position.lat;
+      var lon = result[0].position.lon;
+      $(' #edit-lat').val(lat);
+      $(' #edit-long').val(lon);
+      $('#flats-edit').submit();
+    },
+    error: function error(err) {
+      console.log(err);
+    }
+  });
+});
 
 /***/ }),
 
