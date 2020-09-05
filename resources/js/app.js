@@ -57,8 +57,10 @@ $('#submit-search').click(function() {
         $('.alert').removeClass('hide');
         return
       }
+      //lon e lat della città cercata, ritorna da tomtom
       let lat=parseFloat(result[0].position.lat);
       let lon=parseFloat(result[0].position.lon);
+      //valori dei filtri
       let distanceRange=parseFloat($('#radius-range').val())
       let filtersCheck =$('.filter-checkbox-search')
       let servicesArray = []
@@ -69,7 +71,7 @@ $('#submit-search').click(function() {
       });
         
 
-      $('.flat-searched-container').removeClass('hide');
+      /* $('.flat-searched-container').removeClass('hide');
       let allFlats=$('.card-flat')
       allFlats.each(function(){
         let thisFlatLat=parseFloat($(this).data('lat'));
@@ -87,7 +89,7 @@ $('#submit-search').click(function() {
         if(distance < distanceRange && ) {
           $(this).removeClass('hide');
         }
-      })
+      }) */
 
 
      /*  for(var i = 0; i<allFlats.length; i++) {
@@ -108,6 +110,36 @@ $('#submit-search').click(function() {
     }
   })
 })
+
+function createCard(object){
+let cardFlat=document.createElement('div');
+cardFlat.classList.add("card","card-flat");
+cardFlat.setAttribute("style", "width: 18rem;");
+let cardImage=document.createElement('img');
+cardImage.classList.add("card-img-top");
+cardImage.setAttribute("src", object.image_path ?  object.image_path : './img/standard.jpg');
+cardImage.setAttribute("alt", object.title);
+
+let cardBody=document.createElement("div");
+cardBody.classList.add("card-body");
+let cardTitle = document.createElement("h5");
+cardTitle.classList.add("card-title");
+cardTitle.textContent = object.title
+let cardText=document.createElement("p");
+cardText.classList.add("card-text");
+cardText.textContent=object.description;
+cardBody.appendChild(cardTitle);
+cardBody.appendChild(cardText);
+let detailsButton=document.createElement("a");
+detailsButton.id = "details-flat";
+detailsButton.classList.add("btn", "btn-primary");
+detailsButton.setAttribute("href", "{{route('admin.flats.show', ['flat'=>$flat->id])}}")
+detailsButton.textContent="Dettagli";
+cardFlat.appendChild(cardImage);
+cardFlat.appendChild(cardBody);
+cardFlat.appendChild(detailsButton)
+}
+
 
 function compareArray(arr1, arr2) {
   let includes
