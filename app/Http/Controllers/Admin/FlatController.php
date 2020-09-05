@@ -146,6 +146,7 @@ class FlatController extends Controller
     public function update(Request $request, Flat $flat)
     {
         $data=$request->all();
+        
         $slugTemp=Str::of($data['title'])->slug('-');
 
         $slug = update_control_slug($slugTemp, $flat) ;
@@ -162,11 +163,17 @@ class FlatController extends Controller
 
         $data['position'] = new Point($data['lat'],$data['long'] );
 
-        //dd($data);
-
-        $flatToUpdate = Flat::find($flat)->first();
         
-        $flatInfoToUpdate= FlatInfo::where('flat_id', $flat->flatInfo->flat_id)->first();
+        $flatToUpdate = Flat::where('id', $flat->id)->first();
+    
+        
+        $flatInfoToUpdate= FlatInfo::where('flat_id', $flatToUpdate->id)->first();
+        
+        if(!isset($data['is_hidden'])){
+          $data['is_hidden']= 0;
+        } else {
+          $data['is_hidden']=1;
+        }
         
         
 
@@ -174,7 +181,8 @@ class FlatController extends Controller
           'user_id' =>Auth::id(),
           'title'=> $data['title'],
           'position'=>$data['position'],
-          'slug'=>$slug
+          'slug'=>$slug,
+          'is_hidden'=>$data['is_hidden']
         ];
         $flatToUpdate->update($dataFlatToUpdate);
         $flatToUpdateId=$flatToUpdate->id;

@@ -25,6 +25,14 @@
       <input name="title" type="text" class="form-control" id="title-edit" value="{{old('title', $flat->title) ?? $flat->title}}">
       </div>
       <div class="form-group">
+        <label for="is_hidden">Rendi non visibile l'appartamento</label>
+        <input
+          @if ($flat->is_hidden == 1)
+              {{'checked'}}
+          @endif
+         name="is_hidden" type="checkbox" value="1" id="is_hidden">
+      </div>
+      <div class="form-group">
         <label for="description-edit">Descrizione:</label>
         <textarea name="description" type="text" class="form-control" id="description-edit"> {{old('description', $flat->flatInfo->description) ?? $flat->flatInfo->description}} </textarea>
       </div>
@@ -72,8 +80,8 @@
         <label for="{{$service->name}}">{{$service->name}}</label>
         @endforeach
       </div>
-      <input name="lat" type="text" value="" id="edit-lat">
-      <input name="long" type="text" value="" id="edit-long">
+      <input class="hide" name="lat" type="text" value="" id="edit-lat">
+      <input class="hide" name="long" type="text" value="" id="edit-long">
       <button id="submit-edit"type="submit" class="btn btn-primary">Submit</button>
     </form>
       

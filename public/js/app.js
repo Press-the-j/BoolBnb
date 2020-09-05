@@ -37265,34 +37265,136 @@ module.exports = function(module) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
-/* $('#details-flat').click(function(){
-  let lat = $(this).closest('.card-flat').data('lat');
-  let lon =  $(this).closest('.card-flat').data('lon');
-  console.log(lat + ' ' + lon); */
-
-/* var map = tt.map({
-  key: process.env.MIX_TOMTOM_API_KEY,
-  container: "map",
-  style: "tomtom://vector/1/basic-main",
-  center: [33.5555, 12.6667],
-  zoom: 13
-}); */
-
-/* }) */
-
 
 if ($('#map').length) {
   var lat = $('.lat').text();
   var lon = $('.lon').text();
+  var address = $('.address-flat').text();
+  var city = $('.city-flat').text();
+  var postalCode = $('.postal_code-flat').text();
   var coordinates = [lon, lat];
   var map = tt.map({
     key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
     container: "map",
     style: "tomtom://vector/1/basic-main",
     center: coordinates,
-    zoom: 13
+    zoom: 18
   });
-}
+  var marker = new tt.Marker().setLngLat(coordinates).addTo(map);
+  var popupOffsets = {
+    top: [0, 0],
+    bottom: [0, -70],
+    'bottom-right': [0, -70],
+    'bottom-left': [0, -70],
+    left: [25, -35],
+    right: [-25, -35]
+  };
+  var popup = new tt.Popup({
+    offset: popupOffsets
+  }).setHTML(city + ' ' + address + ' ' + postalCode);
+  marker.setPopup(popup).togglePopup();
+} //scrivi valore del range
+
+
+$('#radius-range').change(function () {
+  var range = $(this).val();
+  $('#range-value').text(range);
+}); //Ajax di ricerca in home che ci restituisce coordinate
+
+$('#submit-search').click(function () {
+  var address = $('#search-input').val();
+
+  if (address.length == 0) {
+    return;
+  }
+
+  $.ajax({
+    url: 'https://api.tomtom.com/search/2/search/' + address + '.JSON',
+    method: 'GET',
+    data: {
+      key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
+      countrySet: 'IT'
+    },
+    success: function success(object) {
+      $('.card-flat').addClass('hide');
+      var result = object.results;
+
+      if (!result[0]) {
+        $('.alert').removeClass('hide');
+        return;
+      }
+
+      var lat = parseFloat(result[0].position.lat);
+      var lon = parseFloat(result[0].position.lon);
+      var distanceRange = parseFloat($('#radius-range').val());
+      var filtersCheck = $('.filter-checkbox-search');
+      var servicesArray = [];
+      filtersCheck.each(function () {
+        if ($(this).is(':checked')) {
+          servicesArray.push($(this).val());
+        }
+      });
+      $('.flat-searched-container').removeClass('hide');
+      var allFlats = $('.card-flat');
+      allFlats.each(function () {
+        var thisFlatLat = parseFloat($(this).data('lat'));
+        var thisFlatLon = parseFloat($(this).data('lon'));
+        var distance = getRadius(lat, thisFlatLat, lon, thisFlatLon);
+        var flatServices = $(this).data('services').trim().split(',');
+        flatServices.pop();
+
+        for (var i = 0; i < flatServices.length; i++) {
+          $.trim(String(flatServices[i]));
+          console.log(String(flatServices[i]));
+        }
+
+        console.log(flatServices); //console.log($(this).data('services').includes(servicesArray))
+        //console.log($(this).data('services'));
+        //console.log(servicesArray)
+
+        if (distance < distanceRange && $(this).data('services').includes(servicesArray)) {
+          $(this).removeClass('hide');
+        }
+      });
+      /*  for(var i = 0; i<allFlats.length; i++) {
+         let thisFlatLat=parseFloat(allFlats[i].getAttribute('data-lat'))
+         
+         let thisFlatLon=parseFloat(allFlats[i].getAttribute('data-lon'))
+           let distance = getRadius(lat, thisFlatLat, lon, thisFlatLon);
+        
+           if(distance < distanceRange &&  ) {
+           allFlats[i].classList.remove('hide');
+         }
+       } */
+    },
+    error: function error(err) {
+      console.log(err);
+    }
+  });
+}); //funzione per trovare radiante delle coordinate
+
+function getRadius(lat1, lat2, lon1, lon2) {
+  Number.prototype.toRad = function () {
+    return this * Math.PI / 180;
+  };
+
+  var lat2 = lat2;
+  var lon2 = lon2;
+  var lat1 = lat1;
+  var lon1 = lon1;
+  var R = 6371; // km 
+  //has a problem with the .toRad() method below.
+
+  var x1 = lat2 - lat1;
+  var dLat = x1.toRad();
+  var x2 = lon2 - lon1;
+  var dLon = x2.toRad();
+  var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  var d = R * c;
+  return d;
+} //funzione di prova per tom tom guarda oltre
+
 
 $('#geocoding').click(function (event) {
   var address = 'via del corso Roma 00178';
@@ -37364,6 +37466,15 @@ $('#submit-edit').click(function (event) {
     }
   });
 });
+/* qui generermo un foreach nell'index con tutti i risultati trovati dalla ricerca della homepage */
+
+/* function generateFlats(lat, lon) {
+  let flatsSearchedCont=document.querySelector('#flats-searched'); 
+  flatsSearchedCont.innerHTML= '@forelse ($flats as $flat) @if( $flat->position->getLat() <='+ lat + ' 10 || $flat->position->getLat() >='+ lat + '- 10 && $flat->position->getLng() <= ' lon + ' + 10 || $flat->position->getLng() >='+ lon +' - 10)'
+
+  document.querySelector('#flats-searched').append(flatsSearchedCont)
+  
+} */
 
 /***/ }),
 

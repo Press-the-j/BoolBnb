@@ -5,8 +5,8 @@
   <div class="row">
 
     <div class="coordinate-hide">
-      <span class="lat">{{$lat}}</span>
-      <span class="lon">{{$lon}}</span>
+      <span class="lat hide">{{$lat}}</span>
+      <span class="lon hide ">{{$lon}}</span>
     </div>
 
   <div class="flat-container" >
@@ -46,15 +46,15 @@
         <ul class="flat-position-info list-group ">
           <li class="list-group-item">
             <strong> Indirizzo: </strong>
-            {{$flat->flatInfo->address}}
+            <span class="address-flat">{{$flat->flatInfo->address}}</span>
           </li>
           <li class="list-group-item">
             <strong>città: </strong>
-            {{$flat->flatInfo->city}}
+            <span class="city-flat"> {{$flat->flatInfo->city}}</span>
           </li>
           <li class="list-group-item">
           <strong>Codice-Postale: </strong>
-          {{$flat->flatInfo->postal_code}}
+          <span class="postal_code-flat">{{$flat->flatInfo->postal_code}}</span>
           </li>
         </ul>
       </div>
