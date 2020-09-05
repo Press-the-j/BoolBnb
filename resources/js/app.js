@@ -75,19 +75,16 @@ $('#submit-search').click(function() {
         let thisFlatLat=parseFloat($(this).data('lat'));
         let thisFlatLon=parseFloat($(this).data('lon'))
         let distance = getRadius(lat, thisFlatLat, lon, thisFlatLon);
-        let flatServices=$(this).data('services').trim().split( ',')
-        flatServices.pop()
-        for(let i = 0 ; i<flatServices.length; i++){
-          $.trim(String(flatServices[i]))
-          console.log(String(flatServices[i]));
-        }
-        console.log(flatServices);
+        let flatServices=$(this).find('.data-services')
+        let flatServicesArray=[]
+        flatServices.each(function () {
+          flatServicesArray.push($(this).text())
+        })
+        console.log(flatServicesArray);
+        let includes = compareArray(servicesArray, flatServicesArray);
 
-        //console.log($(this).data('services').includes(servicesArray))
-        //console.log($(this).data('services'));
-        //console.log(servicesArray)
 
-        if(distance < distanceRange && $(this).data('services').includes(servicesArray)) {
+        if(distance < distanceRange && ) {
           $(this).removeClass('hide');
         }
       })
@@ -111,6 +108,16 @@ $('#submit-search').click(function() {
     }
   })
 })
+
+function compareArray(arr1, arr2) {
+  let includes
+  for (let i=0; i<arr1.length; i++){
+    let thisService =arr1[i]
+    arr2.includes(thisService)
+    includes = true;
+  }
+}
+
 
 
 //funzione per trovare radiante delle coordinate

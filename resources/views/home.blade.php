@@ -26,7 +26,7 @@
     <div id="flats-searched" class="d-flex">
       @forelse ($flats as $flat)
     {{-- <div class="title hide" data-lat="{{$flat->position->getLat()}}" data-lon="{{$flat->position->getLng()}}">{{$flat->title}}</div> --}}
-    <div class="card card-flat" data-lat="{{$flat->position->getLat()}}" data-lon="{{$flat->position->getLng()}}" data-services="@foreach($services as $service)@if($flat->services->contains($service->id)) {{$service->slug}},@endif @endforeach"style="width: 18rem;">
+    <div class="card card-flat" data-lat="{{$flat->position->getLat()}}" data-lon="{{$flat->position->getLng()}}" style="width: 18rem;">
       <img class="card-img-top" src="
       @if ($flat->flatInfo->image_path)
           {{asset("storage/" . $flat->flatInfo->image_path)}}
@@ -39,6 +39,11 @@
         <p class="card-text">{{$flat->flatInfo->description}}</p>
       </div>
       <a href="{{route("admin.flats.show", ["flat"=>$flat->id])}}" class="btn btn-primary" id="details-flat">Dettagli</a>
+      @foreach($services as $service)
+      @if($flat->services->contains($service->id)) 
+      <div class="data-services hide">{{$service->slug}}{{$loop->last ? '' : ','}}</div>
+      @endif 
+      @endforeach
     </div>
       @empty
         <span>nada</span>
