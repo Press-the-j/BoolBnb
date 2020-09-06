@@ -69,7 +69,7 @@ $('#submit-search').click(function() {
           servicesArray.push($(this).val());
         }
       });
-        
+      ajaxFlat(lat, lon, servicesArray, distanceRange)
 
       /* $('.flat-searched-container').removeClass('hide');
       let allFlats=$('.card-flat')
@@ -111,33 +111,73 @@ $('#submit-search').click(function() {
   })
 })
 
-function createCard(object){
+function ajaxFlat(lat, lon, services, range){
+  let url = 'api/flats';
+  
+  $.ajax({
+    url: url,
+    method:'GET',
+    success: function(result){
+     //console.log(result.data)
+     let flats = result.data;
+     for(let i = 0; i<flats.length; i++){
+       //console.log(flats[i].title);
+       let flat = getFlat(lat, lon, services, range, flats[i])
+       if(typeof flat != 'undefined'){
+        let card =createCard(flat)
+        let flatContainer =document.querySelector('#flats-searched');
+        console.log(flatContainer);
+        flatContainer.append(card)
+       }
+     }
+    if($('.flat-searched-container').hasClass('hide') ){
+      $('.flat-searched-container').removeClass('hide') 
+    }
+    },
+    error: function(err){
+      console.log(err);
+    }
+  })
+}
+
+function getFlat(lat, lon, services, range, flat){
+  let flatLat=flat.position.coordinates[1];
+  let flatLon=flat.position.coordinates[0];
+  let distance = getRadius(lat, flatLat , lon,flatLon );
+  if(distance < range ) {
+    return flat
+  }
+  
+}
+function createCard(flat){
 let cardFlat=document.createElement('div');
 cardFlat.classList.add("card","card-flat");
 cardFlat.setAttribute("style", "width: 18rem;");
 let cardImage=document.createElement('img');
 cardImage.classList.add("card-img-top");
-cardImage.setAttribute("src", object.image_path ?  object.image_path : './img/standard.jpg');
-cardImage.setAttribute("alt", object.title);
+cardImage.setAttribute("src", flat.image_path ?  '../storage/' + flat.image_path : './img/standard.jpg');
+cardImage.setAttribute("alt", flat.title);
 
 let cardBody=document.createElement("div");
 cardBody.classList.add("card-body");
 let cardTitle = document.createElement("h5");
 cardTitle.classList.add("card-title");
-cardTitle.textContent = object.title
+cardTitle.textContent = flat.title
 let cardText=document.createElement("p");
 cardText.classList.add("card-text");
-cardText.textContent=object.description;
+cardText.textContent=flat.description;
 cardBody.appendChild(cardTitle);
 cardBody.appendChild(cardText);
 let detailsButton=document.createElement("a");
 detailsButton.id = "details-flat";
 detailsButton.classList.add("btn", "btn-primary");
-detailsButton.setAttribute("href", "{{route('admin.flats.show', ['flat'=>$flat->id])}}")
+let route= "/admin/flats/" + flat.id 
+detailsButton.setAttribute("href", route )
 detailsButton.textContent="Dettagli";
 cardFlat.appendChild(cardImage);
 cardFlat.appendChild(cardBody);
 cardFlat.appendChild(detailsButton)
+return cardFlat
 }
 
 

@@ -37336,6 +37336,7 @@ $('#submit-search').click(function () {
           servicesArray.push($(this).val());
         }
       });
+      ajaxFlat(lat, lon, servicesArray, distanceRange);
       /* $('.flat-searched-container').removeClass('hide');
       let allFlats=$('.card-flat')
       allFlats.each(function(){
@@ -37371,32 +37372,75 @@ $('#submit-search').click(function () {
   });
 });
 
-function createCard(object) {
+function ajaxFlat(lat, lon, services, range) {
+  var url = 'api/flats';
+  $.ajax({
+    url: url,
+    method: 'GET',
+    success: function success(result) {
+      //console.log(result.data)
+      var flats = result.data;
+
+      for (var i = 0; i < flats.length; i++) {
+        //console.log(flats[i].title);
+        var flat = getFlat(lat, lon, services, range, flats[i]);
+
+        if (typeof flat != 'undefined') {
+          var card = createCard(flat);
+          var flatContainer = document.querySelector('#flats-searched');
+          console.log(flatContainer);
+          flatContainer.append(card);
+        }
+      }
+
+      if ($('.flat-searched-container').hasClass('hide')) {
+        $('.flat-searched-container').removeClass('hide');
+      }
+    },
+    error: function error(err) {
+      console.log(err);
+    }
+  });
+}
+
+function getFlat(lat, lon, services, range, flat) {
+  var flatLat = flat.position.coordinates[1];
+  var flatLon = flat.position.coordinates[0];
+  var distance = getRadius(lat, flatLat, lon, flatLon);
+
+  if (distance < range) {
+    return flat;
+  }
+}
+
+function createCard(flat) {
   var cardFlat = document.createElement('div');
   cardFlat.classList.add("card", "card-flat");
   cardFlat.setAttribute("style", "width: 18rem;");
   var cardImage = document.createElement('img');
   cardImage.classList.add("card-img-top");
-  cardImage.setAttribute("src", object.image_path ? object.image_path : './img/standard.jpg');
-  cardImage.setAttribute("alt", object.title);
+  cardImage.setAttribute("src", flat.image_path ? '../storage/' + flat.image_path : './img/standard.jpg');
+  cardImage.setAttribute("alt", flat.title);
   var cardBody = document.createElement("div");
   cardBody.classList.add("card-body");
   var cardTitle = document.createElement("h5");
   cardTitle.classList.add("card-title");
-  cardTitle.textContent = object.title;
+  cardTitle.textContent = flat.title;
   var cardText = document.createElement("p");
   cardText.classList.add("card-text");
-  cardText.textContent = object.description;
+  cardText.textContent = flat.description;
   cardBody.appendChild(cardTitle);
   cardBody.appendChild(cardText);
   var detailsButton = document.createElement("a");
   detailsButton.id = "details-flat";
   detailsButton.classList.add("btn", "btn-primary");
-  detailsButton.setAttribute("href", "{{route('admin.flats.show', ['flat'=>$flat->id])}}");
+  var route = "/admin/flats/" + flat.id;
+  detailsButton.setAttribute("href", route);
   detailsButton.textContent = "Dettagli";
   cardFlat.appendChild(cardImage);
   cardFlat.appendChild(cardBody);
   cardFlat.appendChild(detailsButton);
+  return cardFlat;
 }
 
 function compareArray(arr1, arr2) {

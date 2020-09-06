@@ -46,7 +46,6 @@ class FlatController extends Controller
       
       "data"=>$data,
       
-      
 
     ]);
   }

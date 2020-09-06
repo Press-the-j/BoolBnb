@@ -6,7 +6,7 @@
     <h1>Pagina GUEST</h1>
     <div class="col-md-8">
       <input type="text" class="form-control" id="search-input" placeholder="Cerca un appartamento...">
-      <a href='#'id ="submit-search" class="btn btn-primary">Submit</a>
+      <button id ="submit-search" class="btn btn-primary">Submit</button>
       <div class="alert alert-danger hide">Purtroppo non è stato trovato nessun luogo con quel nome</div>
       <div class="filters-search">
         @foreach($services as $service)
@@ -24,8 +24,17 @@
 <div class="container flat-searched-container hide">
   <div class="row justify-content-center ">
     <div id="flats-searched" class="d-flex">
-      @forelse ($flats as $flat)
-    {{-- <div class="title hide" data-lat="{{$flat->position->getLat()}}" data-lon="{{$flat->position->getLng()}}">{{$flat->title}}</div> --}}
+    </div>
+  </div>
+</div>
+
+
+
+@endsection
+
+
+{{-- @forelse ($flats as $flat)
+
     <div class="card card-flat" data-lat="{{$flat->position->getLat()}}" data-lon="{{$flat->position->getLng()}}" style="width: 18rem;">
       <img class="card-img-top" src="
       @if ($flat->flatInfo->image_path)
@@ -47,10 +56,4 @@
     </div>
       @empty
         <span>nada</span>
-      @endforelse
-  </div>
-</div>
-
-
-
-@endsection
+      @endforelse --}}
