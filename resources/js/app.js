@@ -1,5 +1,10 @@
 require("./bootstrap");
 
+
+
+
+
+
 if ($("#map").length) {
     let lat = $(".lat").text();
     let lon = $(".lon").text();
@@ -110,6 +115,7 @@ function ajaxFlat(lat, lon, services, range) {
     });
 }
 
+//quetso è il nostro grande filtro
 function getFlat(lat, lon, services, range, flat) {
     
     let flatLat = flat.position.coordinates[1];

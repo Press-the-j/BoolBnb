@@ -10,6 +10,7 @@
     </div>
 
   <div class="flat-container" >
+  <a href="{{route('admin.payment', ['id'=>$flat->id]) }}" class="btn btn-warning">Promuovi appartamento</a>
       <div class="image-flat">
         <img class="img-fluid"src="
         @if ($flat->flatInfo->image_path)

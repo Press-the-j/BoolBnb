@@ -37374,7 +37374,8 @@ function ajaxFlat(lat, lon, services, range) {
       console.log(err);
     }
   });
-}
+} //quetso è il nostro grande filtro
+
 
 function getFlat(lat, lon, services, range, flat) {
   var flatLat = flat.position.coordinates[1];
