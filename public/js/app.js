@@ -37266,15 +37266,15 @@ module.exports = function(module) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-if ($('#map').length) {
-  var lat = $('.lat').text();
-  var lon = $('.lon').text();
-  var address = $('.address-flat').text();
-  var city = $('.city-flat').text();
-  var postalCode = $('.postal_code-flat').text();
+if ($("#map").length) {
+  var lat = $(".lat").text();
+  var lon = $(".lon").text();
+  var address = $(".address-flat").text();
+  var city = $(".city-flat").text();
+  var postalCode = $(".postal_code-flat").text();
   var coordinates = [lon, lat];
   var map = tt.map({
-    key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
+    key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
     container: "map",
     style: "tomtom://vector/1/basic-main",
     center: coordinates,
@@ -37284,43 +37284,43 @@ if ($('#map').length) {
   var popupOffsets = {
     top: [0, 0],
     bottom: [0, -70],
-    'bottom-right': [0, -70],
-    'bottom-left': [0, -70],
+    "bottom-right": [0, -70],
+    "bottom-left": [0, -70],
     left: [25, -35],
     right: [-25, -35]
   };
   var popup = new tt.Popup({
     offset: popupOffsets
-  }).setHTML(city + ' ' + address + ' ' + postalCode);
+  }).setHTML(city + " " + address + " " + postalCode);
   marker.setPopup(popup).togglePopup();
 } //scrivi valore del range
 
 
-$('#radius-range').change(function () {
+$("#radius-range").change(function () {
   var range = $(this).val();
-  $('#range-value').text(range);
+  $("#range-value").text(range);
 }); //Ajax di ricerca in home che ci restituisce coordinate
 
-$('#submit-search').click(function () {
-  var address = $('#search-input').val();
+$("#submit-search").click(function () {
+  var address = $("#search-input").val();
 
   if (address.length == 0) {
     return;
   }
 
   $.ajax({
-    url: 'https://api.tomtom.com/search/2/search/' + address + '.JSON',
-    method: 'GET',
+    url: "https://api.tomtom.com/search/2/search/" + address + ".JSON",
+    method: "GET",
     data: {
-      key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
-      countrySet: 'IT'
+      key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
+      countrySet: "IT"
     },
     success: function success(object) {
-      $('.card-flat').addClass('hide');
+      $(".card-flat").addClass("hide");
       var result = object.results;
 
       if (!result[0]) {
-        $('.alert').removeClass('hide');
+        $(".alert").removeClass("hide");
         return;
       } //lon e lat della città cercata, ritorna da tomtom
 
@@ -37328,11 +37328,11 @@ $('#submit-search').click(function () {
       var lat = parseFloat(result[0].position.lat);
       var lon = parseFloat(result[0].position.lon); //valori dei filtri
 
-      var distanceRange = parseFloat($('#radius-range').val());
-      var filtersCheck = $('.filter-checkbox-search');
+      var distanceRange = parseFloat($("#radius-range").val());
+      var filtersCheck = $(".filter-checkbox-search");
       var servicesArray = [];
       filtersCheck.each(function () {
-        if ($(this).is(':checked')) {
+        if ($(this).is(":checked")) {
           servicesArray.push($(this).val());
         }
       });
@@ -37340,31 +37340,29 @@ $('#submit-search').click(function () {
       /* $('.flat-searched-container').removeClass('hide');
       let allFlats=$('.card-flat')
       allFlats.each(function(){
-        let thisFlatLat=parseFloat($(this).data('lat'));
-        let thisFlatLon=parseFloat($(this).data('lon'))
-        let distance = getRadius(lat, thisFlatLat, lon, thisFlatLon);
-        let flatServices=$(this).find('.data-services')
-        let flatServicesArray=[]
-        flatServices.each(function () {
-          flatServicesArray.push($(this).text())
-        })
-        console.log(flatServicesArray);
-        let includes = compareArray(servicesArray, flatServicesArray);
-            if(distance < distanceRange && ) {
-          $(this).removeClass('hide');
-        }
+      let thisFlatLat=parseFloat($(this).data('lat'));
+      let thisFlatLon=parseFloat($(this).data('lon'))
+      let distance = getRadius(lat, thisFlatLat, lon, thisFlatLon);
+      let flatServices=$(this).find('.data-services')
+      let flatServicesArray=[]
+      flatServices.each(function () {
+      flatServicesArray.push($(this).text())
+      })
+      console.log(flatServicesArray);
+      let includes = compareArray(servicesArray, flatServicesArray);
+      if(distance < distanceRange && ) {
+      $(this).removeClass('hide');
+      }
       }) */
 
       /*  for(var i = 0; i<allFlats.length; i++) {
-         let thisFlatLat=parseFloat(allFlats[i].getAttribute('data-lat'))
-         
-         let thisFlatLon=parseFloat(allFlats[i].getAttribute('data-lon'))
-           let distance = getRadius(lat, thisFlatLat, lon, thisFlatLon);
-        
-           if(distance < distanceRange &&  ) {
-           allFlats[i].classList.remove('hide');
-         }
-       } */
+      let thisFlatLat=parseFloat(allFlats[i].getAttribute('data-lat'))
+            let thisFlatLon=parseFloat(allFlats[i].getAttribute('data-lon'))
+      let distance = getRadius(lat, thisFlatLat, lon, thisFlatLon);
+             if(distance < distanceRange &&  ) {
+      allFlats[i].classList.remove('hide');
+      }
+      } */
     },
     error: function error(err) {
       console.log(err);
@@ -37373,10 +37371,12 @@ $('#submit-search').click(function () {
 });
 
 function ajaxFlat(lat, lon, services, range) {
-  var url = 'api/flats';
+  var url = "api/flats";
+  console.log(services); //!sono quelli che selezioniamo manualmente
+
   $.ajax({
     url: url,
-    method: 'GET',
+    method: "GET",
     success: function success(result) {
       //console.log(result.data)
       var flats = result.data;
@@ -37384,17 +37384,18 @@ function ajaxFlat(lat, lon, services, range) {
       for (var i = 0; i < flats.length; i++) {
         //console.log(flats[i].title);
         var flat = getFlat(lat, lon, services, range, flats[i]);
+        console.log(flat.services);
 
-        if (typeof flat != 'undefined') {
+        if (typeof flat != "undefined") {
           var card = createCard(flat);
-          var flatContainer = document.querySelector('#flats-searched');
+          var flatContainer = document.querySelector("#flats-searched");
           console.log(flatContainer);
           flatContainer.append(card);
         }
       }
 
-      if ($('.flat-searched-container').hasClass('hide')) {
-        $('.flat-searched-container').removeClass('hide');
+      if ($(".flat-searched-container").hasClass("hide")) {
+        $(".flat-searched-container").removeClass("hide");
       }
     },
     error: function error(err) {
@@ -37406,20 +37407,21 @@ function ajaxFlat(lat, lon, services, range) {
 function getFlat(lat, lon, services, range, flat) {
   var flatLat = flat.position.coordinates[1];
   var flatLon = flat.position.coordinates[0];
+  var check = services == flat.services ? true : false;
   var distance = getRadius(lat, flatLat, lon, flatLon);
 
-  if (distance < range) {
+  if (distance < range && check) {
     return flat;
   }
 }
 
 function createCard(flat) {
-  var cardFlat = document.createElement('div');
+  var cardFlat = document.createElement("div");
   cardFlat.classList.add("card", "card-flat");
   cardFlat.setAttribute("style", "width: 18rem;");
-  var cardImage = document.createElement('img');
+  var cardImage = document.createElement("img");
   cardImage.classList.add("card-img-top");
-  cardImage.setAttribute("src", flat.image_path ? '../storage/' + flat.image_path : './img/standard.jpg');
+  cardImage.setAttribute("src", flat.image_path ? "../storage/" + flat.image_path : "./img/standard.jpg");
   cardImage.setAttribute("alt", flat.title);
   var cardBody = document.createElement("div");
   cardBody.classList.add("card-body");
@@ -37463,7 +37465,7 @@ function getRadius(lat1, lat2, lon1, lon2) {
   var lon2 = lon2;
   var lat1 = lat1;
   var lon1 = lon1;
-  var R = 6371; // km 
+  var R = 6371; // km
   //has a problem with the .toRad() method below.
 
   var x1 = lat2 - lat1;
@@ -37477,14 +37479,14 @@ function getRadius(lat1, lat2, lon1, lon2) {
 } //funzione di prova per tom tom guarda oltre
 
 
-$('#geocoding').click(function (event) {
-  var address = 'via del corso Roma 00178';
+$("#geocoding").click(function (event) {
+  var address = "via del corso Roma 00178";
   $.ajax({
-    url: 'https://api.tomtom.com/search/2/search/' + address + '.JSON',
-    method: 'GET',
+    url: "https://api.tomtom.com/search/2/search/" + address + ".JSON",
+    method: "GET",
     data: {
-      key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
-      countrySet: 'IT'
+      key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
+      countrySet: "IT"
     },
     success: function success(object) {
       var result = object.results;
@@ -37495,52 +37497,52 @@ $('#geocoding').click(function (event) {
     }
   });
 });
-$('#submit-create ').click(function (event) {
+$("#submit-create ").click(function (event) {
   event.preventDefault();
-  var street = $('#address-create').val();
-  var postalCode = $('#postal_code-create').val();
-  var city = $('#city-create').val();
-  var address = street + ' ' + city + ' ' + postalCode;
+  var street = $("#address-create").val();
+  var postalCode = $("#postal_code-create").val();
+  var city = $("#city-create").val();
+  var address = street + " " + city + " " + postalCode;
   $.ajax({
-    url: 'https://api.tomtom.com/search/2/search/' + address + '.JSON',
-    method: 'GET',
+    url: "https://api.tomtom.com/search/2/search/" + address + ".JSON",
+    method: "GET",
     data: {
-      key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
-      countrySet: 'IT'
+      key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
+      countrySet: "IT"
     },
     success: function success(data) {
       var result = data.results;
       var lat = result[0].position.lat;
       var lon = result[0].position.lon;
-      $('#create-lat').val(lat);
-      $('#create-long').val(lon);
-      $('#flats-create').submit();
+      $("#create-lat").val(lat);
+      $("#create-long").val(lon);
+      $("#flats-create").submit();
     },
     error: function error(err) {
       console.log(err);
     }
   });
 });
-$('#submit-edit').click(function (event) {
+$("#submit-edit").click(function (event) {
   event.preventDefault();
-  var street = $(' #address-edit').val();
-  var postalCode = $(' #postal_code-edit').val();
-  var city = $(' #city-edit').val();
-  var address = street + ' ' + city + ' ' + postalCode;
+  var street = $(" #address-edit").val();
+  var postalCode = $(" #postal_code-edit").val();
+  var city = $(" #city-edit").val();
+  var address = street + " " + city + " " + postalCode;
   $.ajax({
-    url: 'https://api.tomtom.com/search/2/search/' + address + '.JSON',
-    method: 'GET',
+    url: "https://api.tomtom.com/search/2/search/" + address + ".JSON",
+    method: "GET",
     data: {
-      key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
-      countrySet: 'IT'
+      key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
+      countrySet: "IT"
     },
     success: function success(data) {
       var result = data.results;
       var lat = result[0].position.lat;
       var lon = result[0].position.lon;
-      $(' #edit-lat').val(lat);
-      $(' #edit-long').val(lon);
-      $('#flats-edit').submit();
+      $(" #edit-lat").val(lat);
+      $(" #edit-long").val(lon);
+      $("#flats-edit").submit();
     },
     error: function error(err) {
       console.log(err);
@@ -37622,8 +37624,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\MAMP\htdocs\boolbnb\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\MAMP\htdocs\boolbnb\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\MAMP\htdocs\boolean-php\BoolBnb\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\MAMP\htdocs\boolean-php\BoolBnb\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
