@@ -37274,7 +37274,7 @@ if ($("#map").length) {
   var postalCode = $(".postal_code-flat").text();
   var coordinates = [lon, lat];
   var map = tt.map({
-    key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
+    key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
     container: "map",
     style: "tomtom://vector/1/basic-main",
     center: coordinates,
@@ -37312,7 +37312,7 @@ $("#submit-search").click(function () {
     url: "https://api.tomtom.com/search/2/search/" + address + ".JSON",
     method: "GET",
     data: {
-      key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
+      key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
       countrySet: "IT"
     },
     success: function success(object) {
@@ -37337,32 +37337,6 @@ $("#submit-search").click(function () {
         }
       });
       ajaxFlat(lat, lon, servicesArray, distanceRange);
-      /* $('.flat-searched-container').removeClass('hide');
-      let allFlats=$('.card-flat')
-      allFlats.each(function(){
-      let thisFlatLat=parseFloat($(this).data('lat'));
-      let thisFlatLon=parseFloat($(this).data('lon'))
-      let distance = getRadius(lat, thisFlatLat, lon, thisFlatLon);
-      let flatServices=$(this).find('.data-services')
-      let flatServicesArray=[]
-      flatServices.each(function () {
-      flatServicesArray.push($(this).text())
-      })
-      console.log(flatServicesArray);
-      let includes = compareArray(servicesArray, flatServicesArray);
-      if(distance < distanceRange && ) {
-      $(this).removeClass('hide');
-      }
-      }) */
-
-      /*  for(var i = 0; i<allFlats.length; i++) {
-      let thisFlatLat=parseFloat(allFlats[i].getAttribute('data-lat'))
-            let thisFlatLon=parseFloat(allFlats[i].getAttribute('data-lon'))
-      let distance = getRadius(lat, thisFlatLat, lon, thisFlatLon);
-             if(distance < distanceRange &&  ) {
-      allFlats[i].classList.remove('hide');
-      }
-      } */
     },
     error: function error(err) {
       console.log(err);
@@ -37371,8 +37345,7 @@ $("#submit-search").click(function () {
 });
 
 function ajaxFlat(lat, lon, services, range) {
-  var url = "api/flats";
-  console.log(services); //!sono quelli che selezioniamo manualmente
+  var url = "api/flats"; //console.log(services); //!sono quelli che selezioniamo manualmente
 
   $.ajax({
     url: url,
@@ -37383,13 +37356,12 @@ function ajaxFlat(lat, lon, services, range) {
 
       for (var i = 0; i < flats.length; i++) {
         //console.log(flats[i].title);
-        var flat = getFlat(lat, lon, services, range, flats[i]);
-        console.log(flat.services);
+        var flat = getFlat(lat, lon, services, range, flats[i]); //console.log(flat.services);
 
         if (typeof flat != "undefined") {
           var card = createCard(flat);
-          var flatContainer = document.querySelector("#flats-searched");
-          console.log(flatContainer);
+          var flatContainer = document.querySelector("#flats-searched"); //console.log(flatContainer);
+
           flatContainer.append(card);
         }
       }
@@ -37407,15 +37379,27 @@ function ajaxFlat(lat, lon, services, range) {
 function getFlat(lat, lon, services, range, flat) {
   var flatLat = flat.position.coordinates[1];
   var flatLon = flat.position.coordinates[0];
-  var check = services == flat.services ? true : false;
+
+  for (var i = 0; i < services.length; i++) {
+    console.log(flat.services);
+    console.log(services[i]);
+
+    if (!flat.services.includes(services[i])) {
+      return;
+    }
+  } //let check = services == flat.services ? true : false;
+
+
   var distance = getRadius(lat, flatLat, lon, flatLon);
 
-  if (distance < range && check) {
+  if (distance < range && flat.is_hidden != 1) {
+    console.log('ciao');
     return flat;
   }
 }
 
 function createCard(flat) {
+  console.log(flat.id + ' ' + flat.title);
   var cardFlat = document.createElement("div");
   cardFlat.classList.add("card", "card-flat");
   cardFlat.setAttribute("style", "width: 18rem;");
@@ -37436,23 +37420,13 @@ function createCard(flat) {
   var detailsButton = document.createElement("a");
   detailsButton.id = "details-flat";
   detailsButton.classList.add("btn", "btn-primary");
-  var route = "/admin/flats/" + flat.id;
+  var route = "/flats/" + flat.id;
   detailsButton.setAttribute("href", route);
   detailsButton.textContent = "Dettagli";
   cardFlat.appendChild(cardImage);
   cardFlat.appendChild(cardBody);
   cardFlat.appendChild(detailsButton);
   return cardFlat;
-}
-
-function compareArray(arr1, arr2) {
-  var includes;
-
-  for (var i = 0; i < arr1.length; i++) {
-    var thisService = arr1[i];
-    arr2.includes(thisService);
-    includes = true;
-  }
 } //funzione per trovare radiante delle coordinate
 
 
@@ -37485,7 +37459,7 @@ $("#geocoding").click(function (event) {
     url: "https://api.tomtom.com/search/2/search/" + address + ".JSON",
     method: "GET",
     data: {
-      key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
+      key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
       countrySet: "IT"
     },
     success: function success(object) {
@@ -37507,7 +37481,7 @@ $("#submit-create ").click(function (event) {
     url: "https://api.tomtom.com/search/2/search/" + address + ".JSON",
     method: "GET",
     data: {
-      key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
+      key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
       countrySet: "IT"
     },
     success: function success(data) {
@@ -37533,7 +37507,7 @@ $("#submit-edit").click(function (event) {
     url: "https://api.tomtom.com/search/2/search/" + address + ".JSON",
     method: "GET",
     data: {
-      key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
+      key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
       countrySet: "IT"
     },
     success: function success(data) {
@@ -37624,8 +37598,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\MAMP\htdocs\boolean-php\BoolBnb\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\MAMP\htdocs\boolean-php\BoolBnb\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\MAMP\htdocs\boolbnb\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\MAMP\htdocs\boolbnb\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

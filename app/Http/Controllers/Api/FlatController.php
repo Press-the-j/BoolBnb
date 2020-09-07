@@ -15,8 +15,8 @@ class FlatController extends Controller
     $flats=Flat::all();
     
     $data= [];
-    $arrServices=[];
     foreach($flats as $flat){
+      $arrServices=[];
       $services=$flat->services;
       foreach($services as $service){
         $thisService=$service->slug;

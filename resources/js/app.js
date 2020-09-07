@@ -70,39 +70,6 @@ $("#submit-search").click(function() {
                 }
             });
             ajaxFlat(lat, lon, servicesArray, distanceRange);
-
-            /* $('.flat-searched-container').removeClass('hide');
-      let allFlats=$('.card-flat')
-      allFlats.each(function(){
-        let thisFlatLat=parseFloat($(this).data('lat'));
-        let thisFlatLon=parseFloat($(this).data('lon'))
-        let distance = getRadius(lat, thisFlatLat, lon, thisFlatLon);
-        let flatServices=$(this).find('.data-services')
-        let flatServicesArray=[]
-        flatServices.each(function () {
-          flatServicesArray.push($(this).text())
-        })
-        console.log(flatServicesArray);
-        let includes = compareArray(servicesArray, flatServicesArray);
-
-
-        if(distance < distanceRange && ) {
-          $(this).removeClass('hide');
-        }
-      }) */
-
-            /*  for(var i = 0; i<allFlats.length; i++) {
-        let thisFlatLat=parseFloat(allFlats[i].getAttribute('data-lat'))
-        
-        let thisFlatLon=parseFloat(allFlats[i].getAttribute('data-lon'))
-
-        let distance = getRadius(lat, thisFlatLat, lon, thisFlatLon);
-       
-
-        if(distance < distanceRange &&  ) {
-          allFlats[i].classList.remove('hide');
-        }
-      } */
         },
         error: function(err) {
             console.log(err);
@@ -112,7 +79,7 @@ $("#submit-search").click(function() {
 
 function ajaxFlat(lat, lon, services, range) {
     let url = "api/flats";
-    console.log(services); //!sono quelli che selezioniamo manualmente
+    //console.log(services); //!sono quelli che selezioniamo manualmente
     $.ajax({
         url: url,
         method: "GET",
@@ -122,13 +89,13 @@ function ajaxFlat(lat, lon, services, range) {
             for (let i = 0; i < flats.length; i++) {
                 //console.log(flats[i].title);
                 let flat = getFlat(lat, lon, services, range, flats[i]);
-                console.log(flat.services);
+                //console.log(flat.services);
                 if (typeof flat != "undefined") {
                     let card = createCard(flat);
                     let flatContainer = document.querySelector(
                         "#flats-searched"
                     );
-                    console.log(flatContainer);
+                    //console.log(flatContainer);
 
                     flatContainer.append(card);
                 }
@@ -144,15 +111,25 @@ function ajaxFlat(lat, lon, services, range) {
 }
 
 function getFlat(lat, lon, services, range, flat) {
+    
     let flatLat = flat.position.coordinates[1];
     let flatLon = flat.position.coordinates[0];
-    let check = services == flat.services ? true : false;
+    for (let i =0; i<services.length; i++){
+      console.log(flat.services);
+      console.log(services[i]);
+      if(!flat.services.includes(services[i])){
+        return
+      }
+    }
+    //let check = services == flat.services ? true : false;
     let distance = getRadius(lat, flatLat, lon, flatLon);
-    if (distance < range && check) {
+    if (distance < range && flat.is_hidden != 1) {
+      console.log('ciao');
         return flat;
     }
 }
 function createCard(flat) {
+  console.log(flat.id+ ' ' + flat.title);
     let cardFlat = document.createElement("div");
     cardFlat.classList.add("card", "card-flat");
     cardFlat.setAttribute("style", "width: 18rem;");
@@ -177,7 +154,7 @@ function createCard(flat) {
     let detailsButton = document.createElement("a");
     detailsButton.id = "details-flat";
     detailsButton.classList.add("btn", "btn-primary");
-    let route = "/admin/flats/" + flat.id;
+    let route = "/flats/" + flat.id;
     detailsButton.setAttribute("href", route);
     detailsButton.textContent = "Dettagli";
     cardFlat.appendChild(cardImage);
@@ -186,14 +163,7 @@ function createCard(flat) {
     return cardFlat;
 }
 
-function compareArray(arr1, arr2) {
-    let includes;
-    for (let i = 0; i < arr1.length; i++) {
-        let thisService = arr1[i];
-        arr2.includes(thisService);
-        includes = true;
-    }
-}
+
 
 //funzione per trovare radiante delle coordinate
 function getRadius(lat1, lat2, lon1, lon2) {

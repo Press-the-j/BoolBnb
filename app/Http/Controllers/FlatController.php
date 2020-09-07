@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Grimzy\LaravelMysqlSpatial\Types\Point;
 use Illuminate\Http\Request;
 use App\Flat;
 use App\Service;
 
-class HomeController extends Controller
+class FlatController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -49,7 +50,13 @@ class HomeController extends Controller
      */
     public function show($id)
     {
-        //
+      
+      //dd($id);
+      $flat=Flat::where('id',$id)->first();
+     
+      $lat=$flat->position->getLat();
+      $lon=$flat->position->getLng();
+      return view('show', compact('flat', 'lat', 'lon'));
     }
 
     /**
