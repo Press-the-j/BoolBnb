@@ -1,0 +1,15 @@
+ <select name="promotion" id="promotion">Scegli Promozione:
+        <option value="">Seleziona una Promozione</option>
+        @foreach($promotions as $promotion)
+        <option value="{{$promotion->id}}">{{$promotion->type}}, {{$promotion->price}} &euro;</option>
+        @endforeach
+      </select>
+
+
+
+      let promotions = document.querySelector('#promotion');
+
+ promotions.addEventListener('change', function(){
+   let amount = promotions.options[promotions.selectedIndex].value;
+   console.log(amount);
+ })

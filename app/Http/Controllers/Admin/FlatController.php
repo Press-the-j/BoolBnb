@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Flat;
 use App\FlatInfo;
 use App\Service;
+use App\Promotion;
 
 
 class FlatController extends Controller
@@ -119,9 +120,10 @@ class FlatController extends Controller
      */
     public function show(Flat $flat)
     {
+        $promotions=Promotion::all();
         $lat=$flat->position->getLat();
         $lon=$flat->position->getLng();
-        return view('admin.flats.show', compact('flat', 'lat', 'lon'));
+        return view('admin.flats.show', compact('flat', 'lat', 'lon', 'promotions'));
     }
 
     /**

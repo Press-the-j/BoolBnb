@@ -10,7 +10,17 @@
     </div>
 
   <div class="flat-container" >
-  <a href="{{route('admin.payment', ['id'=>$flat->id]) }}" class="btn btn-warning">Promuovi appartamento</a>
+    <div class="form-group">
+      <form action="{{route('admin.payment.show', ['id'=>$flat->id])}}">
+        <select name="promotion" id="promotion">Scegli Promozione:
+          <option value="">Seleziona una Promozione</option>
+          @foreach($promotions as $promotion)
+          <option value="{{$promotion->id}}">{{$promotion->type}}, {{$promotion->price}} &euro;</option>
+          @endforeach
+        </select>
+        <button  class="btn btn-warning">Promuovi appartamento</button>
+      </form>
+    </div>
       <div class="image-flat">
         <img class="img-fluid"src="
         @if ($flat->flatInfo->image_path)
