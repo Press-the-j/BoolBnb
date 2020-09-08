@@ -19,8 +19,8 @@ Route::get('/flats/{id}', 'FlatController@show')->name('show');
 
 
 Route::prefix('admin')->namespace('Admin')->name('admin.')->middleware('auth')->group(function () {
-  Route::get('/payment/{id}', 'PaymentController@makeGateway')->name('payment');
-  Route::get('/payment/make', 'PaymentController@makePayment')->name('payment.make');
+  Route::get('/payment', 'PaymentsController@show')->name('payment.show');
+  Route::get('/payment/process', 'PaymentsController@process')->name('payment.process');
   Route::get('/home', 'HomeController@index')->name('home');
   Route::resource('/flats', 'FlatController');
 });
