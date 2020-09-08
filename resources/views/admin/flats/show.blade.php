@@ -11,15 +11,7 @@
 
   <div class="flat-container" >
     <div class="form-group">
-      <form action="{{route('admin.payment.show', ['id'=>$flat->id])}}">
-        <select name="promotion" id="promotion">Scegli Promozione:
-          <option value="">Seleziona una Promozione</option>
-          @foreach($promotions as $promotion)
-          <option value="{{$promotion->id}}">{{$promotion->type}}, {{$promotion->price}} &euro;</option>
-          @endforeach
-        </select>
-        <button  class="btn btn-warning">Promuovi appartamento</button>
-      </form>
+        <a href="{{route('admin.promotion.transaction', ['flat'=>$flat->id])}} " class="btn btn-warning">Promuovi appartamento</a>
     </div>
       <div class="image-flat">
         <img class="img-fluid"src="

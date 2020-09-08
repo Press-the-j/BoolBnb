@@ -19,8 +19,8 @@ Route::get('/flats/{id}', 'FlatController@show')->name('show');
 
 
 Route::prefix('admin')->namespace('Admin')->name('admin.')->middleware('auth')->group(function () {
-  Route::get('/payment', 'PaymentsController@show')->name('payment.show');
-  Route::get('/payment/process', 'PaymentsController@process')->name('payment.process');
+  Route::get('/promotion/{flat}', 'PromotionController@transaction' )->name('promotion.transaction');
+  Route::post('/promotion/process/{flat}', 'PromotionController@process')->name('promotion.process');
   Route::get('/home', 'HomeController@index')->name('home');
   Route::resource('/flats', 'FlatController');
 });
