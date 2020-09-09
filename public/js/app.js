@@ -37274,7 +37274,7 @@ if ($("#map").length) {
   var postalCode = $(".postal_code-flat").text();
   var coordinates = [lon, lat];
   var map = tt.map({
-    key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
+    key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
     container: "map",
     style: "tomtom://vector/1/basic-main",
     center: coordinates,
@@ -37312,7 +37312,7 @@ $("#submit-search").click(function () {
     url: "https://api.tomtom.com/search/2/search/" + address + ".JSON",
     method: "GET",
     data: {
-      key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
+      key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
       countrySet: "IT"
     },
     success: function success(object) {
@@ -37322,41 +37322,56 @@ $("#submit-search").click(function () {
       if (!result[0]) {
         $(".alert").removeClass("hide");
         return;
-      } //lon e lat della città cercata, ritorna da tomtom
+      } //!Riceviamo latitudine e longitudine a partire dall'inidirizzo cercato
 
 
       var lat = parseFloat(result[0].position.lat);
-      var lon = parseFloat(result[0].position.lon); //valori dei filtri
+      var lon = parseFloat(result[0].position.lon); //! Prendiamo i valori dei filtri
+      //?Filtro del Range
 
-      var distanceRange = parseFloat($("#radius-range").val());
-      var filtersCheck = $(".filter-checkbox-search");
+      var distanceRange = parseFloat($("#radius-range").val()); //?Filtri dei servizi
+
+      var filtersCheck = $(".filter-checkbox-search"); //creiamo un array di servizi a partire dal filtro  
+
       var servicesArray = [];
       filtersCheck.each(function () {
         if ($(this).is(":checked")) {
           servicesArray.push($(this).val());
         }
-      });
-      ajaxFlat(lat, lon, servicesArray, distanceRange);
+      }); //?Filtri ospiti
+
+      var guestsObj = {
+        "guests": $('.guests-arr.guests').val(),
+        "rooms": $('.guests-arr.rooms').val(),
+        "baths": $('.guests-arr.baths').val()
+      };
+      console.log(guestsObj); //Ajax al database
+
+      ajaxFlat(lat, lon, servicesArray, distanceRange, guestsObj);
     },
     error: function error(err) {
       console.log(err);
     }
   });
-});
+}); //Chiamata Ajax al server per prendere gli appartamenti, richiede:
+//! Latidutine e longitudine
+//! services = Array con i servizi scelti dall'utente
+//! il range di ricerca
+//! guests = Array con i filtri per numero minimo di stanze, bagni e ospiti
 
-function ajaxFlat(lat, lon, services, range) {
+function ajaxFlat(lat, lon, services, range, guests) {
   var url = "api/flats"; //console.log(services); //!sono quelli che selezioniamo manualmente
 
   $.ajax({
     url: url,
     method: "GET",
     success: function success(result) {
-      //console.log(result.data)
+      //?PRendiamo tutti gli appartamneti nel database
       var flats = result.data;
 
       for (var i = 0; i < flats.length; i++) {
-        //console.log(flats[i].title);
-        var flat = getFlat(lat, lon, services, range, flats[i]); //console.log(flat.services);
+        //?Per ogni appartamento, filtriamo per latitudine longitudine, e i filtri inseriti  
+        var flat = filterFlat(lat, lon, services, range, flats[i], guests);
 
         if (typeof flat != "undefined") {
           var card = createCard(flat);
@@ -37377,25 +37392,32 @@ function ajaxFlat(lat, lon, services, range) {
 } //quetso è il nostro grande filtro
 
 
-function getFlat(lat, lon, services, range, flat) {
+function filterFlat(lat, lon, services, range, flat, guestsObj) {
+  console.log(flat); //?se  l'appartamento non ha un servizio richiest, ci ritorna.
+
   var flatLat = flat.position.coordinates[1];
   var flatLon = flat.position.coordinates[0];
 
   for (var i = 0; i < services.length; i++) {
-    console.log(flat.services);
-    console.log(services[i]);
-
     if (!flat.services.includes(services[i])) {
       return;
     }
-  } //let check = services == flat.services ? true : false;
+  } //?altrimenti filtriamo per il numero minimo di stanze bagni e ospiti
 
 
-  var distance = getRadius(lat, flatLat, lon, flatLon);
+  var minGuests = guestsObj.guests;
+  var minRooms = guestsObj.rooms;
+  var minBaths = guestsObj.baths;
 
-  if (distance < range && flat.is_hidden != 1) {
-    console.log('ciao');
-    return flat;
+  if (flat.max_guest >= minGuests && flat.rooms >= minRooms && flat.baths >= minBaths) {
+    //?e se passa il filtro di prima allora facciamo un filtro per distanza;
+    //attraverso la funzione getRadius prendiamo la distanza tra il punto ric3ercato e l'appartamneto, se l'appartamento è compreso nel raggio, non deve essere nascosto  ce lo ritorna
+    var distance = getRadius(lat, flatLat, lon, flatLon);
+
+    if (distance < range && flat.is_hidden != 1) {
+      console.log('ciao');
+      return flat;
+    }
   }
 }
 
@@ -37460,7 +37482,7 @@ $("#geocoding").click(function (event) {
     url: "https://api.tomtom.com/search/2/search/" + address + ".JSON",
     method: "GET",
     data: {
-      key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
+      key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
       countrySet: "IT"
     },
     success: function success(object) {
@@ -37482,7 +37504,7 @@ $("#submit-create ").click(function (event) {
     url: "https://api.tomtom.com/search/2/search/" + address + ".JSON",
     method: "GET",
     data: {
-      key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
+      key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
       countrySet: "IT"
     },
     success: function success(data) {
@@ -37508,7 +37530,7 @@ $("#submit-edit").click(function (event) {
     url: "https://api.tomtom.com/search/2/search/" + address + ".JSON",
     method: "GET",
     data: {
-      key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
+      key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
       countrySet: "IT"
     },
     success: function success(data) {
@@ -37599,8 +37621,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\MAMP\htdocs\boolean-php\BoolBnb\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\MAMP\htdocs\boolean-php\BoolBnb\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\MAMP\htdocs\boolbnb\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\MAMP\htdocs\boolbnb\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

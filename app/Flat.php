@@ -39,7 +39,7 @@ class Flat extends Model
 
   public function promotions()
   {
-    return $this->belongsToMany('App\Promotion');
+    return $this->belongsToMany('App\Promotion')->withPivot('started_at', 'end_at');
   }
 
   protected $spatialFields = [

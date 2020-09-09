@@ -6,6 +6,15 @@
     <h1>Pagina GUEST</h1>
     <div class="col-md-8">
       <input type="text" class="form-control" id="search-input" placeholder="Cerca un appartamento...">
+      <label for="number-guests-search">Ospiti(<em>minimo</em>):
+        <input type="number"  class="form-control guests-arr guests" id="number-guests-search" min="0" max="15" value="0" >
+      </label>
+      <label for="number-rooms-search">Stanze(<em>minimo</em>):
+        <input type="number" class="form-control guests-arr rooms" id="number-rooms-search" min="0" max="15" value="0" >
+      </label>
+      <label for="number-baths-search">Bagni(<em>minimo</em>):
+        <input type="number" class="form-control guests-arr baths" id="number-baths-search" min="0" max="15" value="0" >
+      </label>
       <button id ="submit-search" class="btn btn-primary">Submit</button>
       <div class="alert alert-danger hide">Purtroppo non è stato trovato nessun luogo con quel nome</div>
       <div class="filters-search">

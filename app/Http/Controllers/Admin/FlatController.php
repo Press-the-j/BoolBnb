@@ -119,11 +119,27 @@ class FlatController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Flat $flat)
-    {
+    {    
+        //$flat = Flat::find($flat->id)->first();
+        
         $promotions=Promotion::all();
         $lat=$flat->position->getLat();
         $lon=$flat->position->getLng();
-        return view('admin.flats.show', compact('flat', 'lat', 'lon', 'promotions'));
+        $dateStart = '';
+        $dateEnd = '';
+  
+        foreach($flat->promotions as $promotion){
+          if(!empty($promotion->pivot->started_at) && !empty($end_at=$promotion->pivot->end_at)){
+            $started_at=$promotion->pivot->started_at;
+            $end_at=$promotion->pivot->end_at;
+            $dateStart= date_create($started_at)->format('d-m-Y');
+            $dateEnd= date_create($end_at)->format('d-m-Y');
+          } 
+        }
+
+       
+
+        return view('admin.flats.show', compact('flat', 'lat', 'lon', 'promotions', 'dateStart', 'dateEnd'));
     }
 
     /**

@@ -62,19 +62,35 @@ $("#submit-search").click(function() {
                 $(".alert").removeClass("hide");
                 return;
             }
-            //lon e lat della città cercata, ritorna da tomtom
+            //!Riceviamo latitudine e longitudine a partire dall'inidirizzo cercato
             let lat = parseFloat(result[0].position.lat);
             let lon = parseFloat(result[0].position.lon);
-            //valori dei filtri
+
+            //! Prendiamo i valori dei filtri
+
+              //?Filtro del Range
             let distanceRange = parseFloat($("#radius-range").val());
+
+              //?Filtri dei servizi
             let filtersCheck = $(".filter-checkbox-search");
+
+              //creiamo un array di servizi a partire dal filtro  
             let servicesArray = [];
             filtersCheck.each(function() {
                 if ($(this).is(":checked")) {
                     servicesArray.push($(this).val());
                 }
             });
-            ajaxFlat(lat, lon, servicesArray, distanceRange);
+
+              //?Filtri ospiti
+            let guestsObj = {
+              "guests": $('.guests-arr.guests').val(),
+              "rooms": $('.guests-arr.rooms').val(),
+              "baths": $('.guests-arr.baths').val()
+            };
+            console.log(guestsObj);
+              //Ajax al database
+            ajaxFlat(lat, lon, servicesArray, distanceRange, guestsObj);
         },
         error: function(err) {
             console.log(err);
@@ -82,19 +98,26 @@ $("#submit-search").click(function() {
     });
 });
 
-function ajaxFlat(lat, lon, services, range) {
+//Chiamata Ajax al server per prendere gli appartamenti, richiede:
+  //! Latidutine e longitudine
+  //! services = Array con i servizi scelti dall'utente
+  //! il range di ricerca
+  //! guests = Array con i filtri per numero minimo di stanze, bagni e ospiti
+
+function ajaxFlat(lat, lon, services, range, guests ) {
     let url = "api/flats";
     //console.log(services); //!sono quelli che selezioniamo manualmente
     $.ajax({
         url: url,
         method: "GET",
         success: function(result) {
-            //console.log(result.data)
+            //?PRendiamo tutti gli appartamneti nel database
             let flats = result.data;
+            
             for (let i = 0; i < flats.length; i++) {
-                //console.log(flats[i].title);
-                let flat = getFlat(lat, lon, services, range, flats[i]);
-                //console.log(flat.services);
+                //?Per ogni appartamento, filtriamo per latitudine longitudine, e i filtri inseriti  
+                let flat = filterFlat(lat, lon, services, range, flats[i], guests);
+                
                 if (typeof flat != "undefined") {
                     let card = createCard(flat);
                     let flatContainer = document.querySelector(
@@ -116,24 +139,35 @@ function ajaxFlat(lat, lon, services, range) {
 }
 
 //quetso è il nostro grande filtro
-function getFlat(lat, lon, services, range, flat) {
+function filterFlat(lat, lon, services, range, flat, guestsObj) {
     
+console.log(flat);
+   //?se  l'appartamento non ha un servizio richiest, ci ritorna.
     let flatLat = flat.position.coordinates[1];
     let flatLon = flat.position.coordinates[0];
     for (let i =0; i<services.length; i++){
-      console.log(flat.services);
-      console.log(services[i]);
       if(!flat.services.includes(services[i])){
         return
       }
     }
-    //let check = services == flat.services ? true : false;
-    let distance = getRadius(lat, flatLat, lon, flatLon);
-    if (distance < range && flat.is_hidden != 1) {
-      console.log('ciao');
-        return flat;
+    
+    //?altrimenti filtriamo per il numero minimo di stanze bagni e ospiti
+    let minGuests=guestsObj.guests;
+    let minRooms=guestsObj.rooms;
+    let minBaths=guestsObj.baths;
+    if (flat.max_guest >= minGuests && flat.rooms >= minRooms  && flat.baths >= minBaths ) {
+
+      //?e se passa il filtro di prima allora facciamo un filtro per distanza;
+        //attraverso la funzione getRadius prendiamo la distanza tra il punto ric3ercato e l'appartamneto, se l'appartamento è compreso nel raggio, non deve essere nascosto  ce lo ritorna
+      let distance = getRadius(lat, flatLat, lon, flatLon);
+      if (distance < range && flat.is_hidden != 1) {
+        console.log('ciao');
+          return flat;
+      }
     }
-}
+    
+
+  }
 function createCard(flat) {
   console.log(flat.id+ ' ' + flat.title);
     let cardFlat = document.createElement("div");

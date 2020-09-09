@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Flat;
 use App\Promotion;
-use Braintree;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Braintree;
 
 class PromotionController extends Controller
 {
@@ -51,25 +52,21 @@ class PromotionController extends Controller
     ]);
 
     if ($status->success || !is_null($status->transaction)) {
-
+      
       $flat->is_promoted = 1;
       $flat->save();
       $now = Carbon::now();
 
-
-
-
-      // $pivot = Flat::find($flat->id)->promotions[$promotion->id]->pivot;
-      // $pivot->started_at = $now;
-      /* $flat->promotions->pivot->started_at->update($now); */
-      $flat->promotions()->updateExistingPivot($flat->id, ['started_at' => $now]);
-
+      //Sincronizziamo fla e promotion
       $flat->promotions()->sync([$promotion->id]);
+      
+      //aggiungiamo la data di partenza della promotion
+      $pivotTable=DB::table('flat_promotion')->where("flat_promotion.flat_id", "=", $flat->id)->update(["flat_promotion.started_at"=>$now]);
 
-
-
-
-
+      //aggiungiamo la data di scadenza della promotion
+      $endPromotion=$now->addDays($promotion->duration);
+      $pivotTable=DB::table('flat_promotion')->where("flat_promotion.flat_id", "=", $flat->id)->update(["flat_promotion.end_at"=>$endPromotion]);
+    
 
       return redirect()->route('admin.flats.show', ['flat' => $flat->id]);
     } else {

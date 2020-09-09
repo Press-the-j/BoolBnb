@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Flat;
 use App\Service;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -17,6 +18,19 @@ class HomeController extends Controller
     {
       $flats=Flat::where('is_promoted', 1)->get();
       $services=Service::all();
+
+      dd($flats);
+      $now=Carbon::now();
+      foreach($flats as $flat){
+        foreach($flat->promotions as $promotion){
+          $end_at=$promotion->pivot->end_at;
+          if($now>$end_at){
+            $flat->is_promoted=0;
+            $flat->promotions()->sync([]);
+          }
+        }
+      }
+
       return view('home', compact('flats', 'services'));
     }
 

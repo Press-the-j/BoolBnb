@@ -10,9 +10,17 @@
     </div>
 
   <div class="flat-container" >
+    @if($flat->is_promoted ==0)
     <div class="form-group">
         <a href="{{route('admin.promotion.transaction', ['flat'=>$flat->id])}} " class="btn btn-warning">Promuovi appartamento</a>
     </div>
+    @else
+    <div class="form-group">
+    <span class="alert alert-success">
+      Appartamento Promosso fino a {{$dateEnd}}
+    </span>
+    </div>
+    @endif
       <div class="image-flat">
         <img class="img-fluid"src="
         @if ($flat->flatInfo->image_path)
