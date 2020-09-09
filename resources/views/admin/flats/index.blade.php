@@ -9,7 +9,7 @@
         <h2>appartamenti promossi</h2>
         <div class="promotedFlat-container d-flex">
           @forelse ($flatsPromoted as $flatPromoted)
-          <div class="card card-flat" data-lat="{{$flat->position->getLat()}}" data-lon="{{$flat->position->getLng()}}"  style="width: 18rem;">
+          <div class="card card-flat" data-lat="{{$flatPromoted->position->getLat()}}" data-lon="{{$flatPromoted->position->getLng()}}"  style="width: 18rem;">
             <img class="card-img-top" src="
             @if ($flatPromoted->flatInfo->image_path)
                 {{asset('storage/' . $flatPromoted->flatInfo->image_path)}}

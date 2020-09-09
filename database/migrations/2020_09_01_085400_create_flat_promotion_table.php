@@ -16,7 +16,8 @@ class CreateFlatPromotionTable extends Migration
         Schema::create('flat_promotion', function (Blueprint $table) {
             $table->unsignedBigInteger('flat_id');
             $table->unsignedBigInteger('promotion_id');
-            $table->dateTime('started_at');
+            $table->dateTime('started_at')->nullable();
+            $table->dateTime('end_at')->nullable();
             
 
             $table->foreign('flat_id')->references('id')->on('flats')->onDelete('cascade');

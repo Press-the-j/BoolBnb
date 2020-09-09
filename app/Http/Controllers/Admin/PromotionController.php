@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Flat;
 use App\Promotion;
 use Braintree;
+use Carbon\Carbon;
 
 class PromotionController extends Controller
 {
@@ -47,6 +48,26 @@ class PromotionController extends Controller
     	]
     ]);
     
-    return redirect()->route('admin.flats.show', ['flat'=>$flat->id]);
+    if($status->success || !is_null($status->transaction)){
+    
+    $flat->is_promoted= 1;
+    $flat->save();
+    $now = Carbon::now();
+    
+    $flat->promotions()->sync([$promotion->id]);
+    
+    foreach ($flat->promotions as $promotion) {
+       $promotion->pivot->created_at->update($now);
+  }
+    /* $flat->promotions->pivot->started_at->update($now); */
+
+
+
+
+
+      return redirect()->route('admin.flats.show', ['flat'=>$flat->id]);
+    } else {
+      return abort('404');
+    }
   }
 }
