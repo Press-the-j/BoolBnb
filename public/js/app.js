@@ -37393,7 +37393,7 @@ function ajaxFlat(lat, lon, services, range, guests) {
 
 
 function filterFlat(lat, lon, services, range, flat, guestsObj) {
-  console.log(flat); //?se  l'appartamento non ha un servizio richiest, ci ritorna.
+  console.log(flat); //? se  l'appartamento non ha un servizio richiest, ci ritorna.
 
   var flatLat = flat.position.coordinates[1];
   var flatLon = flat.position.coordinates[0];

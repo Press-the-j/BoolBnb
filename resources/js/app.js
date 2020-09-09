@@ -142,7 +142,7 @@ function ajaxFlat(lat, lon, services, range, guests ) {
 function filterFlat(lat, lon, services, range, flat, guestsObj) {
     
 console.log(flat);
-   //?se  l'appartamento non ha un servizio richiest, ci ritorna.
+   //? se  l'appartamento non ha un servizio richiest, ci ritorna.
     let flatLat = flat.position.coordinates[1];
     let flatLon = flat.position.coordinates[0];
     for (let i =0; i<services.length; i++){
@@ -171,35 +171,37 @@ console.log(flat);
 function createCard(flat) {
   console.log(flat.id+ ' ' + flat.title);
     let cardFlat = document.createElement("div");
-    cardFlat.classList.add("card", "card-flat");
-    cardFlat.setAttribute("style", "width: 18rem;");
+        cardFlat.classList.add("card", "card-flat");
+        cardFlat.setAttribute("style", "width: 18rem;");
     let cardImage = document.createElement("img");
-    cardImage.classList.add("card-img-top");
-    cardImage.setAttribute(
-        "src",
-        flat.image_path ? "../storage/" + flat.image_path : "./img/standard.jpg"
-    );
+        cardImage.classList.add("card-img-top");
+        cardImage.setAttribute(
+          "src",
+          flat.image_path ? "../storage/" + flat.image_path : "./img/standard.jpg"
+         );
     cardImage.setAttribute("alt", flat.title);
 
     let cardBody = document.createElement("div");
-    cardBody.classList.add("card-body");
+        cardBody.classList.add("card-body");
     let cardTitle = document.createElement("h5");
-    cardTitle.classList.add("card-title");
-    cardTitle.textContent = flat.title;
+        cardTitle.classList.add("card-title");
+        cardTitle.textContent = flat.title;
+
     let cardText = document.createElement("p");
-    cardText.classList.add("card-text");
-    cardText.textContent = flat.description;
+        cardText.classList.add("card-text");
+        cardText.textContent = flat.description;
     cardBody.appendChild(cardTitle);
     cardBody.appendChild(cardText);
     let detailsButton = document.createElement("a");
-    detailsButton.id = "details-flat";
-    detailsButton.classList.add("btn", "btn-primary");
-    let route = "/flats/" + flat.id;
-    detailsButton.setAttribute("href", route);
-    detailsButton.textContent = "Dettagli";
+        detailsButton.id = "details-flat";
+        detailsButton.classList.add("btn", "btn-primary");
+        let route = "/flats/" + flat.id;
+        detailsButton.setAttribute("href", route);
+        detailsButton.textContent = "Dettagli";
     cardFlat.appendChild(cardImage);
     cardFlat.appendChild(cardBody);
     cardFlat.appendChild(detailsButton);
+
     return cardFlat;
 }
 
