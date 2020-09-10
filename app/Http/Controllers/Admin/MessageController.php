@@ -10,8 +10,9 @@ use App\Message;
 
 class MessageController extends Controller
 {
-  public function index(){
-
+  public function index(Message $message){
+  
+  dd($message->id);
   $flats=Auth::user()->flats;
   $allMessages=[];
 
@@ -22,6 +23,7 @@ class MessageController extends Controller
     foreach($messages as $message){
       
       array_push($allMessages, [
+        "id"=>$message->id,
         "email"=>$message->email_sender,
         "content"=>$message->content,
         "is_read"=>$message->is_read,

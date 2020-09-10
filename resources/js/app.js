@@ -312,6 +312,33 @@ $("#submit-edit").click(function(event) {
     });
 });
 
+
+$(".message-row-title").click(function(){
+  $(".message-row-title").removeClass("selected");
+  $(this).addClass("selected");
+  if($(document).width() < 770){
+    $(this).next(".message-row-content").toggleClass("hide");
+    $(".message-received-content").removeClass("active");
+    $(".message-received-content[data-message="+ $(this).data("message") +"]").addClass("active");
+  } else {
+    console.log($(this).data("message"));
+    $(".message-received-content").removeClass("active");
+    $(".message-received-content[data-message="+ $(this).data("message") +"]").addClass("active");
+  }
+})
+
+if($(document).width()>770){
+  $(".message-received-box").removeClass("hide");
+}
+
+$( window ).resize(function(){
+  if($(document).width()>770){
+    $(".message-received-box").removeClass("hide");
+    $(".message-row-content").addClass("hide");
+  } else{
+    $(".message-received-box").addClass("hide");
+  }
+});
 /* qui generermo un foreach nell'index con tutti i risultati trovati dalla ricerca della homepage */
 
 /* function generateFlats(lat, lon) {

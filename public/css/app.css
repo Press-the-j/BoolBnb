@@ -11374,10 +11374,50 @@ template {
 
 .box-message-wrapper {
   background-color: #f8dede;
+  height: 600px;
 }
 
-.box-message-wrapper .message-received-list .message-row {
+.box-message-wrapper .message-received-list {
+  height: 100%;
+  overflow-y: auto;
   background-color: snow;
+}
+
+.box-message-wrapper .message-received-list .message-row-title {
   height: 3rem;
+}
+
+.box-message-wrapper .message-received-list .message-row-title.selected {
+  background-color: #8b8a8a;
+}
+
+.box-message-wrapper .message-received-list .message-row-content {
+  background-color: tomato;
+}
+
+@media (min-width: 770px) {
+  .box-message-wrapper {
+    background-color: #f8dede;
+    display: flex;
+  }
+
+  .box-message-wrapper .message-received-list {
+    width: 40%;
+  }
+
+  .box-message-wrapper .message-received-box {
+    width: 60%;
+    background-color: tomato;
+    position: relative;
+  }
+
+  .box-message-wrapper .message-received-box .message-received-content {
+    position: absolute;
+    display: none;
+  }
+
+  .box-message-wrapper .message-received-box .message-received-content.active {
+    display: block;
+  }
 }
 

@@ -29,7 +29,7 @@
               <ul class="list-group list-group-flush">
                 @forelse($allMessages as $message)
                 <li class="list-group-item {{$message['is_read'] !==0 ? '' : 'unread-message'}}">
-                  <a class="message-link"href="{{route('admin.messages.index')}}">
+                  <a class="message-link"href="{{route('admin.messages.index', ['message'=>$message['id']])}}">
                     <strong> {{$message['email']}}</strong>
                     <p>{{$message['content']}}</p>
                   </a>

@@ -5,9 +5,25 @@
 <div class="box-message-wrapper">
   <div class="message-received-list">
     @forelse ($allMessages as $message)
-      <div class="d-flex message-row">
+    <div class="message-row">
+      <div class="d-flex message-row-title" data-message="{{$message['id']}}">
         <span class="d-flex align-items-center">{{$message['email']}}</span>
       </div>
+      <div class="message-row-content hide">
+        <p class="message-row-content-email">{{$message['email']}}</p>
+        <p class="message-row-content-text">{{$message['content']}}</p>
+      </div>
+    </div>
+    @empty
+        
+    @endforelse
+  </div>
+  <div class="message-received-box hide">
+    @forelse ($allMessages as $message)
+      <div class="message-received-content" data-message="{{$message['id']}}">
+        <p class="message-received-content-email">{{$message['email']}}</p>
+        <p class="message-received-content-text">{{$message['content']}}</p>
+      </div> 
     @empty
         
     @endforelse

@@ -28,6 +28,7 @@ class HomeController extends Controller
       }
 
       array_push($allMessages, [
+        "id"=>$message->id,
         "email"=>$message->email_sender,
         "content"=>$message->content,
         "is_read"=>$message->is_read,
