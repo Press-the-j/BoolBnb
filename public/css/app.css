@@ -11451,6 +11451,10 @@ template {
   height: 3rem;
 }
 
+.box-message-wrapper .message-received-list .message-row-title.unread {
+  background-color: #e79090;
+}
+
 .box-message-wrapper .message-received-list .message-row-title.selected {
   background-color: #8b8a8a;
 }

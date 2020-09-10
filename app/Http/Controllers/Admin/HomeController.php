@@ -26,7 +26,7 @@ class HomeController extends Controller
       if($message->is_read == 0){
         $count++;
       }
-
+      
       array_push($allMessages, [
         "id"=>$message->id,
         "email"=>$message->email_sender,

@@ -6,7 +6,9 @@
   <div class="message-received-list">
     @forelse ($allMessages as $message)
     <div class="message-row">
-      <div class="d-flex message-row-title" data-message="{{$message['id']}}">
+    <div class="d-flex message-row-title 
+    {{$message['id'] == $idClicked ? 'selected' : ''}}
+    {{$message['is_read'] == 0 ? 'unread' : ''}}" data-message="{{$message['id']}}">
         <span class="d-flex align-items-center">{{$message['email']}}</span>
       </div>
       <div class="message-row-content hide">

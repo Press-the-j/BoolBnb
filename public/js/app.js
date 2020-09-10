@@ -37274,7 +37274,7 @@ if ($("#map").length) {
   var postalCode = $(".postal_code-flat").text();
   var coordinates = [lon, lat];
   var map = tt.map({
-    key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
+    key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
     container: "map",
     style: "tomtom://vector/1/basic-main",
     center: coordinates,
@@ -37312,7 +37312,7 @@ $("#submit-search").click(function () {
     url: "https://api.tomtom.com/search/2/search/" + address + ".JSON",
     method: "GET",
     data: {
-      key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
+      key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
       countrySet: "IT"
     },
     success: function success(object) {
@@ -37482,7 +37482,7 @@ $("#geocoding").click(function (event) {
     url: "https://api.tomtom.com/search/2/search/" + address + ".JSON",
     method: "GET",
     data: {
-      key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
+      key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
       countrySet: "IT"
     },
     success: function success(object) {
@@ -37504,7 +37504,7 @@ $("#submit-create ").click(function (event) {
     url: "https://api.tomtom.com/search/2/search/" + address + ".JSON",
     method: "GET",
     data: {
-      key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
+      key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
       countrySet: "IT"
     },
     success: function success(data) {
@@ -37530,7 +37530,7 @@ $("#submit-edit").click(function (event) {
     url: "https://api.tomtom.com/search/2/search/" + address + ".JSON",
     method: "GET",
     data: {
-      key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
+      key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
       countrySet: "IT"
     },
     success: function success(data) {
@@ -37545,21 +37545,32 @@ $("#submit-edit").click(function (event) {
       console.log(err);
     }
   });
-});
+}); //? mette la classe selected al messaggio cliccato in precedenza nel dropdown
+
+var selectedMsg = $(".message-row-title.selected").data("message");
+$(".message-received-content[data-message=" + selectedMsg + "]").addClass("active");
+$(".message-row-title[data-message=" + selectedMsg + "]").removeClass("unread"); //? al click del messaggio nella view index dei messaggi, rende visibile il container del messaggio
+
 $(".message-row-title").click(function () {
   $(".message-row-title").removeClass("selected");
   $(this).addClass("selected");
 
+  if ($(this).hasClass("unread")) {
+    $(this).removeClass("unread");
+    ajaxSetRead($(this).data("message"));
+  } //?se la window è m,aggiore di 770px, rende visibile il container del messaggio che gli è successivo
+
+
   if ($(document).width() < 770) {
     $(this).next(".message-row-content").toggleClass("hide");
     $(".message-received-content").removeClass("active");
-    $(".message-received-content[data-message=" + $(this).data("message") + "]").addClass("active");
+    $(".message-received-content[data-message=" + $(this).data("message") + "]").addClass("active"); //?altrimenti rende visibile il contenuto del messaggio nel box di destra
   } else {
     console.log($(this).data("message"));
     $(".message-received-content").removeClass("active");
     $(".message-received-content[data-message=" + $(this).data("message") + "]").addClass("active");
   }
-});
+}); //?al resize della pagina nascondiamo o mostriamo il box dei messaggi sulla destra
 
 if ($(document).width() > 770) {
   $(".message-received-box").removeClass("hide");
@@ -37573,6 +37584,20 @@ $(window).resize(function () {
     $(".message-received-box").addClass("hide");
   }
 });
+
+function ajaxSetRead(id) {
+  var url = window.location.origin + '/api/messages/' + id;
+  $.ajax({
+    url: url,
+    type: "POST",
+    success: function success(result) {
+      console.log(result);
+    },
+    error: function error(err) {
+      console.log(err);
+    }
+  });
+}
 /* qui generermo un foreach nell'index con tutti i risultati trovati dalla ricerca della homepage */
 
 /* function generateFlats(lat, lon) {
@@ -37648,8 +37673,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\MAMP\htdocs\boolean-php\BoolBnb\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\MAMP\htdocs\boolean-php\BoolBnb\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\MAMP\htdocs\boolbnb\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\MAMP\htdocs\boolbnb\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

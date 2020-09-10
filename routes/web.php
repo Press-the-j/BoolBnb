@@ -23,8 +23,9 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->middleware('auth')->
   Route::get('/promotion/{flat}', 'PromotionController@transaction' )->name('promotion.transaction');
   Route::post('/promotion/process/{flat}', 'PromotionController@process')->name('promotion.process');
   Route::get('/home', 'HomeController@index')->name('home');
-  Route::get('/messages', 'MessageController@index')->name('messages.index');
+  Route::get('/messages/{messageClicked}', 'MessageController@index')->name('messages.index');
   Route::resource('/flats', 'FlatController');
+ 
 });
 
 

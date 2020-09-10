@@ -312,14 +312,25 @@ $("#submit-edit").click(function(event) {
     });
 });
 
+//? mette la classe selected al messaggio cliccato in precedenza nel dropdown
+let selectedMsg =$(".message-row-title.selected").data("message")
+$(".message-received-content[data-message="+selectedMsg+"]").addClass("active");
+$(".message-row-title[data-message="+selectedMsg+"]").removeClass("unread");
 
+//? al click del messaggio nella view index dei messaggi, rende visibile il container del messaggio
 $(".message-row-title").click(function(){
   $(".message-row-title").removeClass("selected");
   $(this).addClass("selected");
+  if($(this).hasClass("unread")){
+    $(this).removeClass("unread");
+    ajaxSetRead($(this).data("message"))
+  }
+  //?se la window è m,aggiore di 770px, rende visibile il container del messaggio che gli è successivo
   if($(document).width() < 770){
     $(this).next(".message-row-content").toggleClass("hide");
     $(".message-received-content").removeClass("active");
     $(".message-received-content[data-message="+ $(this).data("message") +"]").addClass("active");
+    //?altrimenti rende visibile il contenuto del messaggio nel box di destra
   } else {
     console.log($(this).data("message"));
     $(".message-received-content").removeClass("active");
@@ -327,6 +338,7 @@ $(".message-row-title").click(function(){
   }
 })
 
+//?al resize della pagina nascondiamo o mostriamo il box dei messaggi sulla destra
 if($(document).width()>770){
   $(".message-received-box").removeClass("hide");
 }
@@ -339,6 +351,26 @@ $( window ).resize(function(){
     $(".message-received-box").addClass("hide");
   }
 });
+
+
+function ajaxSetRead(id){
+  
+  let url= window.location.origin + '/api/messages/'+ id ;
+  $.ajax({
+    url: url,
+    type: "POST",
+    
+    success: function(result) {
+      console.log(result);
+      
+    },
+    error: function(err) {
+        console.log(err);
+    }
+});
+
+}
+
 /* qui generermo un foreach nell'index con tutti i risultati trovati dalla ricerca della homepage */
 
 /* function generateFlats(lat, lon) {

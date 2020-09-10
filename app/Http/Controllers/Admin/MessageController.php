@@ -10,12 +10,12 @@ use App\Message;
 
 class MessageController extends Controller
 {
-  public function index(Message $message){
+  public function index(Message $messageClicked){
   
-  dd($message->id);
+  
   $flats=Auth::user()->flats;
   $allMessages=[];
-
+  $idClicked=$messageClicked->id;
   
   
   foreach($flats as $flat){
@@ -32,6 +32,10 @@ class MessageController extends Controller
     }
   }
   
-  return view('admin.messages.index', compact('allMessages'));
+  $messageRead=Message::where('id', $idClicked)->first();
+  $messageRead->is_read = 1;
+  $messageRead->save(); 
+  
+  return view('admin.messages.index', compact('allMessages', 'idClicked'));
   }
 }

@@ -58,10 +58,14 @@
 
     .message-row-title{
       height:3rem;
-
+      
+      &.unread{
+        background-color: rgb(231, 144, 144);
+      }
       &.selected{
         background-color: rgb(139, 138, 138);
       }
+
     }
 
     .message-row-content{
