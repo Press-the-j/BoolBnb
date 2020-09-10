@@ -9,7 +9,7 @@
       <span class="lon hide ">{{$lon}}</span>
     </div>
 
-  <div class="flat-container" >
+    <div class="flat-container" >
       <div class="image-flat">
         <img class="img-fluid"src="
         @if ($flat->flatInfo->image_path)
@@ -64,6 +64,25 @@
          
         </div>
       </div>
+      <form action="{{route('messages.send', ['flat'=>$flat->id])}}" method="post">
+        @csrf
+        <div class="form-group">
+          <label for="sender-email">Email:
+            <input type="email" id="sender-email" name="email" placeholder="Inserisci una email..." 
+            @if(Auth::check())
+              value="{{Auth::user()->email}}"
+            @endif>
+          </label> 
+          <label for="message-content">Messaggio:
+            <textarea name="message-content" id="message-content" cols="30" rows="10" placeholder="Scrivi un messaggio..."
+            style="height:200px; resize:none;"></textarea>
+          </label>
+          <button type="submit" class="btn btn-primary"> Invia</button>
+        </div>
+      </form>
+      @if(session()->has('message-success'))
+      <div class="alert alert-success">{{session()->get('message-success')}}</div>
+      @endif
     </div>
   </div>
 </div>

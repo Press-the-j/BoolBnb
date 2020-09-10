@@ -10,4 +10,11 @@ class Message extends Model
   {
     return $this->belongsTo('App\Flat');
   }
+
+  protected $fillable = [
+    'flat_id',
+    'email_sender',
+    'content',
+    'is_read',
+  ];
 }

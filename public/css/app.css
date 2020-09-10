@@ -11331,3 +11331,53 @@ template {
   "description description"
   "position    info"; */
 
+.message-box {
+  position: relative;
+}
+
+.message-box .circle-notice {
+  position: absolute;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  background-color: red;
+  width: 15px;
+  height: 15px;
+  top: -5;
+  left: 0;
+  text-align: center;
+}
+
+.message-box .circle-notice .number-notice {
+  color: white;
+  position: absolute;
+  font-weight: bold;
+  font-size: 0.7rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+}
+
+.message-box .dropdown-menu .message-link {
+  text-decoration: none;
+}
+
+.message-box .dropdown-menu .unread-message {
+  background-color: rgba(195, 207, 230, 0.527);
+}
+
+.box-message-wrapper {
+  background-color: #f8dede;
+}
+
+.box-message-wrapper .message-received-list .message-row {
+  background-color: snow;
+  height: 3rem;
+}
+
