@@ -37274,7 +37274,7 @@ if ($("#map").length) {
   var postalCode = $(".postal_code-flat").text();
   var coordinates = [lon, lat];
   var map = tt.map({
-    key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
+    key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
     container: "map",
     style: "tomtom://vector/1/basic-main",
     center: coordinates,
@@ -37312,7 +37312,7 @@ $("#submit-search").click(function () {
     url: "https://api.tomtom.com/search/2/search/" + address + ".JSON",
     method: "GET",
     data: {
-      key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
+      key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
       countrySet: "IT"
     },
     success: function success(object) {
@@ -37482,7 +37482,7 @@ $("#geocoding").click(function (event) {
     url: "https://api.tomtom.com/search/2/search/" + address + ".JSON",
     method: "GET",
     data: {
-      key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
+      key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
       countrySet: "IT"
     },
     success: function success(object) {
@@ -37504,7 +37504,7 @@ $("#submit-create ").click(function (event) {
     url: "https://api.tomtom.com/search/2/search/" + address + ".JSON",
     method: "GET",
     data: {
-      key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
+      key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
       countrySet: "IT"
     },
     success: function success(data) {
@@ -37530,7 +37530,7 @@ $("#submit-edit").click(function (event) {
     url: "https://api.tomtom.com/search/2/search/" + address + ".JSON",
     method: "GET",
     data: {
-      key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
+      key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
       countrySet: "IT"
     },
     success: function success(data) {
@@ -37648,8 +37648,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\MAMP\htdocs\boolbnb\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\MAMP\htdocs\boolbnb\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\MAMP\htdocs\boolean-php\BoolBnb\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\MAMP\htdocs\boolean-php\BoolBnb\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
