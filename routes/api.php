@@ -22,4 +22,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/flats', 'Api\FlatController@index');
 //Route::group(['middleware' => 'auth'], function () {
 Route::post('/messages/{id}', 'Api\MessageController@setRead');
+Route::post('/views/{id}/{userId}', 'Api\ViewController@setView');
 //});

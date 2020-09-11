@@ -18,12 +18,12 @@ Route::get('/', 'FlatController@index')->name('home');
 Route::get('/flats/{id}', 'FlatController@show')->name('show');
 Route::post('/messages/{flat}', 'MessageController@send')->name('messages.send');
 
-
 Route::prefix('admin')->namespace('Admin')->name('admin.')->middleware('auth')->group(function () {
   Route::get('/promotion/{flat}', 'PromotionController@transaction' )->name('promotion.transaction');
   Route::post('/promotion/process/{flat}', 'PromotionController@process')->name('promotion.process');
   Route::get('/home', 'HomeController@index')->name('home');
   Route::get('/messages/{messageClicked}', 'MessageController@index')->name('messages.index');
+  Route::get('/flat/statistic' , 'FlatController@statistic')->name('flats.statistic');
   Route::resource('/flats', 'FlatController');
  
 });

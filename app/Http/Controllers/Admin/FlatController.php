@@ -12,10 +12,20 @@ use App\Flat;
 use App\FlatInfo;
 use App\Service;
 use App\Promotion;
+use App\View;
 
 
 class FlatController extends Controller
 {
+
+  public function statistic(){
+    $flats=Flat::where('user_id', Auth::id())->get();
+    dd($flats);
+    //$views=View::where('flat_id', $fla)
+
+  }
+
+
 
   /* use MakeSlugTrait; */
     /**

@@ -30,10 +30,16 @@
     </div>
   </div>
 </div>
+<input type="hidden" class="hidden-auth" value="{{Auth::check() ? Auth::id() : 'guest' }}">
 <div class="container flat-searched-container hide">
-  <div class="row justify-content-center ">
-    <div id="flats-searched" class="d-flex">
+  <div class="row">
+    <h2 class="col-12">Appartamenti Promossi:</h2>
+    <div id="flatsPromoted-searched" class="d-flex col-12">
     </div>
+    <h2 class="col-12">Appartamenti Non Promossi:</h2>
+    <div id="flats-searched" class="d-flex col-12">
+    </div>
+
   </div>
 </div>
 

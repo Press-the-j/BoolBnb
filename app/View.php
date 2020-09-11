@@ -10,4 +10,11 @@ class View extends Model
   {
     return $this->belongsTo('App\Flat');
   }
+
+  protected $fillable = [
+    'flat_id',
+    'view_promoted',
+    'ip_user',
+    
+  ];
 }

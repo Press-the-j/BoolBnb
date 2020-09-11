@@ -51,7 +51,7 @@
               <button type="submit" class="btn btn-danger">Elimina</button>
             </form>
             <a href="{{route("admin.flats.edit", ["flat"=>$flat->id])}}" class="btn btn-primary">Modifica</a>
-            <a href="{{route("admin.flats.show", ["flat"=>$flat->id])}}" class="btn btn-primary" id="details-flat">Dettagli</a>
+          <a href="{{route("admin.flats.show", ["flat"=>$flat->id])}}" class="btn btn-primary details-flat details-flat-home">Dettagli</a>
           </div>
           @empty
             <span>nesun appartamento</span>

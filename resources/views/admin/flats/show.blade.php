@@ -21,6 +21,9 @@
     </span>
     </div>
     @endif
+    <div class="form-group">
+      <a class="btn btn-primary" href="{{route('admin.flats.statistic' ,['flat'=>$flat->id])}}"> Guarda le statistiche</a>
+    </div>
       <div class="image-flat">
         <img class="img-fluid"src="
         @if ($flat->flatInfo->image_path)

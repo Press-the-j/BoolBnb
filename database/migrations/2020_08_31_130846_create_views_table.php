@@ -16,8 +16,9 @@ class CreateViewsTable extends Migration
         Schema::create('views', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('flat_id');
+            $table->integer('view_promoted');
+            $table->string('ip_user');
             $table->timestamps();
-
             $table->foreign('flat_id')->references('id')->on('flats')->onDelete('cascade');
         });
     }

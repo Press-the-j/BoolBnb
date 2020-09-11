@@ -1,3 +1,5 @@
+const { cleanData } = require("jquery");
+
 require("./bootstrap");
 
 
@@ -88,7 +90,6 @@ $("#submit-search").click(function() {
               "rooms": $('.guests-arr.rooms').val(),
               "baths": $('.guests-arr.baths').val()
             };
-            console.log(guestsObj);
               //Ajax al database
             ajaxFlat(lat, lon, servicesArray, distanceRange, guestsObj);
         },
@@ -113,18 +114,22 @@ function ajaxFlat(lat, lon, services, range, guests ) {
         success: function(result) {
             //?PRendiamo tutti gli appartamneti nel database
             let flats = result.data;
+            document.querySelector('#flatsPromoted-searched').innerHTML='';
+            document.querySelector('#flats-searched').innerHTML='';
             
             for (let i = 0; i < flats.length; i++) {
-                //?Per ogni appartamento, filtriamo per latitudine longitudine, e i filtri inseriti  
-                let flat = filterFlat(lat, lon, services, range, flats[i], guests);
-                
+              //?Per ogni appartamento, filtriamo per latitudine longitudine, e i filtri inseriti  
+              let flat = filterFlat(lat, lon, services, range, flats[i], guests);
                 if (typeof flat != "undefined") {
-                    let card = createCard(flat);
-                    let flatContainer = document.querySelector(
-                        "#flats-searched"
-                    );
+                  let card = createCard(flat);
+                  if(flat.is_promoted){
+                    var flatContainer= document.querySelector('#flatsPromoted-searched');
+                  }else {
+                    var flatContainer=document.querySelector("#flats-searched");
+                  }
+                    
                     //console.log(flatContainer);
-
+                    
                     flatContainer.append(card);
                 }
             }
@@ -161,13 +166,17 @@ console.log(flat);
         //attraverso la funzione getRadius prendiamo la distanza tra il punto ric3ercato e l'appartamneto, se l'appartamento è compreso nel raggio, non deve essere nascosto  ce lo ritorna
       let distance = getRadius(lat, flatLat, lon, flatLon);
       if (distance < range && flat.is_hidden != 1) {
-        console.log('ciao');
           return flat;
       }
     }
     
 
-  }
+}
+
+
+
+
+
 function createCard(flat) {
   console.log(flat.id+ ' ' + flat.title);
     let cardFlat = document.createElement("div");
@@ -193,11 +202,13 @@ function createCard(flat) {
     cardBody.appendChild(cardTitle);
     cardBody.appendChild(cardText);
     let detailsButton = document.createElement("a");
-        detailsButton.id = "details-flat";
-        detailsButton.classList.add("btn", "btn-primary");
-        let route = "/flats/" + flat.id;
+        detailsButton.classList.add("btn", "btn-primary","details-flat");
+        let route = "/flats/" + flat.id; 
         detailsButton.setAttribute("href", route);
         detailsButton.textContent = "Dettagli";
+        detailsButton.addEventListener('click', function(){
+          ajaxSetView(flat.id);
+        })
     cardFlat.appendChild(cardImage);
     cardFlat.appendChild(cardBody);
     cardFlat.appendChild(detailsButton);
@@ -332,7 +343,6 @@ $(".message-row-title").click(function(){
     $(".message-received-content[data-message="+ $(this).data("message") +"]").addClass("active");
     //?altrimenti rende visibile il contenuto del messaggio nel box di destra
   } else {
-    console.log($(this).data("message"));
     $(".message-received-content").removeClass("active");
     $(".message-received-content[data-message="+ $(this).data("message") +"]").addClass("active");
   }
@@ -371,12 +381,26 @@ function ajaxSetRead(id){
 
 }
 
-/* qui generermo un foreach nell'index con tutti i risultati trovati dalla ricerca della homepage */
+/* $(".details-flat-home").on('click', '.card-flat',function(){
+  let id=$(this).data("flat");
+  console.log(id);
+  ajaxSetview(id)
+}) */
 
-/* function generateFlats(lat, lon) {
-  let flatsSearchedCont=document.querySelector('#flats-searched'); 
-  flatsSearchedCont.innerHTML= '@forelse ($flats as $flat) @if( $flat->position->getLat() <='+ lat + ' 10 || $flat->position->getLat() >='+ lat + '- 10 && $flat->position->getLng() <= ' lon + ' + 10 || $flat->position->getLng() >='+ lon +' - 10)'
 
-  document.querySelector('#flats-searched').append(flatsSearchedCont)
+function ajaxSetView(id){
   
-} */
+  let hiddenAuth=$('.hidden-auth').val();
+  let url=window.location.origin + '/api/views/'+ id +'/'+hiddenAuth;
+  $.ajax({
+    url: url,
+    type: "POST",
+    success: function(result) {
+      console.log(result);
+      
+    },
+    error: function(err) {
+        console.log(err);
+    }
+  });
+}
