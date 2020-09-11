@@ -1,8 +1,6 @@
 const { cleanData } = require("jquery");
-
+var Chart = require('chart.js');
 require("./bootstrap");
-
-
 
 
 
@@ -401,6 +399,53 @@ function ajaxSetView(id){
     },
     error: function(err) {
         console.log(err);
+    }
+  });
+}
+
+
+if($('#flat-chart').length){
+  ajaxStatistics()
+}
+
+function ajaxStatistics(){
+  let id= $('#flats-chart-select').val()
+  let url=window.location.origin + '/api/statistics/'+ id
+  $.ajax({
+    url: url,
+    type: "GET",
+    success: function(result) {
+      console.log(result);
+      makeWeeklyChart(result);
+    },
+    error: function(err) {
+        console.log(err);
+    }
+  });
+}
+
+
+function makeWeeklyChart(dataObj){
+  
+  var ctx = document.getElementById('flat-chart');
+  let chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        datasets: [{
+            label: 'First dataset',
+            data: dataObj.viewForDay
+        }],
+        labels: dataObj.week
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    suggestedMin: 50,
+                    suggestedMax: 100
+                }
+            }]
+        }
     }
   });
 }

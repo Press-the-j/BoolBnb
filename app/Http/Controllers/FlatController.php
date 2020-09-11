@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Flat;
 use App\Service;
 use Carbon\Carbon;
+use App\View;
 
 class FlatController extends Controller
 {
@@ -17,6 +18,42 @@ class FlatController extends Controller
      */
     public function index()
     {
+     
+      $views=View::where('flat_id', 1)->get();
+      $thisWeek=Carbon::now()->setTime(0, 0, 0)->subDays(6);
+      $week=[];
+      
+      for($i=7; $i>0; $i--){
+        array_push($week,Carbon::now()->subDays($i-1)->isoFormat('dddd'));
+      }
+      
+      $viewsDone=[];
+      
+      $keysArrView=[];
+      for($i=0; $i<count($week); $i++){
+        array_push($keysArrView, $week[$i]);
+      }
+
+      $countViews=count($viewsDone);
+      $viewForDay=array_fill_keys($keysArrView, '');
+      foreach($views as $view){
+        if($view->created_at > $thisWeek){
+          array_push($viewsDone, $view);
+          $timeStampDay=new Carbon($view->created_at);
+          $nameDay=$timeStampDay->isoFormat('dddd');
+          $viewForDay[$nameDay]++;
+        }
+      }
+      $viewForDayArr=[];
+      foreach($viewForDay as $dailyView){
+       if($dailyView != null){
+         array_push($viewForDayArr, $dailyView);
+       }else{
+         array_push($viewForDayArr, 0);
+       }
+      }
+      dd($viewForDayArr);
+
       $flats=Flat::where('is_promoted', 1)->get();
       $services=Service::all();
       $now=Carbon::now();

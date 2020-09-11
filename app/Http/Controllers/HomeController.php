@@ -16,6 +16,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+      
+
+
       $flats=Flat::where('is_promoted', 1)->get();
       $services=Service::all();
 

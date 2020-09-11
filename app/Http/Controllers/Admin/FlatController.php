@@ -18,11 +18,11 @@ use App\View;
 class FlatController extends Controller
 {
 
-  public function statistic(){
+  public function statistics(){
     $flats=Flat::where('user_id', Auth::id())->get();
-    dd($flats);
+  
     //$views=View::where('flat_id', $fla)
-
+    return view('admin.flats.statistics', compact('flats'));
   }
 
 
