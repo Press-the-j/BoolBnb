@@ -1,3 +1,9 @@
+.py-4{
+  background-color: white;
+  min-height: 100vh;
+  
+}
+
 #map {
   width: 800px;
   height: 600px;
@@ -5,4 +11,31 @@
 
 .hide{
   display: none;
+}
+
+.navbar-logo{
+  font-family: 'Amatic SC', cursive;
+  font-weight: bold;
+  font-size: 2.5rem;
+}
+
+.navbar{
+  box-shadow:0 0.125rem 0.25rem rgba(255,162,162,1) ;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 50px white inset !important;
+}
+
+/* input:focus{
+  border-color: $secondary_red;
+  box-shadow:0 0 0.2rem rgba(255,110,110,0.25);
+} */
+
+.form-control:focus {
+  border-color: $secondary_red;
+  box-shadow:0 0 1rem rgba(255,110,110,0.25);
 }

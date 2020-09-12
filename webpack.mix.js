@@ -16,4 +16,8 @@ mix.js("resources/js/app.js", "public/js").sass(
     "public/css"
 );
 
+
+mix.copyDirectory('node_modules/@fortawesome/fontawesome-free/webfonts', 'public/webfonts');
+
+
 mix.webpackConfig({ node: { fs: "empty" } });

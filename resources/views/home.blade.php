@@ -3,30 +3,46 @@
 @section('content')
 <div class="container">
   <div class="row justify-content-center">
-    <h1>Pagina GUEST</h1>
     <div class="col-md-8">
-      <input type="text" class="form-control" id="search-input" placeholder="Cerca un appartamento...">
-      <label for="number-guests-search">Ospiti(<em>minimo</em>):
-        <input type="number"  class="form-control guests-arr guests" id="number-guests-search" min="0" max="15" value="0" >
-      </label>
-      <label for="number-rooms-search">Stanze(<em>minimo</em>):
-        <input type="number" class="form-control guests-arr rooms" id="number-rooms-search" min="0" max="15" value="0" >
-      </label>
-      <label for="number-baths-search">Bagni(<em>minimo</em>):
-        <input type="number" class="form-control guests-arr baths" id="number-baths-search" min="0" max="15" value="0" >
-      </label>
-      <button id ="submit-search" class="btn btn-primary">Submit</button>
-      <div class="alert alert-danger hide">Purtroppo non è stato trovato nessun luogo con quel nome</div>
-      <div class="filters-search">
-        @foreach($services as $service)
-          <label for="{{$service->slug}}">{{$service->name}}</label>
-          <input id="{{$service->slug}}"class="filter-checkbox-search" type="checkbox" value="{{$service->slug}}">
-        @endforeach
-        <br>
-        <label for="radius-range">Range di ricerca:</label>
-        <input id="radius-range" type="range"  min="1" max="40" step="1" value="20">
-        <span><span id="range-value">20</span>KM</span>
+      <div class="search-input-container">
+        <input type="text" class="form-control" id="search-input" placeholder="Cerca un appartamento...">
+        <button id ="submit-search" class="btn btn-primary"><i class="fas fa-search"></i></button>
       </div>
+      <div class="btn btn-filters">
+        <span class="btn-filters-title">Aggiungi filtri alla ricerca!</span>
+        <span class="btn-filters-close">X</span>
+        <div class="filters-search">
+          <div class="right-left-filters-search-wrapper">
+            <div class="leftside-filters-search">
+              <label for="number-guests-search">Ospiti(<em>minimo</em>):
+                <input type="number"  class="form-control guests-arr guests" id="number-guests-search" min="0" max="15" value="0" >
+              </label>
+              <label for="number-rooms-search">Stanze(<em>minimo</em>):
+                <input type="number" class="form-control guests-arr rooms" id="number-rooms-search" min="0" max="15" value="0" >
+              </label>
+              <label for="number-baths-search">Bagni(<em>minimo</em>):
+                <input type="number" class="form-control guests-arr baths" id="number-baths-search" min="0" max="15" value="0" >
+              </label>
+            </div>
+
+            <div class="rightside-filters-search">
+              @foreach($services as $service)
+              <div class="checkbox-container">
+                <label for="{{$service->slug}}">{{$service->name}}</label>
+                <input id="{{$service->slug}}"class="filter-checkbox-search" type="checkbox" value="{{$service->slug}}">
+              </div>
+              @endforeach
+            </div>
+          </div>
+
+          <div class="radius-range-container">
+            <label for="radius-range">Range di ricerca:</label><br>
+            <input id="radius-range" type="range"  min="1" max="40" step="1" value="20">
+            <span><span id="range-value">20</span>KM</span>
+          </div>
+        </div>
+      </div>
+      <div class="alert alert-danger hide">Purtroppo non è stato trovato nessun luogo con quel nome</div>
     </div>
   </div>
 </div>

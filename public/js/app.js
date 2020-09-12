@@ -74651,15 +74651,64 @@ if ($("#map").length) {
     offset: popupOffsets
   }).setHTML(city + " " + address + " " + postalCode);
   marker.setPopup(popup).togglePopup();
+}
+
+$('.btn-filters-title').on('click', function () {
+  $(this).parent(".btn-filters").toggleClass('active');
+  $(this).siblings(".filters-search").toggleClass('active');
+  $(this).toggleClass('hide');
+  $(this).siblings(".btn-filters-close").toggleClass("active");
+});
+$(".btn-filters-close").on('click', function () {
+  $(this).parent(".btn-filters").toggleClass('active');
+  $(this).toggleClass("active");
+  $(this).siblings(".filters-search").toggleClass('active');
+  var title = $(this).siblings(".btn-filters-title");
+  title.toggleClass("hide"); //?controllo se ci sono filtri inseriti
+
+  var filters = checkFilters();
+
+  if (filters) {
+    title.text('Filtri di ricerca attivi!');
+  } else {
+    title.text('Aggiungi filtri alla ricerca!');
+  }
+});
+
+function checkFilters() {
+  var guestArr = $(".guests-arr");
+  console.log(guestArr);
+  var checkbox = $(".filter-checkbox-search");
+  var range = $("#radius-range");
+  check = false;
+  guestArr.each(function () {
+    if ($(this).val() != 0) {
+      check = true;
+      return check;
+    }
+  });
+  checkbox.each(function () {
+    if ($(this).is(":checked")) {
+      check = true;
+      return check;
+    }
+  });
+  range.each(function () {
+    if ($(this).val() != 20) {
+      check = true;
+      return check;
+    }
+  });
+  return check;
 } //scrivi valore del range
 
 
-$("#radius-range").change(function () {
+$("#radius-range").on('change', function () {
   var range = $(this).val();
   $("#range-value").text(range);
 }); //Ajax di ricerca in home che ci restituisce coordinate
 
-$("#submit-search").click(function () {
+$("#submit-search").on('click', function () {
   var address = $("#search-input").val();
 
   if (address.length == 0) {
