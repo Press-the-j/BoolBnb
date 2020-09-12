@@ -409,6 +409,10 @@ if($('#flat-chart').length){
   ajaxStatistics()
 }
 
+$('#flats-chart-select').on('change', function(){
+  ajaxStatistics();
+})
+
 function ajaxStatistics(){
   let id= $('#flats-chart-select').val()
   let url=window.location.origin + '/api/statistics/'+ id
@@ -433,8 +437,12 @@ function makeWeeklyChart(dataObj){
     type: 'line',
     data: {
         datasets: [{
-            label: 'First dataset',
-            data: dataObj.viewForDay
+            label: 'Visualizzazioni',
+            data: dataObj.viewForDay,
+            backgroundColor:'rgba(0, 0, 255, 0.5)',
+            borderColor:'rgba(0, 0, 255, 0.8)',
+            fill:false,
+            lineTension:0,
         }],
         labels: dataObj.week
     },

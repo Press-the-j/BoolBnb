@@ -18,12 +18,13 @@ use App\View;
 class FlatController extends Controller
 {
 
-  public function statistics(){
-    $flats=Flat::where('user_id', Auth::id())->get();
-  
-    //$views=View::where('flat_id', $fla)
-    return view('admin.flats.statistics', compact('flats'));
-  }
+    public function statistics(Request $request){
+      $id=$request['id'];
+      $flats=Flat::where('user_id', Auth::id())->get();
+    
+      //$views=View::where('flat_id', $fla)
+      return view('admin.flats.statistics', compact('flats', 'id'));
+    }
 
 
 

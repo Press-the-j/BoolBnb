@@ -23,7 +23,7 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->middleware('auth')->
   Route::post('/promotion/process/{flat}', 'PromotionController@process')->name('promotion.process');
   Route::get('/home', 'HomeController@index')->name('home');
   Route::get('/messages/{messageClicked}', 'MessageController@index')->name('messages.index');
-  Route::get('/flat/statistics' , 'FlatController@statistics')->name('flats.statistics');
+  Route::post('/flat/statistics' , 'FlatController@statistics')->name('flats.statistics');
   Route::resource('/flats', 'FlatController');
  
 });

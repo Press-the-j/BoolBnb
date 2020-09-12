@@ -11489,3 +11489,7 @@ template {
   }
 }
 
+.weekly-chart {
+  width: 500px;
+}
+

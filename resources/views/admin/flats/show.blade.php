@@ -21,9 +21,14 @@
     </span>
     </div>
     @endif
-    <div class="form-group">
-      <a class="btn btn-primary" href="{{route('admin.flats.statistics')}}"> Guarda le statistiche</a>
-    </div>
+    <form action="{{route('admin.flats.statistics')}}" method="post">
+      @csrf
+      @method('POST')
+      <div class="form-group">
+      <input type="hidden" name="id" value="{{$flat->id}}">
+        <button type="submit" class="btn btn-primary" > Guarda le statistiche</button>
+      </div>
+    </form>
       <div class="image-flat">
         <img class="img-fluid"src="
         @if ($flat->flatInfo->image_path)
