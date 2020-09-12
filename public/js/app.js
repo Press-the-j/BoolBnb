@@ -74760,9 +74760,6 @@ function ajaxFlat(lat, lon, services, range, guests) {
 function filterFlat(lat, lon, services, range, flat, guestsObj) {
   console.log(flat); //? se  l'appartamento non ha un servizio richiest, ci ritorna.
 
-  var flatLat = flat.position.coordinates[1];
-  var flatLon = flat.position.coordinates[0];
-
   for (var i = 0; i < services.length; i++) {
     if (!flat.services.includes(services[i])) {
       return;
@@ -74777,6 +74774,8 @@ function filterFlat(lat, lon, services, range, flat, guestsObj) {
   if (flat.max_guest >= minGuests && flat.rooms >= minRooms && flat.baths >= minBaths) {
     //?e se passa il filtro di prima allora facciamo un filtro per distanza;
     //attraverso la funzione getRadius prendiamo la distanza tra il punto ric3ercato e l'appartamneto, se l'appartamento è compreso nel raggio, non deve essere nascosto  ce lo ritorna
+    var flatLat = flat.position.coordinates[1];
+    var flatLon = flat.position.coordinates[0];
     var distance = getRadius(lat, flatLat, lon, flatLon);
 
     if (distance < range && flat.is_hidden != 1) {
