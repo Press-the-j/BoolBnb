@@ -15995,6 +15995,7 @@ input:-webkit-autofill:active {
 }
 
 .btn-filters {
+  width: 100%;
   position: relative;
   margin-top: 15px;
   background-color: #FF7070;
@@ -16013,6 +16014,10 @@ input:-webkit-autofill:active {
 
 .btn-filters:hover {
   color: white;
+}
+
+.btn-filters .btn-filters-title {
+  width: 100%;
 }
 
 .btn-filters .btn-filters-close {
@@ -16038,6 +16043,7 @@ input:-webkit-autofill:active {
 
 .btn-filters .filters-search .right-left-filters-search-wrapper {
   display: flex;
+  justify-content: space-around;
 }
 
 .btn-filters .filters-search .right-left-filters-search-wrapper .leftside-filters-search {
@@ -16053,16 +16059,13 @@ input:-webkit-autofill:active {
 }
 
 @media (min-width: 1100px) {
-  .btn-filters {
-    width: 100%;
-  }
-
   .btn-filters .right-left-filters-search-wrapper .rightside-filters-search {
     display: flex;
     flex-wrap: wrap;
   }
 
   .btn-filters .right-left-filters-search-wrapper .rightside-filters-search .checkbox-container {
+    height: 15%;
     justify-content: flex-start;
     width: 30%;
     margin-right: 3%;

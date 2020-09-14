@@ -9,7 +9,7 @@
         <button id ="submit-search" class="btn btn-primary"><i class="fas fa-search"></i></button>
       </div>
       <div class="btn btn-filters">
-        <span class="btn-filters-title">Aggiungi filtri alla ricerca!</span>
+        <div class="btn-filters-title">Aggiungi filtri alla ricerca!</div>
         <span class="btn-filters-close">X</span>
         <div class="filters-search">
           <div class="right-left-filters-search-wrapper">

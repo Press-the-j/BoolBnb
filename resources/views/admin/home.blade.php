@@ -10,7 +10,7 @@
           <form>
               <div class="form-group">
                   <input type="text" class="form-control" id="search-input" placeholder="Cerca un appartamento...">
-                  
+
               </div>
               <button type="submit" class="btn btn-primary">Submit</button>
           </form>
@@ -22,7 +22,7 @@
             </div>
             @endif
             <button class="btn btn-secondary dropdown-toggle" type="button" id="message-box-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Dropdown button
+              <i class="fas fa-inbox"></i>
             </button>
             {{-- Dropdown dei messaggi, poi lo sposteremo nell'Header(?forse?) --}}
             <div class="dropdown-menu" aria-labelledby="message-box-dropdown">

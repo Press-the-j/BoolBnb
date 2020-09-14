@@ -27,6 +27,7 @@
 }
 
 .btn-filters{
+  width:100%;
   position: relative;
   margin-top: 15px;
   background-color:$secondary_red;
@@ -45,6 +46,10 @@
 
   &:hover{
     color:white;
+  }
+
+  .btn-filters-title{
+    width:100%;
   }
 
   .btn-filters-close{
@@ -70,6 +75,7 @@
     .right-left-filters-search-wrapper{
       
       display: flex;
+      justify-content: space-around;
 
       .leftside-filters-search{
         display:flex;
@@ -93,7 +99,7 @@
 @media (min-width:1100px){
 
   .btn-filters{
-    width:100%;
+    
 
     .right-left-filters-search-wrapper{
 
@@ -102,6 +108,7 @@
         flex-wrap: wrap;
 
         .checkbox-container{
+          height: 15%;
           justify-content: flex-start;
           width:30%;
           margin-right: 3%;
