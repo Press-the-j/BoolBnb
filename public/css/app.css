@@ -15864,6 +15864,7 @@ template {
 .py-4 {
   background-color: white;
   min-height: 100vh;
+  padding-top: 100px !important;
 }
 
 #map {
@@ -15982,11 +15983,56 @@ input:-webkit-autofill:active {
 }
 
 .message-box .btn-messages:hover {
-  background-color: #e3342f;
+  color: #424242;
 }
 
 .message-box .btn-messages:after {
   content: none;
+}
+
+.dropdown-navbar {
+  display: flex;
+  align-items: center;
+  border-radius: 16px;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  -ms-border-radius: 16px;
+  -o-border-radius: 16px;
+  background-color: white;
+  border-color: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.dropdown-navbar:after {
+  display: none;
+}
+
+.dropdown-navbar:hover,
+.dropdown-navbar:focus {
+  background-color: white !important;
+}
+
+.dropdown-navbar .fa-bars {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.dropdown-navbar img {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  margin-left: 5px;
+}
+
+.cta-dropdown-header {
+  right: 0;
+  left: auto;
+}
+
+.cta-dropdown-header .btn-logout {
+  background-color: #FF7070;
 }
 
 .search-input-container {
@@ -16158,8 +16204,8 @@ input:-webkit-autofill:active {
   background-color: red;
   width: 15px;
   height: 15px;
-  top: -10px;
-  left: 0;
+  top: 5px;
+  left: 10px;
   text-align: center;
 }
 
