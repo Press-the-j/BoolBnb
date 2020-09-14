@@ -1,0 +1,23 @@
+.navbar-nav{
+  align-items: center;
+}
+
+
+.message-box{
+  align-items: center;
+
+  .btn-messages{
+    background-color: transparent;
+    border: none;
+    color:#5A5A5A;
+    font-size: 1.5rem;
+
+    &:hover{
+      background-color: $red;
+    }
+
+    &:after{
+      content:none;
+    }
+  }
+}

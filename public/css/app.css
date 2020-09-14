@@ -15945,7 +15945,7 @@ input:-webkit-autofill:active {
 
 .register-container button {
   height: 45px;
-  background: red;
+  background: #FF7070;
   border: none;
   border-radius: 50px;
   color: white;
@@ -15964,6 +15964,29 @@ input:-webkit-autofill:active {
   border-top: 0px;
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;
+}
+
+.navbar-nav {
+  align-items: center;
+}
+
+.message-box {
+  align-items: center;
+}
+
+.message-box .btn-messages {
+  background-color: transparent;
+  border: none;
+  color: #5A5A5A;
+  font-size: 1.5rem;
+}
+
+.message-box .btn-messages:hover {
+  background-color: #e3342f;
+}
+
+.message-box .btn-messages:after {
+  content: none;
 }
 
 .search-input-container {
@@ -16135,7 +16158,7 @@ input:-webkit-autofill:active {
   background-color: red;
   width: 15px;
   height: 15px;
-  top: -5;
+  top: -10px;
   left: 0;
   text-align: center;
 }

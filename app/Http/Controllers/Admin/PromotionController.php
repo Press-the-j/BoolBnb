@@ -25,10 +25,17 @@ class PromotionController extends Controller
     $gateway = makeGateway();
 
     $clientToken = $gateway->ClientToken()->generate();
+
+    $messageArr=getMessage();
+    $allMessages=$messageArr[0];
+    $unreadMessages=$messageArr[1];
+    
     $data = [
       'promotions' => $promotions,
       'flat' => $thisFlat,
-      'clientToken' => $clientToken
+      'clientToken' => $clientToken,
+      'allMessages'=>$allMessages,
+      'unreadMessages'=>$unreadMessages
     ];
     return view('admin.transaction.payment', $data);
   }

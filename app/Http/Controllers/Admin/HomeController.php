@@ -11,7 +11,7 @@ class HomeController extends Controller
   public function index()
   {
 
-  $flats=Auth::user()->flats;
+  /* $flats=Auth::user()->flats;
   $allMessages=[];
   $unreadMessages=[];
   $count=0;
@@ -41,9 +41,18 @@ class HomeController extends Controller
   if($count !== 0){
     $unreadMessages['exist']= true;
     $unreadMessages['count']= $count;
-  }
+  } */
 
+
+  $messageArr=getMessage();
+  $allMessages=$messageArr[0];
+  $unreadMessages=$messageArr[1];
+  $data=[
+    'allMessages'=>$allMessages,
+    'unreadMessages'=>$unreadMessages
+  ];
   
-  return view('admin.home', compact('allMessages', 'unreadMessages'));
+  
+  return view('admin.home', $data);
   }
 }

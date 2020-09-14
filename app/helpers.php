@@ -1,5 +1,6 @@
 <?php
- 
+
+use Illuminate\Support\Facades\Auth;
 use App\Flat;
  
 function control_slug($slug)
@@ -64,6 +65,47 @@ function getIp(){
           }
       }
   }
+}
+
+
+function getMessage(){
+  $flats=Auth::user()->flats;
+  $messageArr=[];
+  $allMessages=[];
+  $unreadMessages=[];
+  $count=0;
+
+  $unreadMessages['exist']=false;
+
+  foreach($flats as $flat){
+    $messages=$flat->messages;
+    foreach($messages as $message){
+
+      //? se il messaggio non è letto aggiorniamo il count
+      if($message->is_read == 0){
+        $count++;
+      }
+      
+      array_push($allMessages, [
+        "id"=>$message->id,
+        "email"=>$message->email_sender,
+        "content"=>$message->content,
+        "is_read"=>$message->is_read,
+        "flat_id"=>$flat->id
+        ]);
+    }
+  }
+
+  //? se il count è diverso da 0, allora aggiorniamo la variabile unreadMessage
+  if($count !== 0){
+    $unreadMessages['exist']= true;
+    $unreadMessages['count']= $count;
+  }
+
+  array_push($messageArr, $allMessages, $unreadMessages);
+
+  return $messageArr;
+
 }
 
 

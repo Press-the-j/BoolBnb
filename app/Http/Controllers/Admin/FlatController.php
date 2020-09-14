@@ -21,9 +21,18 @@ class FlatController extends Controller
     public function statistics(Request $request){
       $id=$request['id'];
       $flats=Flat::where('user_id', Auth::id())->get();
+      $messageArr=getMessage();
+      $allMessages=$messageArr[0];
+      $unreadMessages=$messageArr[1];
+      $data=[
+        'allMessages'=>$allMessages,
+        'unreadMessages'=>$unreadMessages,
+        'flats'=> $flats,
+        'id'=>$id
+      ];
     
       //$views=View::where('flat_id', $fla)
-      return view('admin.flats.statistics', compact('flats', 'id'));
+      return view('admin.flats.statistics', $data);
     }
 
 
@@ -38,8 +47,16 @@ class FlatController extends Controller
     {
         $flats=Flat::where('is_promoted', 0)->where('user_id', Auth::id())->get();
         $flatsPromoted=Flat::where('is_promoted', 1)->where('user_id', Auth::id())->get();
-
-        return view('admin.flats.index', compact('flats', 'flatsPromoted'));
+        $messageArr=getMessage();
+        $allMessages=$messageArr[0];
+        $unreadMessages=$messageArr[1];
+        $data=[
+          'allMessages'=>$allMessages,
+          'unreadMessages'=>$unreadMessages,
+          'flats'=>$flats,
+          'flatsPromoted'=>$flatsPromoted
+        ];
+        return view('admin.flats.index', $data);
     }
 
     /**
@@ -51,7 +68,15 @@ class FlatController extends Controller
     {
       //richiamiamo tutti i servizi
         $services=Service::all();
-        return view('admin.flats.create', compact('services'));
+        $messageArr=getMessage();
+        $allMessages=$messageArr[0];
+        $unreadMessages=$messageArr[1];
+        $data=[
+          'allMessages'=>$allMessages,
+          'unreadMessages'=>$unreadMessages,
+          'services'=>$services
+        ];
+        return view('admin.flats.create', $data);
     }
 
     /**
@@ -147,10 +172,14 @@ class FlatController extends Controller
             $dateEnd= date_create($end_at)->format('d-m-Y');
           } 
         }
+        $messageArr=getMessage();
+        $allMessages=$messageArr[0];
+        $unreadMessages=$messageArr[1];
+        
 
        
 
-        return view('admin.flats.show', compact('flat', 'lat', 'lon', 'promotions', 'dateStart', 'dateEnd'));
+        return view('admin.flats.show', compact('flat', 'lat', 'lon', 'promotions', 'dateStart', 'dateEnd', 'allMessages', 'unreadMessages'));
     }
 
     /**
@@ -162,7 +191,16 @@ class FlatController extends Controller
     public function edit(Flat $flat)
     {
       $services=Service::all();
-      return view('admin.flats.edit', compact('flat', 'services'));
+      $messageArr=getMessage();
+      $allMessages=$messageArr[0];
+      $unreadMessages=$messageArr[1];
+      $data=[
+        'allMessages'=>$allMessages,
+        'unreadMessages'=>$unreadMessages,
+        'flat'=>$flat,
+        'services'=>$services
+      ];
+      return view('admin.flats.edit', $data);
     }
 
     /**

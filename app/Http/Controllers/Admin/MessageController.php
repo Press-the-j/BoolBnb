@@ -14,11 +14,11 @@ class MessageController extends Controller
   
   
   $flats=Auth::user()->flats;
-  $allMessages=[];
+  //$allMessages=[];
   $idClicked=$messageClicked->id;
   
   
-  foreach($flats as $flat){
+ /*  foreach($flats as $flat){
     $messages=$flat->messages;
     foreach($messages as $message){
       
@@ -30,12 +30,19 @@ class MessageController extends Controller
         "flat_id"=>$flat->id
         ]);
     }
-  }
+  } */
   
   $messageRead=Message::where('id', $idClicked)->first();
   $messageRead->is_read = 1;
   $messageRead->save(); 
+
+  $messageArr=getMessage();
+  $allMessages=$messageArr[0];
+  $unreadMessages=$messageArr[1];
+
   
-  return view('admin.messages.index', compact('allMessages', 'idClicked'));
+  
+  
+  return view('admin.messages.index', compact('allMessages', 'idClicked', 'unreadMessages'));
   }
 }
