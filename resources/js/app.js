@@ -173,18 +173,20 @@ function ajaxFlat(lat, lon, services, range, guests ) {
         success: function(result) {
             //?PRendiamo tutti gli appartamneti nel database
             let flats = result.data;
-            document.querySelector('#flatsPromoted-searched').innerHTML='';
-            document.querySelector('#flats-searched').innerHTML='';
-            
+            document.querySelector('.result-promoted').innerHTML='';
+            document.querySelector('.result-not-promoted').innerHTML='';
+            let flatsObj=[]
             for (let i = 0; i < flats.length; i++) {
               //?Per ogni appartamento, filtriamo per latitudine longitudine, e i filtri inseriti  
               let flat = filterFlat(lat, lon, services, range, flats[i], guests);
                 if (typeof flat != "undefined") {
                   let card = createCard(flat);
+                
+                  flatsObj.push(flat)
                   if(flat.is_promoted){
-                    var flatContainer= document.querySelector('#flatsPromoted-searched');
+                    var flatContainer= document.querySelector('.result-promoted');
                   }else {
-                    var flatContainer=document.querySelector("#flats-searched");
+                    var flatContainer=document.querySelector(".result-not-promoted");
                   }
                     
                     //console.log(flatContainer);
@@ -192,6 +194,7 @@ function ajaxFlat(lat, lon, services, range, guests ) {
                     flatContainer.append(card);
                 }
             }
+            renderMap(lat,lon, flatsObj,range)
             if ($(".flat-searched-container").hasClass("hide")) {
                 $(".flat-searched-container").removeClass("hide");
             }
@@ -202,10 +205,51 @@ function ajaxFlat(lat, lon, services, range, guests ) {
     });
 }
 
+function renderMap(lat,lon,flats,range){
+  let coordinates=[lon,lat]
+  let zoom
+  if(range<10){
+    zoom= 15;
+  }else if(range>=10 && range<=30) {
+    zoom = 10;
+  }else{
+    zoom=9
+  }
+  
+  var map = tt.map({
+    key: process.env.MIX_TOMTOM_API_KEY,
+    container: "map-index",
+    style: "tomtom://vector/1/basic-main",
+
+    center: coordinates,
+    zoom: zoom
+  });
+  console.log(flats.length);
+  for(let i = 0; i<flats.length; i++){
+    let flatCoordinates=[flats[i].position.coordinates[0], flats[i].position.coordinates[1]]
+    
+    var marker = new tt.Marker().setLngLat(flatCoordinates).addTo(map);
+  }
+  /* var marker = new tt.Marker().setLngLat(coordinates).addTo(map);
+    var popupOffsets = {
+        top: [0, 0],
+        bottom: [0, -70],
+        "bottom-right": [0, -70],
+        "bottom-left": [0, -70],
+        left: [25, -35],
+        right: [-25, -35]
+    };
+  var popup = new tt.Popup({ offset: popupOffsets }).setHTML(
+      city + " " + address + " " + postalCode
+  );
+  marker.setPopup(popup).togglePopup(); */
+
+}
+
 //quetso è il nostro grande filtro
 function filterFlat(lat, lon, services, range, flat, guestsObj) {
     
-console.log(flat);
+
    //? se  l'appartamento non ha un servizio richiest, ci ritorna.
    
     for (let i =0; i<services.length; i++){
@@ -238,10 +282,15 @@ console.log(flat);
 
 
 function createCard(flat) {
-  console.log(flat.id+ ' ' + flat.title);
+  console.log(flat);
+  
     let cardFlat = document.createElement("div");
         cardFlat.classList.add("card", "card-flat");
         cardFlat.setAttribute("style", "width: 18rem;");
+        cardFlat.addEventListener('click',function(){
+          ajaxSetView(flat.id)
+          ajaxShowFlat(flat.id)
+        })
     let cardImage = document.createElement("img");
         cardImage.classList.add("card-img-top");
         cardImage.setAttribute(
@@ -255,28 +304,64 @@ function createCard(flat) {
     let cardTitle = document.createElement("h5");
         cardTitle.classList.add("card-title");
         cardTitle.textContent = flat.title;
+    let divServices=document.createElement('div');
+        divServices.classList.add("services-flat");  
 
     let cardText = document.createElement("p");
-        cardText.classList.add("card-text");
-        cardText.textContent = flat.description;
+        cardText.classList.add("card-service");
+        let content=[]
+       
+            
+        flat.services.forEach(element => {
+          let checkFont=document.createElement('i')
+              checkFont.classList.add("fas","fa-check-circle");
+
+          let divServiceContainer=document.createElement('div')
+              divServiceContainer.classList.add("service-flat-container")
+             
+          let spanService=document.createElement('span');
+              spanService.innerHTML=element;
+
+          divServiceContainer.appendChild(checkFont);    
+          divServiceContainer.appendChild(spanService);
+          divServices.appendChild(divServiceContainer);
+        });
+        content.push("Ospiti: " + flat.max_guest);
+        content.push("Stanze: " + flat.rooms);
+        content.push("Bagni: " + flat.baths);
+        console.log(content);
+        cardText.innerHTML = content.join(',');
     cardBody.appendChild(cardTitle);
+    cardBody.appendChild(divServices);
     cardBody.appendChild(cardText);
-    let detailsButton = document.createElement("a");
+    /* let detailsButton = document.createElement("a");
         detailsButton.classList.add("btn", "btn-primary","details-flat");
         let route = "/flats/" + flat.id; 
         detailsButton.setAttribute("href", route);
         detailsButton.textContent = "Dettagli";
         detailsButton.addEventListener('click', function(){
           ajaxSetView(flat.id);
-        })
+        }) */
     cardFlat.appendChild(cardImage);
     cardFlat.appendChild(cardBody);
-    cardFlat.appendChild(detailsButton);
+    //cardFlat.appendChild(detailsButton);
 
     return cardFlat;
 }
 
-
+function ajaxShowFlat(id){
+  let url ='/flats/' + id;
+  $.ajax({
+    url: url,
+    method: "GET",
+    success: function() {
+      window.location.href = url
+    },
+    error: function(err) {
+        console.log(err);
+    }
+});
+}
 
 //funzione per trovare radiante delle coordinate
 function getRadius(lat1, lat2, lon1, lon2) {

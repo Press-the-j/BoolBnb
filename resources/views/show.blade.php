@@ -6,7 +6,7 @@
 
     <div class="coordinate-hide">
       <span class="lat hide">{{$lat}}</span>
-      <span class="lon hide ">{{$lon}}</span>
+      <span class="lon hide">{{$lon}}</span>
     </div>
 
     <div class="flat-container" >
