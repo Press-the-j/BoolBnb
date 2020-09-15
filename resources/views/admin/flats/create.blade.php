@@ -11,56 +11,89 @@
         </div>
         <div class="form-group">
           <label for="title-create">Titolo:</label>
-          <input name="title" type="text" class="form-control" id="title-create" aria-describedby="title" placeholder="Inserisci un titolo">
+          <input name="title" type="text" class="form-control title-input" id="title-create"  aria-describedby="title" placeholder="Inserisci un titolo" value="{{old("title")}}">
           <small id="title-create" class="form-text text-muted">inserisci un titolo al tuo annuncio</small>
+          @error('title')
+              <small class="text-danger">{{ $message }}</small>
+          @enderror
         </div>
         <div class="form-group">
           <label for="description-create">Descrizione:</label>
-          <textarea name="description" type="text" class="form-control" id="description-create" placeholder="Descrizione.."></textarea>
+          <textarea name="description" type="text" class="form-control description-input" id="description-create"  placeholder="Descrizione.." >{{old("description")}}</textarea>
+          @error('description')
+              <small class="text-danger">{{ $message }}</small>
+          @enderror
         </div>
         <div class="form-group">
           <label for="city-create">Città:</label>
-          <input name="city" type="text" class="form-control" id="city-create" placeholder="Città..">
+          <input name="city" type="text" class="form-control city-input" id="city-create"  placeholder="Città.." value="{{old("city")}}">
+          @error('city')
+              <small class="text-danger">{{ $message }}</small>
+          @enderror
         </div>
         <div class="form-group">
           <label for="address-create">Indirizzo:</label>
-          <input name="address" type="text" class="form-control" id="address-create" placeholder="Indirizzo..">
+          <input name="address" type="text" class="form-control address-input" id="address-create" placeholder="Indirizzo.." value="{{old("address")}}">
+          @error('address')
+              <small class="text-danger">{{ $message }}</small>
+          @enderror
         </div>
         <div class="form-group">
           <label for="postal_code-create">Codice Postale:</label>
-          <input name="postal_code" type="text" class="form-control" id="postal_code-create">
+          <input name="postal_code" type="text" class="form-control postal_code-input" id="postal_code-create" value="{{old("postal_code")}}">
+          @error('postal_code')
+              <small class="text-danger">{{ $message }}</small>
+          @enderror
         </div>
         <div class="form-group">
           <label for="square_meters-create">Metri quadrati:</label>
-          <input name="square_meters" type="text" class="form-control" id="square_meters-create">
+          <input name="square_meters" type="text" class="form-control square_meters-input" id="square_meters-create" value="{{old("square_meters")}}">
+          @error('square_meters')
+              <small class="text-danger">{{ $message }}</small>
+          @enderror
         </div>
         <div class="form-group">
           <label for="price-create">Prezzo per notte:</label>
-          <input name="price" type="text" class="form-control" id="price-create">
+          <input name="price" type="text" class="form-control price-input" id="price-create" value="{{old("price")}}">
+          @error('price')
+              <small class="text-danger">{{ $message }}</small>
+          @enderror
         </div>
         <div class="form-group">
           <label for="max_guest-create">Ospiti Max:</label>
-          <input name="max_guest" type="text" class="form-control" id="max_guest-create">
+          <input name="max_guest" type="text" class="form-control max_guest-input" id="max_guest-create" value="{{old("max_guest")}}">
+          @error('max_guest')
+              <small class="text-danger">{{ $message }}</small>
+          @enderror
         </div>
         <div class="form-group">
           <label for="rooms-create">Numero di stanze:</label>
-          <input name="rooms" type="text" class="form-control" id="rooms-create">
+          <input name="rooms" type="text" class="form-control rooms-input" id="rooms-create" value="{{old("rooms")}}">
+          @error('rooms')
+              <small class="text-danger">{{ $message }}</small>
+          @enderror
         </div>
         <div class="form-group">
           <label for="baths-create">Numero di bagni:</label>
-          <input name="baths" type="text" class="form-control" id="baths-create">
+          <input name="baths" type="text" class="form-control baths-input" id="baths-create" value="{{old("baths")}}">
+          @error('baths')
+              <small class="text-danger">{{ $message }}</small>
+          @enderror
         </div>
         <div class="form-group">
           @foreach ($services as $service)
-          <input type="checkbox" value="{{$service->id}}" name="services[]" id="{{$service->name}}">
+          <input type="checkbox" value="{{$service->id}}" name="services[]" id="{{$service->name}}" {{in_array($service->id, old("services", [])) ? "checked" : ''}}>
           <label for="{{$service->name}}">{{$service->name}}</label>
           @endforeach
         </div>
-        <input name="lat" type="text" value="" id="create-lat">
-        <input name="long" type="text" value="" id="create-long">
+        <input name="lat" type="hidden" value="" id="create-lat">
+        <input name="long" type="hidden" value="" id="create-long">
         <button id="submit-create" type="submit" class="btn btn-primary" >Submit</button>
       </form>
     </div>
 </div>
 
+@endsection
+@section("validation-script")
+<script src="{{asset("./js/validation.js")}}"></script>
 @endsection

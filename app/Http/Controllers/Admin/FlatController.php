@@ -65,7 +65,7 @@ class FlatController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    {   
       //richiamiamo tutti i servizi
         $services=Service::all();
         $messageArr=getMessage();
@@ -86,9 +86,24 @@ class FlatController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-       $data= $request->all();
-       
+    {   
+        $request->validate([
+          "title"=>"required|max:255",
+          "description"=>"required|max:500",
+          "city"=>"required|max:100",
+          "address"=>"required|max:100",
+          "postal_code"=>"required|numeric|min:1",
+          "square_meters"=>"required|numeric|min:1",
+          "price"=>"required|numeric|min:1",
+          "max_guest"=>"required|numeric|min:1",
+          "rooms"=>"required|numeric|min:1",
+          "baths"=>"required|numeric|min:1"
+        ]);
+
+        $data= $request->all();
+
+        
+
         $slugTemp= Str::of($data['title'])->slug('-');
         $controlledSlug = control_slug($slugTemp);
        /*  $count=0;
@@ -211,7 +226,20 @@ class FlatController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Flat $flat)
-    {
+    {   
+        $request->validate([
+          "title"=>"required|max:255",
+          "description"=>"required|max:500",
+          "city"=>"required|max:100",
+          "address"=>"required|max:100",
+          "postal_code"=>"required|numeric|min:1",
+          "square_meters"=>"required|numeric|min:1",
+          "price"=>"required|numeric|min:1",
+          "max_guest"=>"required|numeric|min:1",
+          "rooms"=>"required|numeric|min:1",
+          "baths"=>"required|numeric|min:1"
+        ]);
+
         $data=$request->all();
         
         $slugTemp=Str::of($data['title'])->slug('-');

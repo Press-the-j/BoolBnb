@@ -1,9 +1,18 @@
 .search-input-container{
   position:relative;
   height:4rem;
+  
+  .ap-input-icon {
+    display:none;
+
+    svg {
+      width: 0;
+      height: 0;
+    }
+  }
 
   #search-input{
-    height:100%;
+    height:4rem;
     border-radius: 16px;
     -webkit-border-radius: 16px;
     -moz-border-radius: 16px;
@@ -13,9 +22,9 @@
 
   #submit-search{
     position: absolute;
-    width:3.5rem;
+    width:4.5rem;
     height: 2.5rem;
-    right:5%;
+    right:2%;
     top:20%;
     border-color: $primary_red;
     background-color:$secondary_red;

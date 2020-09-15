@@ -5,7 +5,7 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="search-input-container">
-        <input type="text" class="form-control" id="search-input" placeholder="Cerca un appartamento...">
+        <input type="search" class="form-control  " id="search-input" placeholder="Cerca un appartamento...">
         <button id ="submit-search" class="btn btn-primary"><i class="fas fa-search"></i></button>
       </div>
       <div class="btn btn-filters">
@@ -47,7 +47,7 @@
   </div>
 </div>
 <input type="hidden" class="hidden-auth" value="{{Auth::check() ? Auth::id() : 'guest' }}">
-<div class="container flat-searched-container hide">
+<div class="container-fluid flat-searched-container hide">
   <div class="row">
     <h2 class="col-12">Appartamenti Promossi:</h2>
     <div id="flatsPromoted-searched" class="d-flex col-12">

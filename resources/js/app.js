@@ -1,6 +1,17 @@
 const { cleanData } = require("jquery");
 var Chart = require('chart.js');
+var places = require('places.js');
 require("./bootstrap");
+require("./validation.js")
+
+
+if($("#search-input").length){
+  var placesAutocomplete = places({
+    appId: process.env.MIX_APP_ID,
+    apiKey: process.env.MIX_API_KEY,
+    container: document.querySelector('#search-input'),
+  });
+}
 
 
 
@@ -62,7 +73,6 @@ $(".btn-filters-close").on('click', function(){
 
 function checkFilters(){
   let guestArr=$(".guests-arr");
-  console.log(guestArr);
   let checkbox=$(".filter-checkbox-search");
   let range=$("#radius-range");
   check=false
