@@ -53,6 +53,7 @@ $('.btn-filters-title').on('click', function() {
   $(this).siblings(".btn-filters-close").toggleClass("active")
 })
 
+
 $(".btn-filters-close").on('click', function(){
   $(this).parent(".btn-filters").toggleClass('active');
   $(this).toggleClass("active")

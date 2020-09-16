@@ -23,66 +23,75 @@
         <h3 class="title-flat">{{$flat->title}}</h3>
       </div>
       <div class="description-flat-row">
-        <p class="description-flat ">{{$flat->flatInfo->description}}</p>
-      </div>
-      <div class="flat-info-row">
-        <ul class="flat-info">
-          <li>Metri Quadrati: {{$flat->flatInfo->square_meters}}</li>
-          <li>Limite Ospiti: {{$flat->flatInfo->max_guest}}</li>
-          <li>Numero di stanze: {{$flat->flatInfo->rooms}}</li>
-          <li>Numero di bagni: {{$flat->flatInfo->baths}}</li>
-          @forelse ($flat->services as $service)
-            <li>{{$service->name}}</li>
-          @empty
-            <li></li>
-          @endforelse
-        </ul>
-        <span class="price-box">
-          {{$flat->flatInfo->price}} &euro; 
-        </span>
+        <div class="description-flat">
+          <p class="description-flat-text lead ">{{$flat->flatInfo->description}}</p>
+          <div class="flat-info-row">
+            <ul class="flat-info list-group-flush">
+              <li class="list-group-item"><strong>Metri Quadrati:</strong> {{$flat->flatInfo->square_meters}}</li>
+              <li class="list-group-item"><strong>Limite Ospiti:</strong> {{$flat->flatInfo->max_guest}}</li>
+              <li class="list-group-item"><strong>Numero di stanze:</strong> {{$flat->flatInfo->rooms}}</li>
+              <li class="list-group-item"><strong>Numero di bagni:</strong> {{$flat->flatInfo->baths}}</li>
+            </ul>
+            <ul class="flat-info-services">
+              @forelse ($flat->services as $service)
+                <li><i class="fas fa-check-circle"></i>{{$service->name}}</li>
+              @empty
+                <li></li>
+              @endforelse
+            </ul>
+          </div>
+          <div class="flat-position-info-row hide">
+            <ul class="flat-position-info">
+              <li class="list-group-item">
+                <strong> Indirizzo: </strong>
+                <span class="address-flat">{{$flat->flatInfo->address}}</span>
+              </li>
+              <li class="list-group-item">
+                <strong>città: </strong>
+                <span class="city-flat"> {{$flat->flatInfo->city}}</span>
+              </li>
+              <li class="list-group-item">
+              <strong>Codice-Postale: </strong>
+              <span class="postal_code-flat">{{$flat->flatInfo->postal_code}}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        @if(session()->has('message-success'))
+        <div class="alert alert-success">{{session()->get('message-success')}}</div>
+        @endif
+        <div class="message-box-show col-12 col-md-8 col-lg-6">
+          <form action="{{route('messages.send', ['flat'=>$flat->id])}}" method="post">
+            @csrf
+            <div class="box-row price-border">
+              <span class="price-box">
+                {{$flat->flatInfo->price}} &euro; <small>(per notte)</small> 
+              </span>
+            </div>
+            <div class="box-row">
+              <input type="email" id="sender-email" name="email" placeholder="Inserisci una email..." 
+              @if(Auth::check())
+                value="{{Auth::user()->email}}"
+              @endif>
+            </div>
+            <div class="box-row">
+              <textarea name="message-content" id="message-content" cols="30" rows="10" placeholder="Scrivi un messaggio..."
+              style="height:200px; resize:none;"></textarea>
+            </div>
+            <button type="submit" class="btn "> Invia</button>
+          </form>
+        </div>
       </div>
       
-      <div class="flat-position-info-row">
-        <ul class="flat-position-info list-group ">
-          <li class="list-group-item">
-            <strong> Indirizzo: </strong>
-            <span class="address-flat">{{$flat->flatInfo->address}}</span>
-          </li>
-          <li class="list-group-item">
-            <strong>città: </strong>
-            <span class="city-flat"> {{$flat->flatInfo->city}}</span>
-          </li>
-          <li class="list-group-item">
-          <strong>Codice-Postale: </strong>
-          <span class="postal_code-flat">{{$flat->flatInfo->postal_code}}</span>
-          </li>
-        </ul>
-      </div>
-      <div class="map-container-flat">
+      
+      
+      <div class="map-container-flat col-12">
         {{-- qui andrà renderizzata la mappa --}}
         <div id="map">
          
         </div>
       </div>
-      <form action="{{route('messages.send', ['flat'=>$flat->id])}}" method="post">
-        @csrf
-        <div class="form-group">
-          <label for="sender-email">Email:
-            <input type="email" id="sender-email" name="email" placeholder="Inserisci una email..." 
-            @if(Auth::check())
-              value="{{Auth::user()->email}}"
-            @endif>
-          </label> 
-          <label for="message-content">Messaggio:
-            <textarea name="message-content" id="message-content" cols="30" rows="10" placeholder="Scrivi un messaggio..."
-            style="height:200px; resize:none;"></textarea>
-          </label>
-          <button type="submit" class="btn btn-primary"> Invia</button>
-        </div>
-      </form>
-      @if(session()->has('message-success'))
-      <div class="alert alert-success">{{session()->get('message-success')}}</div>
-      @endif
+      
     </div>
   </div>
 </div>

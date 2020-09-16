@@ -1,9 +1,16 @@
 .flat-container{
   padding:20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  width: 100%;
 
   .image-flat{
+    max-width: 360px;
 
     img {
+      width:100%;
       border-radius: 8px;
       -webkit-border-radius: 8px;
       -moz-border-radius: 8px;
@@ -13,12 +20,117 @@
   }
 
   .title-flat-row{
-    margin:  10px 0 ;
+    margin:  2rem 0 ;
+    width:100%;
+    text-align: left;
+
   }
 
-  /* .description-flat-row{
-  
-  } */
+  .description-flat-row{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width:100%;
+
+    .description-flat{
+      width:100%;
+      .flat-info-row{
+        .flat-info{
+
+          .list-group-item{
+            padding-left: 0 !important;
+          }
+        }
+        .flat-info-services{
+          display: flex;
+          flex-wrap: wrap;
+          list-style: none;
+          padding-inline-start: 0;
+          li{
+            margin-right: 1.5rem;
+
+            i{
+              color: green;
+              margin-right:0.5rem;
+            }
+          }
+        }
+
+      }
+    }
+
+
+    .message-box-show{
+      border: 1px solid rgba(0,0,0,0.4);
+      -webkit-box-shadow: 6px 4px 34px 2px rgba(0,0,0,0.75);
+      -moz-box-shadow: 6px 4px 34px 2px rgba(0,0,0,0.75);
+      box-shadow: 6px 4px 34px 2px rgba(0,0,0,0.75);
+      border-radius: 16px;
+      -webkit-border-radius: 16px;
+      -moz-border-radius: 16px;
+      -ms-border-radius: 16px;
+      -o-border-radius: 16px;
+      padding:1.2rem;
+      margin-top: 2rem;
+
+
+      form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .box-row{
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 1.5rem;
+
+          &.price-border{
+            border-bottom: 1px solid rgba(0,0,0,0.3);
+            width: 233px;
+          }
+
+          .price-box{
+            font-weight: bold;
+            font-size: 2rem;
+            
+            small{
+              font-size: 1.2rem;
+              font-style: italic;
+            }
+          }
+
+          input, textarea{
+            border-radius: 8px;
+            -webkit-border-radius: 8px;
+            -moz-border-radius: 8px;
+            -ms-border-radius: 8px;
+            -o-border-radius: 8px;
+          } 
+
+
+
+          input#sender-email{
+          outline: none;
+          border: 1px solid rgba(0,0,0,0.5);
+          padding: 10px;
+          width:233px;
+          
+          }
+
+          
+        }
+
+        .btn{
+          background-color: $secondary_red;
+          width: 233px;
+          color: white;
+          font-weight: bold;
+        }
+      }
+    }
+  }
   
   .flat-info-row{
 
@@ -33,17 +145,67 @@
 
   }
 
+  .map-container-flat{
+    margin-top:2rem;
+
+    #map{
+      width:100%;
+      border-radius: 16px;
+      -webkit-border-radius: 16px;
+      -moz-border-radius: 16px;
+      -ms-border-radius: 16px;
+      -o-border-radius: 16px;
+}
+  }
 }
 
 
+  @media (min-width:480px){
+
+    .flat-container{
+      
+      .image-flat{
+        max-width:480px;
+      }
+    }
+
+  }
 
 
 
-/* display: grid;
-  grid-template-columns: repeat(2,1fr);
-  grid-template-rows: auto;
-  grid-template-areas: 
-  "img         img"
-  "title       title"
-  "description description"
-  "position    info"; */
+  @media (min-width:780px){
+    .flat-container{
+
+      .image-flat{
+        max-width: 780px;
+      }
+    }
+  }
+
+
+  @media (min-width:1000px){
+
+    .flat-container{
+
+      .image-flat{
+        min-width: 100%;
+        max-width:1200px;
+      }
+
+
+      .description-flat-row{
+        flex-direction: row;
+        align-items: flex-start;
+        
+        .description-flat{
+          margin-right: 2rem;
+          width:50%;
+
+        }
+
+        .message-box-show{
+          margin-top: 0;
+        }
+      }
+    }
+  }

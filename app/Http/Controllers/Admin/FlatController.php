@@ -324,8 +324,8 @@ class FlatController extends Controller
      */
     public function destroy(Flat $flat)
     {
-      $flat=Flat::find($flat)->first();
 
+      $flat=Flat::where('id', $flat->id)->first();
       $flat->delete();
 
       return redirect()->route('admin.flats.index');

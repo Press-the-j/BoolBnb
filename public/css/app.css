@@ -16062,7 +16062,7 @@ input:-webkit-autofill:active {
   position: absolute;
   width: 4.5rem;
   height: 2.5rem;
-  right: 2%;
+  right: 0.7rem;
   top: 20%;
   border-color: #FF4545;
   background-color: #FF7070;
@@ -16170,7 +16170,7 @@ input:-webkit-autofill:active {
   align-items: center;
 }
 
-.card {
+.card-flat {
   align-items: center;
   border: none;
   cursor: pointer;
@@ -16184,11 +16184,11 @@ input:-webkit-autofill:active {
   padding: 1.5rem 0;
 }
 
-.card:first-child {
+.card-flat:first-child {
   border-top: 2px solid rgba(0, 0, 0, 0.2);
 }
 
-.card img {
+.card-flat img {
   width: 250px;
   height: 250px;
   -o-object-fit: cover;
@@ -16200,12 +16200,12 @@ input:-webkit-autofill:active {
   -o-border-radius: 0.5rem;
 }
 
-.card .card-body .services-flat {
+.card-flat .card-body .services-flat {
   display: flex;
   flex-wrap: wrap;
 }
 
-.card .card-body .services-flat .service-flat-container {
+.card-flat .card-body .services-flat .service-flat-container {
   display: flex;
   flex-wrap: nowrap;
   padding: 0 10px 0 0;
@@ -16213,12 +16213,12 @@ input:-webkit-autofill:active {
   width: 51%;
 }
 
-.card .card-body .services-flat .service-flat-container i {
+.card-flat .card-body .services-flat .service-flat-container i {
   color: green;
   margin: 0 1.2rem 0 0;
 }
 
-.card .card-body .services-flat .service-flat-container span {
+.card-flat .card-body .services-flat .service-flat-container span {
   white-space: nowrap;
 }
 
@@ -16228,7 +16228,7 @@ input:-webkit-autofill:active {
 }
 
 @media (min-width: 700px) {
-  .card {
+  .card-flat {
     width: 33rem !important;
     flex-direction: row;
   }
@@ -16257,11 +16257,10 @@ input:-webkit-autofill:active {
   .result-map {
     position: fixed !important;
     right: 1%;
-    top: 21%;
+    top: 20%;
     display: block;
     width: 600px;
     height: 700px;
-    background-color: red;
   }
 }
 
@@ -16279,12 +16278,19 @@ input:-webkit-autofill:active {
 
 .flat-container {
   padding: 20px;
-  /* .description-flat-row{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
 
-  } */
+.flat-container .image-flat {
+  max-width: 360px;
 }
 
 .flat-container .image-flat img {
+  width: 100%;
   border-radius: 8px;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
@@ -16293,7 +16299,105 @@ input:-webkit-autofill:active {
 }
 
 .flat-container .title-flat-row {
-  margin: 10px 0;
+  margin: 2rem 0;
+  width: 100%;
+  text-align: left;
+}
+
+.flat-container .description-flat-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.flat-container .description-flat-row .description-flat {
+  width: 100%;
+}
+
+.flat-container .description-flat-row .description-flat .flat-info-row .flat-info .list-group-item {
+  padding-left: 0 !important;
+}
+
+.flat-container .description-flat-row .description-flat .flat-info-row .flat-info-services {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  -webkit-padding-start: 0;
+          padding-inline-start: 0;
+}
+
+.flat-container .description-flat-row .description-flat .flat-info-row .flat-info-services li {
+  margin-right: 1.5rem;
+}
+
+.flat-container .description-flat-row .description-flat .flat-info-row .flat-info-services li i {
+  color: green;
+  margin-right: 0.5rem;
+}
+
+.flat-container .description-flat-row .message-box-show {
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  box-shadow: 6px 4px 34px 2px rgba(0, 0, 0, 0.75);
+  border-radius: 16px;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  -ms-border-radius: 16px;
+  -o-border-radius: 16px;
+  padding: 1.2rem;
+  margin-top: 2rem;
+}
+
+.flat-container .description-flat-row .message-box-show form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flat-container .description-flat-row .message-box-show form .box-row {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.flat-container .description-flat-row .message-box-show form .box-row.price-border {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  width: 233px;
+}
+
+.flat-container .description-flat-row .message-box-show form .box-row .price-box {
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.flat-container .description-flat-row .message-box-show form .box-row .price-box small {
+  font-size: 1.2rem;
+  font-style: italic;
+}
+
+.flat-container .description-flat-row .message-box-show form .box-row input,
+.flat-container .description-flat-row .message-box-show form .box-row textarea {
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+
+.flat-container .description-flat-row .message-box-show form .box-row input#sender-email {
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  width: 233px;
+}
+
+.flat-container .description-flat-row .message-box-show form .btn {
+  background-color: #FF7070;
+  width: 233px;
+  color: white;
+  font-weight: bold;
 }
 
 .flat-container .flat-info-row .flat-info {
@@ -16305,14 +16409,51 @@ input:-webkit-autofill:active {
   margin: 10px 0;
 }
 
-/* display: grid;
-  grid-template-columns: repeat(2,1fr);
-  grid-template-rows: auto;
-  grid-template-areas: 
-  "img         img"
-  "title       title"
-  "description description"
-  "position    info"; */
+.flat-container .map-container-flat {
+  margin-top: 2rem;
+}
+
+.flat-container .map-container-flat #map {
+  width: 100%;
+  border-radius: 16px;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  -ms-border-radius: 16px;
+  -o-border-radius: 16px;
+}
+
+@media (min-width: 480px) {
+  .flat-container .image-flat {
+    max-width: 480px;
+  }
+}
+
+@media (min-width: 780px) {
+  .flat-container .image-flat {
+    max-width: 780px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .flat-container .image-flat {
+    min-width: 100%;
+    max-width: 1200px;
+  }
+
+  .flat-container .description-flat-row {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .flat-container .description-flat-row .description-flat {
+    margin-right: 2rem;
+    width: 50%;
+  }
+
+  .flat-container .description-flat-row .message-box-show {
+    margin-top: 0;
+  }
+}
 
 .message-box {
   position: relative;

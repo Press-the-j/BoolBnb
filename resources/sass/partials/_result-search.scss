@@ -10,7 +10,7 @@
 
 
 
-.card{
+.card-flat{
   align-items:center;
   border:none;
   cursor: pointer;
@@ -70,7 +70,7 @@
 @media (min-width:700px) {
 
 
-  .card{
+  .card-flat{
     width:33rem !important;
     flex-direction: row;
   
@@ -100,11 +100,10 @@
     .result-map{
       position:fixed !important;
       right:1%;
-      top:21%;
+      top:20%;
       display: block;
       width:600px;
       height:700px;
-      background-color: red;
     }
 }
 
