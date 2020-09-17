@@ -16553,3 +16553,10 @@ input:-webkit-autofill:active {
   width: 500px;
 }
 
+.sidebar-admin {
+  height: calc(100vh - 90.22px);
+  background-color: white;
+  position: fixed;
+  border-right: 1px solid #FF7070;
+}
+

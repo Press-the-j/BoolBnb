@@ -2,7 +2,8 @@
 $body-bg: #f8fafc;
 
 // Typography
-$font-family-sans-serif: 'Nunito', sans-serif;
+$font-family-sans-serif: 'Nunito',
+sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
@@ -21,3 +22,6 @@ $cyan: #6cb2eb;
 
 $primary_red:#FF4545;
 $secondary_red:#FF7070;
+
+
+$sidebar-height: calc(100vh - 90.22px);

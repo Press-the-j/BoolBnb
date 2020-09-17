@@ -19,13 +19,12 @@ Route::get('/flats/{id}', 'FlatController@show')->name('show');
 Route::post('/messages/{flat}', 'MessageController@send')->name('messages.send');
 
 Route::prefix('admin')->namespace('Admin')->name('admin.')->middleware('auth')->group(function () {
-  Route::get('/promotion/{flat}', 'PromotionController@transaction' )->name('promotion.transaction');
+  Route::get('/promotion/{flat}', 'PromotionController@transaction')->name('promotion.transaction');
   Route::post('/promotion/process/{flat}', 'PromotionController@process')->name('promotion.process');
   Route::get('/home', 'HomeController@index')->name('home');
   Route::get('/messages/{messageClicked}', 'MessageController@index')->name('messages.index');
   Route::resource('/flats', 'FlatController');
-  Route::post('/flat/statistics' , 'FlatController@statistics')->name('flats.statistics');
- 
+  Route::post('/flat/statistics', 'FlatController@statistics')->name('flats.statistics');
 });
 
 
@@ -38,7 +37,6 @@ Route::get('/test', function (Request $request) {
   //$user = Auth::user(); //getting the current logged in user
   $flat = Flat::find(1);
   dd($flat->position->getLat());
- 
 });
 
 Route::get('/tomtom', function () {
