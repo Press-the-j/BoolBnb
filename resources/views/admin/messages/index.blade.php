@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+@include('layouts.dashboard')
 
 <div class="box-message-wrapper">
   <div class="message-received-list">

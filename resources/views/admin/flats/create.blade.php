@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+@include('layouts.dashboard')
 <div class="container">
     <div class="row justify-content-center">
       <form action="{{route('admin.flats.store')}}" method="post"  enctype="multipart/form-data" id="flats-create">

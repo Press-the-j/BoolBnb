@@ -20,6 +20,7 @@ class FlatController extends Controller
 
     public function statistics(Request $request){
       $id=$request['id'];
+     
       $flats=Flat::where('user_id', Auth::id())->get();
       $messageArr=getMessage();
       $allMessages=$messageArr[0];
@@ -28,7 +29,8 @@ class FlatController extends Controller
         'allMessages'=>$allMessages,
         'unreadMessages'=>$unreadMessages,
         'flats'=> $flats,
-        'id'=>$id
+        'id'=>$id,
+        
       ];
     
       //$views=View::where('flat_id', $fla)
@@ -47,6 +49,7 @@ class FlatController extends Controller
     {
         $flats=Flat::where('is_promoted', 0)->where('user_id', Auth::id())->get();
         $flatsPromoted=Flat::where('is_promoted', 1)->where('user_id', Auth::id())->get();
+        $services=Service::all();
         $messageArr=getMessage();
         $allMessages=$messageArr[0];
         $unreadMessages=$messageArr[1];
@@ -54,7 +57,8 @@ class FlatController extends Controller
           'allMessages'=>$allMessages,
           'unreadMessages'=>$unreadMessages,
           'flats'=>$flats,
-          'flatsPromoted'=>$flatsPromoted
+          'flatsPromoted'=>$flatsPromoted,
+          'services'=>$services
         ];
         return view('admin.flats.index', $data);
     }
@@ -241,10 +245,27 @@ class FlatController extends Controller
         ]);
 
         $data=$request->all();
+        $flatToUpdate = Flat::where('id', $flat->id)->first();
+        $titleData=Str::of($data["title"])->slug('-');
+        $titleFlat=Str::of($flatToUpdate->title)->slug('-');
         
-        $slugTemp=Str::of($data['title'])->slug('-');
+        if($titleData != $titleFlat ){
+          
+          $slugTemp=Str::of($data['title'])->slug('-');
+          $slug = update_control_slug($slugTemp, $flat);
+          $newSlug=[
+            "slug"=>$slug
+          ];
+          $flatToUpdate->update($newSlug);
+        }
+        
+        
+        
+        
+          
+    
 
-        $slug = update_control_slug($slugTemp, $flat) ;
+
         
         /* $count=0;
         $foundTitle=Flat::where('slug', $slug)->first();
@@ -259,7 +280,7 @@ class FlatController extends Controller
         $data['position'] = new Point($data['lat'],$data['long'] );
 
         
-        $flatToUpdate = Flat::where('id', $flat->id)->first();
+       
     
         
         $flatInfoToUpdate= FlatInfo::where('flat_id', $flatToUpdate->id)->first();
@@ -276,7 +297,6 @@ class FlatController extends Controller
           'user_id' =>Auth::id(),
           'title'=> $data['title'],
           'position'=>$data['position'],
-          'slug'=>$slug,
           'is_hidden'=>$data['is_hidden']
         ];
         $flatToUpdate->update($dataFlatToUpdate);

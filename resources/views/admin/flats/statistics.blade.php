@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+@include('layouts.dashboard')
 
 <div class="container">
   <div class="row">

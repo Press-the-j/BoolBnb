@@ -1,0 +1,9 @@
+.flat-container{
+  display:flex;
+  flex-direction: column;
+
+  .container-flat-index{
+    display: flex;
+    flex-direction: column;
+  }
+}

@@ -28,7 +28,7 @@
 
         </ul>
         <div>
-            <a href="" class="btn btn-warning">Crea un Nuovo Appartamento</a>
+            <a href="{{route('admin.flats.create')}}" class="btn btn-warning">Crea un Nuovo Appartamento</a>
         </div>
     </div>
 </nav>
