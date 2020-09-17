@@ -245,27 +245,28 @@ class FlatController extends Controller
         ]);
 
         $data=$request->all();
-        $flatToUpdate = Flat::where('id', $flat->id)->first();
-        $titleData=Str::of($data["title"])->slug('-');
+        $slug = Str::of($data['title'])->slug('-');
+        /* $titleData=Str::of($data["title"])->slug('-');
         $titleFlat=Str::of($flatToUpdate->title)->slug('-');
         
-        if($titleData != $titleFlat ){
+        if($titleData != $titleFlat ){ */
+        
+        $foundSlug = Flat::where('slug', $slug)->first();
+        $count = 0;
+        $slug_primary = $slug;
           
-          $slugTemp=Str::of($data['title'])->slug('-');
-          $slug = update_control_slug($slugTemp, $flat);
-          $newSlug=[
-            "slug"=>$slug
-          ];
-          $flatToUpdate->update($newSlug);
+        while ($foundSlug && $foundSlug->id != $flat->id ) {
+          $count++;
+          $slug = $slug_primary . '-' . $count ;
+          $foundSlug = Flat::where('slug', $slug)->first();
         }
-        
-        
-        
-        
           
-    
-
-
+        
+        
+        
+        $flatToUpdate = Flat::where('id', $flat->id)->first();
+        
+        
         
         /* $count=0;
         $foundTitle=Flat::where('slug', $slug)->first();
@@ -297,8 +298,11 @@ class FlatController extends Controller
           'user_id' =>Auth::id(),
           'title'=> $data['title'],
           'position'=>$data['position'],
+          'slug'=>$slug,
           'is_hidden'=>$data['is_hidden']
         ];
+       
+
         $flatToUpdate->update($dataFlatToUpdate);
         $flatToUpdateId=$flatToUpdate->id;
         

@@ -32,7 +32,7 @@ function update_control_slug($slug, $flat)
     $counter = 0;
     //se c'e' tramite un contatore aggiunto 1 allo slug corrente
     //!controllo anche che lo slug gia esistente non sia quello del Flat che sto editando
-    while ($findSlug && $findSlug->id == $flat->id) {
+    while ($findSlug && $findSlug->id != $flat->id) {
         $counter++;
         $newSlug = $originalSlug . '-' . $counter;
         //rifaccio il controllo fino a quando non lo trovo piu
