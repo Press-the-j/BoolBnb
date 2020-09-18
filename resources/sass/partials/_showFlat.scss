@@ -158,6 +158,39 @@
 }
   }
 }
+/* ---------------------------------------da qui partiamo per lo show dell'admin---- */
+
+  .cta-show-admin{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+   
+    
+    .btn, .alert{
+      margin-right: 1.5rem;
+    }
+
+    .btn-cta{
+      background-color: $secondary_red;
+      color: white;
+      font-weight: bold;
+     
+    }
+  }
+
+  .flat-position-info-row{
+    width:50%;
+    .price-box{
+      margin-top:2rem;
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: bold;
+
+      small{
+        font-style: italic;
+      }
+    }
+  }
 
 
   @media (min-width:480px){
@@ -180,6 +213,11 @@
         max-width: 780px;
       }
     }
+
+    .cta-show-admin{
+      align-self: flex-end;
+      text-align: right;
+    } 
   }
 
 

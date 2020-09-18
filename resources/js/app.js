@@ -17,8 +17,10 @@ if($("#search-input").length){
 
 
 if ($("#map").length) {
+    
     let lat = $(".lat").text();
     let lon = $(".lon").text();
+    
     let address = $(".address-flat").text();
     let city = $(".city-flat").text();
     let postalCode = $(".postal_code-flat").text();
@@ -290,7 +292,8 @@ function createCard(flat) {
         cardFlat.setAttribute("style", "width: 18rem;");
         cardFlat.addEventListener('click',function(){
           ajaxSetView(flat.id)
-          ajaxShowFlat(flat.id)
+          let url ='/flats/' + flat.id;
+          ajaxShowFlat(url)
         })
     let cardImage = document.createElement("img");
         cardImage.classList.add("card-img-top");
@@ -350,8 +353,8 @@ function createCard(flat) {
     return cardFlat;
 }
 
-function ajaxShowFlat(id){
-  let url ='/flats/' + id;
+function ajaxShowFlat(url){
+  
   $.ajax({
     url: url,
     method: "GET",
@@ -363,6 +366,13 @@ function ajaxShowFlat(id){
     }
 });
 }
+
+
+$(".card-flat-admin").on('click', function(){
+  let id= $(this).data("id")
+  let url = window.location.origin + '/admin/flats/' + id
+  ajaxShowFlat(url)
+})
 
 //funzione per trovare radiante delle coordinate
 function getRadius(lat1, lat2, lon1, lon2) {

@@ -15903,6 +15903,12 @@ input:-webkit-autofill:active {
   box-shadow: 0 0 1rem rgba(255, 110, 110, 0.25);
 }
 
+@media (min-width: 770px) {
+  .container-admin {
+    padding-left: 20%;
+  }
+}
+
 .register-container {
   background: white;
   min-height: 450px;
@@ -16422,6 +16428,40 @@ input:-webkit-autofill:active {
   -o-border-radius: 16px;
 }
 
+/* ---------------------------------------da qui partiamo per lo show dell'admin---- */
+
+.cta-show-admin {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.cta-show-admin .btn,
+.cta-show-admin .alert {
+  margin-right: 1.5rem;
+}
+
+.cta-show-admin .btn-cta {
+  background-color: #FF7070;
+  color: white;
+  font-weight: bold;
+}
+
+.flat-position-info-row {
+  width: 50%;
+}
+
+.flat-position-info-row .price-box {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.flat-position-info-row .price-box small {
+  font-style: italic;
+}
+
 @media (min-width: 480px) {
   .flat-container .image-flat {
     max-width: 480px;
@@ -16431,6 +16471,11 @@ input:-webkit-autofill:active {
 @media (min-width: 780px) {
   .flat-container .image-flat {
     max-width: 780px;
+  }
+
+  .cta-show-admin {
+    align-self: flex-end;
+    text-align: right;
   }
 }
 
@@ -16558,5 +16603,6 @@ input:-webkit-autofill:active {
   background-color: white;
   position: fixed;
   border-right: 1px solid #FF7070;
+  max-width: 20% !important;
 }
 

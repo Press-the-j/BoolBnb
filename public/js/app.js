@@ -85109,7 +85109,7 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(process) {var _require = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"),
+var _require = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"),
     cleanData = _require.cleanData;
 
 var Chart = __webpack_require__(/*! chart.js */ "./node_modules/chart.js/dist/Chart.js");
@@ -85122,8 +85122,8 @@ __webpack_require__(/*! ./validation.js */ "./resources/js/validation.js");
 
 if ($("#search-input").length) {
   var placesAutocomplete = places({
-    appId: process.env.MIX_APP_ID,
-    apiKey: process.env.MIX_API_KEY,
+    appId: "pl7QEUHBIWGV",
+    apiKey: "bc57f2fb92b40eb8a458abd86c2b3402",
     container: document.querySelector('#search-input')
   });
 }
@@ -85136,7 +85136,7 @@ if ($("#map").length) {
   var postalCode = $(".postal_code-flat").text();
   var coordinates = [lon, lat];
   var map = tt.map({
-    key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
+    key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
     container: "map",
     style: "tomtom://vector/1/basic-main",
     center: coordinates,
@@ -85222,7 +85222,7 @@ $("#submit-search").on('click', function () {
     url: "https://api.tomtom.com/search/2/search/" + address + ".JSON",
     method: "GET",
     data: {
-      key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
+      key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
       countrySet: "IT"
     },
     success: function success(object) {
@@ -85325,7 +85325,7 @@ function renderMap(lat, lon, flats, range) {
   }
 
   var map = tt.map({
-    key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
+    key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
     container: "map-index",
     style: "tomtom://vector/1/basic-main",
     center: coordinates,
@@ -85387,7 +85387,8 @@ function createCard(flat) {
   cardFlat.setAttribute("style", "width: 18rem;");
   cardFlat.addEventListener('click', function () {
     ajaxSetView(flat.id);
-    ajaxShowFlat(flat.id);
+    var url = '/flats/' + flat.id;
+    ajaxShowFlat(url);
   });
   var cardImage = document.createElement("img");
   cardImage.classList.add("card-img-top");
@@ -85437,8 +85438,7 @@ function createCard(flat) {
   return cardFlat;
 }
 
-function ajaxShowFlat(id) {
-  var url = '/flats/' + id;
+function ajaxShowFlat(url) {
   $.ajax({
     url: url,
     method: "GET",
@@ -85449,8 +85449,13 @@ function ajaxShowFlat(id) {
       console.log(err);
     }
   });
-} //funzione per trovare radiante delle coordinate
+}
 
+$(".card-flat-admin").on('click', function () {
+  var id = $(this).data("id");
+  var url = window.location.origin + '/admin/flats/' + id;
+  ajaxShowFlat(url);
+}); //funzione per trovare radiante delle coordinate
 
 function getRadius(lat1, lat2, lon1, lon2) {
   Number.prototype.toRad = function () {
@@ -85481,7 +85486,7 @@ $("#geocoding").click(function (event) {
     url: "https://api.tomtom.com/search/2/search/" + address + ".JSON",
     method: "GET",
     data: {
-      key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
+      key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
       countrySet: "IT"
     },
     success: function success(object) {
@@ -85503,7 +85508,7 @@ $("#submit-create ").click(function (event) {
     url: "https://api.tomtom.com/search/2/search/" + address + ".JSON",
     method: "GET",
     data: {
-      key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
+      key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
       countrySet: "IT"
     },
     success: function success(data) {
@@ -85529,7 +85534,7 @@ $("#submit-edit").click(function (event) {
     url: "https://api.tomtom.com/search/2/search/" + address + ".JSON",
     method: "GET",
     data: {
-      key: "zCzh7nGD2fxwoAHG7bd6QyO8HHEv8VBU",
+      key: "em6Ifljz8kjAQocstVeiTGN1Quch5kAq",
       countrySet: "IT"
     },
     success: function success(data) {
@@ -85669,7 +85674,6 @@ function makeWeeklyChart(dataObj) {
     }
   });
 }
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/process/browser.js */ "./node_modules/process/browser.js")))
 
 /***/ }),
 
@@ -85785,8 +85789,8 @@ function setInputFilter(textbox, inputFilter) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\MAMP\htdocs\boolean-php\BoolBnb\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\MAMP\htdocs\boolean-php\BoolBnb\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\MAMP\htdocs\boolbnb\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\MAMP\htdocs\boolbnb\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ }),
