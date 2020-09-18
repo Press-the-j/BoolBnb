@@ -9,7 +9,7 @@
       <div class="promotedFlat ">
         <div class="promotedFlat-container container-flat-index">
           @forelse ($flatsPromoted as $flatPromoted)
-          <div class="card card-flat card-flat-admin" data-lat="{{$flatPromoted->position->getLat()}}" data-lon="{{$flatPromoted->position->getLng()}}" data-id="{{$flatPromoted->id}}" style="width: 18rem;">
+          <div class="card card-flat card-flat-admin card-promoted" data-lat="{{$flatPromoted->position->getLat()}}" data-lon="{{$flatPromoted->position->getLng()}}" data-id="{{$flatPromoted->id}}" style="width: 18rem;">
             <img class="card-img-top" src="
             @if ($flatPromoted->flatInfo->image_path)
                 {{asset('storage/' . $flatPromoted->flatInfo->image_path)}}
@@ -22,7 +22,7 @@
               <div class="services-flat">
                 @forelse ($services as $service)
                   
-                  @if ($flat->services->contains($service))
+                  @if ($flatPromoted->services->contains($service))
                 <div class="service-flat-container">
                     <i class="fas fa-check-circle"></i><span>{{$service->name}}</span>
                 </div>

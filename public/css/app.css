@@ -15905,7 +15905,7 @@ input:-webkit-autofill:active {
 
 @media (min-width: 770px) {
   .container-admin {
-    padding-left: 20%;
+    padding-left: 23%;
   }
 }
 
@@ -16176,6 +16176,25 @@ input:-webkit-autofill:active {
   align-items: center;
 }
 
+.row-alert {
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+.not-result,
+.not-location {
+  margin-top: 200px;
+  text-align: center;
+  transform: translateX(14px);
+  display: none;
+}
+
+.not-result.active,
+.not-location.active {
+  display: block;
+}
+
 .card-flat {
   align-items: center;
   border: none;
@@ -16192,6 +16211,11 @@ input:-webkit-autofill:active {
 
 .card-flat:first-child {
   border-top: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+.card-flat.card-promoted {
+  border: 3px solid #ebb400;
+  border-radius: 8px;
 }
 
 .card-flat img {
@@ -16500,6 +16524,28 @@ input:-webkit-autofill:active {
   }
 }
 
+.btn-edit,
+.btn-create {
+  width: 100%;
+  background-color: #FF7070;
+  color: white;
+  font-weight: bold;
+}
+
+.check-services {
+  flex-wrap: wrap;
+}
+
+.hidden-flat {
+  background-color: #FF7070;
+  border-radius: 16px;
+  padding: 5px;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  align-self: flex-end;
+}
+
 .message-box {
   position: relative;
 }
@@ -16603,6 +16649,20 @@ input:-webkit-autofill:active {
   background-color: white;
   position: fixed;
   border-right: 1px solid #FF7070;
-  max-width: 20% !important;
+  max-width: 23% !important;
+  padding-top: 2rem;
+}
+
+.sidebar-admin .nav-item .nav-link {
+  color: black;
+}
+
+.sidebar-admin .list-group-item {
+  white-space: nowrap;
+  padding-left: 0;
+}
+
+.sidebar-admin .btn-sidebar {
+  white-space: nowrap;
 }
 

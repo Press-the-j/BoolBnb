@@ -23,9 +23,8 @@
         </span>
       </div>
       @endif
-      <form action="{{route('admin.flats.statistics')}}" method="post">
+      <form action="{{route('admin.flats.statistics')}}" method="get">
         @csrf
-        @method('POST')
         <div class="form-group">
         <input type="hidden" name="id" value="{{$flat->id}}">
           <button type="submit" class="btn btn-cta" > Guarda le statistiche</button>

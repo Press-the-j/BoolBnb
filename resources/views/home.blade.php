@@ -42,13 +42,19 @@
           </div>
         </div>
       </div>
-      <div class="alert alert-danger hide">Purtroppo non è stato trovato nessun luogo con quel nome</div>
+     
     </div>
   </div>
 </div>
 <input type="hidden" class="hidden-auth" value="{{Auth::check() ? Auth::id() : 'guest' }}">
-<div class="container-fluid flat-searched-container hide">
+
+<div class="container-fluid flat-searched-container ">
+  <div class="row col-12 row-alert">
+    <div class="alert not-location  alert-danger col-12 ">Purtroppo non è stato trovato nessun luogo con quel nome</div>
+    <div class="not-result  alert alert-danger  col-12">Nessun appartamento trovato in zona <span class="location-searched"></span></div>
+  </div>
   <div class="result-search">
+    
     <div class="result-promoted"></div>
     <div class="result-not-promoted"></div>
   </div>

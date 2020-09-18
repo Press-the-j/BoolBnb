@@ -2,7 +2,7 @@
 
 @section('content')
 @include('layouts.dashboard')
-<div class="container">
+<div class="container container-admin">
     <div class="row justify-content-center">
       <form action="{{route('admin.flats.store')}}" method="post"  enctype="multipart/form-data" id="flats-create">
         @csrf
@@ -39,57 +39,66 @@
               <small class="text-danger">{{ $message }}</small>
           @enderror
         </div>
-        <div class="form-group">
-          <label for="postal_code-create">Codice Postale:</label>
-          <input name="postal_code" type="text" class="form-control postal_code-input" id="postal_code-create" value="{{old("postal_code")}}">
-          @error('postal_code')
-              <small class="text-danger">{{ $message }}</small>
-          @enderror
+        <div class="row">
+          <div class="form-group col-6">
+            <label for="postal_code-create">Codice Postale:</label>
+            <input name="postal_code" type="text" class="form-control postal_code-input" id="postal_code-create" value="{{old("postal_code")}}">
+            @error('postal_code')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
+          </div>
+          <div class="form-group col-6">
+            <label for="square_meters-create">Metri quadrati:</label>
+            <input name="square_meters" type="text" class="form-control square_meters-input" id="square_meters-create" value="{{old("square_meters")}}">
+            @error('square_meters')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
+          </div>
         </div>
-        <div class="form-group">
-          <label for="square_meters-create">Metri quadrati:</label>
-          <input name="square_meters" type="text" class="form-control square_meters-input" id="square_meters-create" value="{{old("square_meters")}}">
-          @error('square_meters')
-              <small class="text-danger">{{ $message }}</small>
-          @enderror
+        <div class="row">
+          <div class="form-group col-6">
+            <label for="price-create">Prezzo per notte:</label>
+            <input name="price" type="text" class="form-control price-input" id="price-create" value="{{old("price")}}">
+            @error('price')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
+          </div>
+          <div class="form-group col-6">
+            <label for="max_guest-create">Ospiti Max:</label>
+            <input name="max_guest" type="text" class="form-control max_guest-input" id="max_guest-create" value="{{old("max_guest")}}">
+            @error('max_guest')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
+          </div>
         </div>
-        <div class="form-group">
-          <label for="price-create">Prezzo per notte:</label>
-          <input name="price" type="text" class="form-control price-input" id="price-create" value="{{old("price")}}">
-          @error('price')
-              <small class="text-danger">{{ $message }}</small>
-          @enderror
+        <div class="row">
+          <div class="form-group col-6">
+            <label for="rooms-create">Numero di stanze:</label>
+            <input name="rooms" type="text" class="form-control rooms-input" id="rooms-create" value="{{old("rooms")}}">
+            @error('rooms')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
+          </div>
+          <div class="form-group col-6">
+            <label for="baths-create">Numero di bagni:</label>
+            <input name="baths" type="text" class="form-control baths-input" id="baths-create" value="{{old("baths")}}">
+            @error('baths')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
+          </div>
         </div>
-        <div class="form-group">
-          <label for="max_guest-create">Ospiti Max:</label>
-          <input name="max_guest" type="text" class="form-control max_guest-input" id="max_guest-create" value="{{old("max_guest")}}">
-          @error('max_guest')
-              <small class="text-danger">{{ $message }}</small>
-          @enderror
-        </div>
-        <div class="form-group">
-          <label for="rooms-create">Numero di stanze:</label>
-          <input name="rooms" type="text" class="form-control rooms-input" id="rooms-create" value="{{old("rooms")}}">
-          @error('rooms')
-              <small class="text-danger">{{ $message }}</small>
-          @enderror
-        </div>
-        <div class="form-group">
-          <label for="baths-create">Numero di bagni:</label>
-          <input name="baths" type="text" class="form-control baths-input" id="baths-create" value="{{old("baths")}}">
-          @error('baths')
-              <small class="text-danger">{{ $message }}</small>
-          @enderror
-        </div>
-        <div class="form-group">
+        <div class="check-services d-flex">
           @foreach ($services as $service)
-          <input type="checkbox" value="{{$service->id}}" name="services[]" id="{{$service->name}}" {{in_array($service->id, old("services", [])) ? "checked" : ''}}>
-          <label for="{{$service->name}}">{{$service->name}}</label>
+            <div class="form-group d-inline">
+              <input type="checkbox" value="{{$service->id}}" name="services[]" id="{{$service->name}}" {{in_array($service->id, old("services", [])) ? "checked" : ''}}>
+              <label class="mr-3" for="{{$service->name}}">{{$service->name}}</label>
+            </div>
           @endforeach
         </div>
         <input name="lat" type="hidden" value="" id="create-lat">
         <input name="long" type="hidden" value="" id="create-long">
-        <button id="submit-create" type="submit" class="btn btn-primary" >Submit</button>
+        <div ></div>
+        <button id="submit-create" type="submit"class="btn-create btn" >Submit</button>
       </form>
     </div>
 </div>

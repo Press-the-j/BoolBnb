@@ -85110,7 +85110,8 @@ module.exports = function(module) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _require = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"),
-    cleanData = _require.cleanData;
+    cleanData = _require.cleanData,
+    ajax = _require.ajax;
 
 var Chart = __webpack_require__(/*! chart.js */ "./node_modules/chart.js/dist/Chart.js");
 
@@ -85119,6 +85120,18 @@ var places = __webpack_require__(/*! places.js */ "./node_modules/places.js/inde
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! ./validation.js */ "./resources/js/validation.js");
+
+var lastSearch;
+
+if (performance.navigation.type == 2) {
+  var backSearch = localStorage.getItem("search");
+  console.log(backSearch);
+
+  if (window.location.href == window.location.origin + "/") {
+    $("#search-input").val(backSearch);
+    ajaxSearch(backSearch);
+  }
+}
 
 if ($("#search-input").length) {
   var placesAutocomplete = places({
@@ -85213,11 +85226,21 @@ $("#radius-range").on('change', function () {
 
 $("#submit-search").on('click', function () {
   var address = $("#search-input").val();
+  lastSearch = localStorage.setItem("search", address);
+  $(".result-promoted").empty();
+  $(".result-not-promoted").empty();
+  $("#map-index").empty();
+  $(".not-result").removeClass("active");
+  $(".not-location").removeClass("active");
 
   if (address.length == 0) {
     return;
   }
 
+  ajaxSearch(address);
+});
+
+function ajaxSearch(address) {
   $.ajax({
     url: "https://api.tomtom.com/search/2/search/" + address + ".JSON",
     method: "GET",
@@ -85228,9 +85251,11 @@ $("#submit-search").on('click', function () {
     success: function success(object) {
       $(".card-flat").addClass("hide");
       var result = object.results;
+      console.log(result);
 
       if (!result[0]) {
-        $(".alert").removeClass("hide");
+        $(".row-alert").removeClass("hide");
+        $(".not-location").addClass("active");
         return;
       } //!Riceviamo latitudine e longitudine a partire dall'inidirizzo cercato
 
@@ -85262,11 +85287,12 @@ $("#submit-search").on('click', function () {
       console.log(err);
     }
   });
-}); //Chiamata Ajax al server per prendere gli appartamenti, richiede:
+} //Chiamata Ajax al server per prendere gli appartamenti, richiede:
 //! Latidutine e longitudine
 //! services = Array con i servizi scelti dall'utente
 //! il range di ricerca
 //! guests = Array con i filtri per numero minimo di stanze, bagni e ospiti
+
 
 function ajaxFlat(lat, lon, services, range, guests) {
   var url = "api/flats"; //console.log(services); //!sono quelli che selezioniamo manualmente
@@ -85300,10 +85326,16 @@ function ajaxFlat(lat, lon, services, range, guests) {
         }
       }
 
-      renderMap(lat, lon, flatsObj, range);
-
-      if ($(".flat-searched-container").hasClass("hide")) {
-        $(".flat-searched-container").removeClass("hide");
+      if ($(".result-promoted").is(":empty") && $(".result-not-promoted").is(":empty")) {
+        $(".row-alert").removeClass("hide");
+        var location = $("#search-input").val();
+        $("#map-index").empty();
+        $(".not-result").addClass("active");
+        $(".location-searched").text(location);
+      } else {
+        $(".not-result").removeClass("active");
+        $(".row-alert").addClass("hide");
+        renderMap(lat, lon, flatsObj, range);
       }
     },
     error: function error(err) {
@@ -85336,6 +85368,18 @@ function renderMap(lat, lon, flats, range) {
   for (var i = 0; i < flats.length; i++) {
     var flatCoordinates = [flats[i].position.coordinates[0], flats[i].position.coordinates[1]];
     var marker = new tt.Marker().setLngLat(flatCoordinates).addTo(map);
+    var popupOffsets = {
+      top: [0, 0],
+      bottom: [0, -70],
+      "bottom-right": [0, -70],
+      "bottom-left": [0, -70],
+      left: [25, -35],
+      right: [-25, -35]
+    };
+    var popup = new tt.Popup({
+      offset: popupOffsets
+    }).setHTML("<a href='/flats/" + flats[i].id + "'>" + flats[i].city + " " + flats[i].address + " " + flats[i].postal_code + "</a>");
+    marker.setPopup(popup).togglePopup();
   }
   /* var marker = new tt.Marker().setLngLat(coordinates).addTo(map);
     var popupOffsets = {
@@ -85355,7 +85399,19 @@ function renderMap(lat, lon, flats, range) {
 
 
 function filterFlat(lat, lon, services, range, flat, guestsObj) {
-  //? se  l'appartamento non ha un servizio richiest, ci ritorna.
+  var flatLat = flat.position.coordinates[1];
+  var flatLon = flat.position.coordinates[0];
+  var distance = getRadius(lat, flatLat, lon, flatLon);
+  console.log(distance + " " + flat.title);
+
+  if (flat.is_promoted == 1) {
+    if (distance <= 100 && flat.is_hidden != 1) {
+      //console.log("passo il secondo" + flat.title);
+      return flat;
+    }
+  } //? se  l'appartamento non ha un servizio richiest, ci ritorna.
+
+
   for (var i = 0; i < services.length; i++) {
     if (!flat.services.includes(services[i])) {
       return;
@@ -85370,10 +85426,6 @@ function filterFlat(lat, lon, services, range, flat, guestsObj) {
   if (flat.max_guest >= minGuests && flat.rooms >= minRooms && flat.baths >= minBaths) {
     //?e se passa il filtro di prima allora facciamo un filtro per distanza;
     //attraverso la funzione getRadius prendiamo la distanza tra il punto ric3ercato e l'appartamneto, se l'appartamento è compreso nel raggio, non deve essere nascosto  ce lo ritorna
-    var flatLat = flat.position.coordinates[1];
-    var flatLon = flat.position.coordinates[0];
-    var distance = getRadius(lat, flatLat, lon, flatLon);
-
     if (distance < range && flat.is_hidden != 1) {
       return flat;
     }
@@ -85384,6 +85436,11 @@ function createCard(flat) {
   console.log(flat);
   var cardFlat = document.createElement("div");
   cardFlat.classList.add("card", "card-flat");
+
+  if (flat.is_promoted == 1) {
+    cardFlat.classList.add("card-promoted");
+  }
+
   cardFlat.setAttribute("style", "width: 18rem;");
   cardFlat.addEventListener('click', function () {
     ajaxSetView(flat.id);
@@ -85418,7 +85475,6 @@ function createCard(flat) {
   content.push("Ospiti: " + flat.max_guest);
   content.push("Stanze: " + flat.rooms);
   content.push("Bagni: " + flat.baths);
-  console.log(content);
   cardText.innerHTML = content.join(',');
   cardBody.appendChild(cardTitle);
   cardBody.appendChild(divServices);

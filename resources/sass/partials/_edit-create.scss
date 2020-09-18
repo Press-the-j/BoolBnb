@@ -1,0 +1,21 @@
+.btn-edit, .btn-create{
+  width:100%;
+  background-color: $secondary_red;
+  color: white;
+  font-weight: bold;
+}
+
+.check-services{
+  flex-wrap: wrap;
+}
+
+.hidden-flat{
+  background-color: $secondary_red;
+  border-radius: 16px;
+  padding: 5px;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  align-self: flex-end;
+  
+}

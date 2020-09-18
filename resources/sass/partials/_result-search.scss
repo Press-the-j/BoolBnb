@@ -7,8 +7,22 @@
 
 }
 
+.row-alert{
+  align-items: center;
+  justify-content: center;
+  padding:0 20px;
+  
+}
+.not-result, .not-location{
+  margin-top:200px;
+  text-align: center;
+  transform: translateX(14px);
+  display:none;
 
-
+  &.active{
+    display:block
+  }
+}
 
 .card-flat{
   align-items:center;
@@ -22,9 +36,15 @@
   -ms-border-radius: 0;
   -o-border-radius: 0;
   padding:1.5rem 0;
+
   
   &:first-child{
     border-top: 2px solid rgba(0,0,0, 0.2);
+  }
+  
+  &.card-promoted{
+    border:3px solid rgb(235, 180, 0) ;
+    border-radius:8px;
   }
 
   img{

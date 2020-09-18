@@ -24,7 +24,8 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->middleware('auth')->
   Route::get('/home', 'HomeController@index')->name('home');
   Route::get('/messages/{messageClicked}', 'MessageController@index')->name('messages.index');
   Route::resource('/flats', 'FlatController');
-  Route::post('/flat/statistics', 'FlatController@statistics')->name('flats.statistics');
+  Route::get('/flat/statistics', 'FlatController@statistics')->name('flats.statistics');
+  
 });
 
 
