@@ -9,9 +9,14 @@
       <span class="lon hide">{{$lon}}</span>
     </div>
 
-    <div class="flat-container" >
+
+
+    <div class="flat-container">
+      @if(session()->has('message-success'))
+      <div class="alert alert-success col-12 d-flex justify-content-center">{{session()->get('message-success')}}</div>
+      @endif
       <div class="image-flat">
-        <img class="img-fluid"src="
+        <img class="img-fluid" src="
         @if ($flat->flatInfo->image_path)
           {{asset('storage/' . $flat->flatInfo->image_path)}}
         @else
@@ -34,9 +39,9 @@
             </ul>
             <ul class="flat-info-services">
               @forelse ($flat->services as $service)
-                <li><i class="fas fa-check-circle"></i>{{$service->name}}</li>
+              <li><i class="fas fa-check-circle"></i>{{$service->name}}</li>
               @empty
-                <li></li>
+              <li></li>
               @endforelse
             </ul>
           </div>
@@ -51,47 +56,43 @@
                 <span class="city-flat"> {{$flat->flatInfo->city}}</span>
               </li>
               <li class="list-group-item">
-              <strong>Codice-Postale: </strong>
-              <span class="postal_code-flat">{{$flat->flatInfo->postal_code}}</span>
+                <strong>Codice-Postale: </strong>
+                <span class="postal_code-flat">{{$flat->flatInfo->postal_code}}</span>
               </li>
             </ul>
           </div>
         </div>
-        @if(session()->has('message-success'))
-        <div class="alert alert-success">{{session()->get('message-success')}}</div>
-        @endif
+
         <div class="message-box-show col-12 col-md-8 col-lg-6">
           <form action="{{route('messages.send', ['flat'=>$flat->id])}}" method="post">
             @csrf
             <div class="box-row price-border">
               <span class="price-box">
-                {{$flat->flatInfo->price}} &euro; <small>(per notte)</small> 
+                {{$flat->flatInfo->price}} &euro; <small>(per notte)</small>
               </span>
             </div>
             <div class="box-row">
-              <input type="email" id="sender-email" name="email" placeholder="Inserisci una email..." 
-              @if(Auth::check())
-                value="{{Auth::user()->email}}"
-              @endif>
+              <input type="email" id="sender-email" name="email" placeholder="Inserisci una email..." @if(Auth::check())
+                value="{{Auth::user()->email}}" @endif>
             </div>
             <div class="box-row">
-              <textarea name="message-content" id="message-content" cols="30" rows="10" placeholder="Scrivi un messaggio..."
-              style="height:200px; resize:none;"></textarea>
+              <textarea name="message-content" id="message-content" cols="30" rows="10"
+                placeholder="Scrivi un messaggio..." style="height:200px; resize:none;"></textarea>
             </div>
             <button type="submit" class="btn "> Invia</button>
           </form>
         </div>
       </div>
-      
-      
-      
+
+
+
       <div class="map-container-flat col-12">
         {{-- qui andrà renderizzata la mappa --}}
         <div id="map">
-         
+
         </div>
       </div>
-      
+
     </div>
   </div>
 </div>

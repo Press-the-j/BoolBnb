@@ -15922,6 +15922,7 @@ input:-webkit-autofill:active {
 
 .register-container h1 {
   background-color: white;
+  color: #FF7070;
 }
 
 .register-container form {
@@ -15941,7 +15942,7 @@ input:-webkit-autofill:active {
   height: 45px;
   border-radius: 50px;
   padding: 0 10px;
-  color: #6c757d;
+  color: #6c757d !important;
   font-size: 15px;
   text-align: center;
 }
@@ -15971,6 +15972,70 @@ input:-webkit-autofill:active {
   border-top: 0px;
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;
+}
+
+.login-container {
+  background: white;
+  min-height: 450px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0px 1px 11px -5px rgba(0, 0, 0, 0.3);
+}
+
+.login-container form {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+}
+
+.login-container .title {
+  color: #FF7070;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.login-container input[type=email],
+.login-container input[type=password] {
+  width: 250px;
+  border: none;
+  background: #eeeeee;
+  height: 45px;
+  border-radius: 50px;
+  padding: 0 10px;
+  color: #3f3f3f;
+  font-size: 15px;
+  text-align: center;
+}
+
+.login-container button {
+  width: 75px;
+  height: 45px;
+  background: #FF7070;
+  border: none;
+  border-radius: 50px;
+  color: white;
+  font-weight: 600;
+}
+
+.login-container button:hover {
+  background: red;
+  transform: scale(1.08);
+}
+
+.login-container a {
+  color: #FF7070;
+}
+
+.login-container a:hover {
+  color: #FF7070;
+  transform: scale(1.05);
+  text-decoration: none;
 }
 
 .navbar-nav {

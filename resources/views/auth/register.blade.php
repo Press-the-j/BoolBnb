@@ -8,14 +8,14 @@
                 <h1 class="card-header">{{ __('Register') }}</h1>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form autocomplete="off" method="POST" action="{{ route('register') }}">
                         @csrf
 
                         <div class="form-group row">
 
                             <div class="col-md-12">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                                    name="name" value="{{ old('name') }}" required autocomplete="name" autofocus
+                                    name="name" value="{{ old('name') }}" required autocomplete="new-name" autofocus
                                     placeholder="Nome">
 
                                 @error('name')
@@ -30,7 +30,7 @@
                             <div class="col-md-12">
                                 <input id="surname" type="text"
                                     class="form-control @error('surname') is-invalid @enderror" name="surname"
-                                    value="{{ old('surname') }}" required autocomplete="surname" autofocus
+                                    value="{{ old('surname') }}" required autocomplete="new-surname" autofocus
                                     placeholder="Cognome">
 
                                 @error('surname')
@@ -45,7 +45,7 @@
                             <div class="col-md-12">
                                 <input id="date_birth" type="date"
                                     class="form-control @error('date_birth') is-invalid @enderror" name="date_birth"
-                                    value="{{ old('date_birth') }}" required autocomplete="date_birth" autofocus
+                                    value="{{ old('date_birth') }}" required autocomplete="new-date_birth" autofocus
                                     placeholder="Data di Nascita*">
 
                                 @error('date_birth')
@@ -75,7 +75,7 @@
 
                             <div class="col-md-12">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                                    name="email" value="{{ old('email') }}" required autocomplete="email"
+                                    name="email" value="{{ old('email') }}" required autocomplete="new-email"
                                     placeholder="Indirizzo E-Mail*">
 
                                 @error('email')
