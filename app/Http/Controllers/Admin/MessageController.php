@@ -10,10 +10,19 @@ use App\Message;
 
 class MessageController extends Controller
 {
-  public function index(Message $messageClicked){
+  public function index(){
   
-  
-  $flats=Auth::user()->flats;
+    $messageArr=getMessage();
+    $allMessages=$messageArr[0];
+    $unreadMessages=$messageArr[1];
+    $idClicked='';
+    
+    return view('admin.messages.index', compact('allMessages', 'unreadMessages', 'idClicked'));
+  }
+
+
+  public function clickMessage(Message $messageClicked){
+    $flats=Auth::user()->flats;
   //$allMessages=[];
   $idClicked=$messageClicked->id;
   
@@ -45,4 +54,14 @@ class MessageController extends Controller
   
   return view('admin.messages.index', compact('allMessages', 'idClicked', 'unreadMessages'));
   }
+
+  public function delete($id) {
+    $message=Message::where('id', $id)->first();
+
+    $message->delete();
+
+    return redirect()->route('admin.messages');
+
+  }
+
 }

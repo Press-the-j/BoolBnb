@@ -21,6 +21,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
 
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
     {{-- tom tom CDN --}}
     <link rel='stylesheet' type='text/css' href='https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/5.64.0/maps/maps.css'>
     <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/5.64.0/maps/maps-web.min.js'></script>
@@ -66,7 +67,8 @@
                   @endauth
                   <div class="dropdown">
                     <button class="btn btn-secondary dropdown-navbar dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-bars"></i><img src="{{asset('img/default.jpeg')}}" alt="">
+                    <i class="fas fa-bars"></i><img src="
+                    {{asset('img/default.jpeg')}}" alt="">
                     </button>
                     <div class="dropdown-menu cta-dropdown-header" aria-labelledby="dropdownMenuButton">
                       @guest
@@ -75,9 +77,12 @@
                         <a class="dropdown-item" href="{{route("register")}}">{{__("Register")}}</a>
                         @endif
                       @else
-                      <a class="dropdown-item" href="{{route("admin.home")}}" >Profilo</a>
+                      
+                      <a class="dropdown-item text-uppercase" href="{{route("admin.home")}}" > <strong>{{Auth::user()->name}}</strong></a>
+                      <hr>
                       <a class="dropdown-item" href="{{route("admin.flats.index")}}" >Tutti i tuoi appartamenti</a>
-                      <a class="dropdown-item" href="{{route("admin.messages.index", ["messageClicked"=>1])}}">Tutti i messaggi</a>
+                      <a class="dropdown-item" href="{{route("admin.messages")}}">Tutti i messaggi</a>
+                      <a class="dropdown-item" href="{{route("admin.flats.statistics")}}" >Statistiche</a>
                       <hr>
                       {{-- logout form --}}
                       <a class="dropdown-item " href="{{ route('logout') }}"                                 onclick="event.preventDefault();

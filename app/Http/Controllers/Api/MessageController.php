@@ -20,4 +20,7 @@ class MessageController extends Controller
           'message' => 'Data inserted successfully'
         ]);
     }
+
+
+    
 }

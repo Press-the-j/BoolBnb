@@ -48,37 +48,50 @@
 
 
 .box-message-wrapper{
-  background-color: rgb(248, 222, 222);
+  background-color: rgb(139, 138, 138);
   height:600px;
-
+  margin-top:2rem;
   .message-received-list{
     height:100%;
     overflow-y: auto;
     background-color: snow;
+    border: 1px solid rgba(0, 0, 0, 0.397);
 
+   
+    
     .message-row-title{
+      display:flex;
+      justify-content: space-between;
+      align-items: center;
       height:3rem;
+      padding: 1.5rem;
+      border: 1px solid rgba(0, 0, 0, 0.247);
       
       &.unread{
         background-color: rgb(231, 144, 144);
       }
       &.selected{
-        background-color: rgb(139, 138, 138);
+        background-color: rgba(139, 138, 138, 0.377);
       }
 
     }
 
     .message-row-content{
-      background-color: tomato;
+      padding :1rem;
+      .message-row-content-email{
+        border-bottom: 1px solid rgba(0, 0, 0, 0.404);
+      }
     }
   }
+
+
 }
 
 
 @media (min-width:770px){
 
   .box-message-wrapper{
-    background-color: rgb(248, 222, 222);
+    background-color:rgb(139, 138, 138);
     display:flex;
     .message-received-list{
       width:40%;
@@ -86,17 +99,25 @@
 
     .message-received-box{
       width:60%;
-      background-color: tomato;
+      background-color:#FFFAFA;
       position:relative;
+      border: 1px solid rgba(0, 0, 0, 0.404);
+      padding:2rem;
 
       .message-received-content{
         position: absolute;
         display:none;
+        width:100%;
 
         &.active{
           display:block;
         }
 
+        .message-received-content-email{
+          width: 80%;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.404);
+         
+        }
       }
     }
   }

@@ -19,10 +19,13 @@ Route::get('/flats/{id}', 'FlatController@show')->name('show');
 Route::post('/messages/{flat}', 'MessageController@send')->name('messages.send');
 
 Route::prefix('admin')->namespace('Admin')->name('admin.')->middleware('auth')->group(function () {
+  Route::put('/update', 'UserController@update')->name('user.update');
   Route::get('/promotion/{flat}', 'PromotionController@transaction')->name('promotion.transaction');
   Route::post('/promotion/process/{flat}', 'PromotionController@process')->name('promotion.process');
   Route::get('/home', 'HomeController@index')->name('home');
-  Route::get('/messages/{messageClicked}', 'MessageController@index')->name('messages.index');
+  Route::get('/messages', 'MessageController@index')->name('messages');
+  Route::get('/messages/{messageClicked}', 'MessageController@clickMessage')->name('messages.index');
+  Route::delete('/messages/delete/{id}', 'MessageController@delete')->name('messages.delete');
   Route::resource('/flats', 'FlatController');
   Route::get('/flat/statistics', 'FlatController@statistics')->name('flats.statistics');
   

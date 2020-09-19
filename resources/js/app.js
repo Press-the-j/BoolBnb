@@ -549,6 +549,8 @@ $(".message-row-title").click(function(){
     $(this).removeClass("unread");
     ajaxSetRead($(this).data("message"))
   }
+
+
   //?se la window è m,aggiore di 770px, rende visibile il container del messaggio che gli è successivo
   if($(document).width() < 770){
     $(this).next(".message-row-content").toggleClass("hide");

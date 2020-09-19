@@ -92,7 +92,7 @@
          
         </div>
       </div>
-      <form action="{{route("admin.flats.destroy", ["flat"=>$flat->id])}}" method="post">
+      <form class="my-5" action="{{route("admin.flats.destroy", ["flat"=>$flat->id])}}" method="post">
         @method("DELETE")
         @csrf
         <div class="form-group">

@@ -14,7 +14,7 @@
                 </a>
             </li>
             <li class="nav-item list-group-item">
-                <a class="nav-link" href="{{route("admin.messages.index", ["messageClicked"=>1])}}">
+                <a class="nav-link" href="{{route("admin.messages")}}">
                   <i class="fas fa-inbox"></i>
                   Messaggi
                 </a>

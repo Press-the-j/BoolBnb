@@ -15861,6 +15861,10 @@ template {
   display: none;
 }
 
+* {
+  font-family: "Ubuntu", sans-serif;
+}
+
 .py-4 {
   background-color: white;
   min-height: 100vh;
@@ -16654,18 +16658,25 @@ input:-webkit-autofill:active {
 }
 
 .box-message-wrapper {
-  background-color: #f8dede;
+  background-color: #8b8a8a;
   height: 600px;
+  margin-top: 2rem;
 }
 
 .box-message-wrapper .message-received-list {
   height: 100%;
   overflow-y: auto;
   background-color: snow;
+  border: 1px solid rgba(0, 0, 0, 0.397);
 }
 
 .box-message-wrapper .message-received-list .message-row-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   height: 3rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.247);
 }
 
 .box-message-wrapper .message-received-list .message-row-title.unread {
@@ -16673,16 +16684,20 @@ input:-webkit-autofill:active {
 }
 
 .box-message-wrapper .message-received-list .message-row-title.selected {
-  background-color: #8b8a8a;
+  background-color: rgba(139, 138, 138, 0.377);
 }
 
 .box-message-wrapper .message-received-list .message-row-content {
-  background-color: tomato;
+  padding: 1rem;
+}
+
+.box-message-wrapper .message-received-list .message-row-content .message-row-content-email {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.404);
 }
 
 @media (min-width: 770px) {
   .box-message-wrapper {
-    background-color: #f8dede;
+    background-color: #8b8a8a;
     display: flex;
   }
 
@@ -16692,17 +16707,25 @@ input:-webkit-autofill:active {
 
   .box-message-wrapper .message-received-box {
     width: 60%;
-    background-color: tomato;
+    background-color: #FFFAFA;
     position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.404);
+    padding: 2rem;
   }
 
   .box-message-wrapper .message-received-box .message-received-content {
     position: absolute;
     display: none;
+    width: 100%;
   }
 
   .box-message-wrapper .message-received-box .message-received-content.active {
     display: block;
+  }
+
+  .box-message-wrapper .message-received-box .message-received-content .message-received-content-email {
+    width: 80%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.404);
   }
 }
 
