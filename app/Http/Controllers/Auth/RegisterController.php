@@ -74,7 +74,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'surname'=>$data['surname'],
             'date_birth'=>$data['date_birth'],
-            'image_path'=>$data['image_path']
+            'image_path'=>''
         ]);
         
         

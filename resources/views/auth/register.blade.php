@@ -55,21 +55,6 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="form-group row">
-
-                            <div class="col-md-12">
-                                <input id="image_path" type="text"
-                                    class="form-control @error('image_path') is-invalid @enderror" name="image_path"
-                                    value="{{ old('image_path') }}" required autocomplete="image_path" autofocus
-                                    placeholder="qui andra file per immagine">
-
-                                @error('image_path')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
 
                         <div class="form-group row">
 

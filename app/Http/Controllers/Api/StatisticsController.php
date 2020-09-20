@@ -29,20 +29,24 @@ class StatisticsController extends Controller
         array_push($keysArrView, $week[$i]);
       }
 
-      
+      $counterViewPromoted=0;
       //!da broswer non escono con il giusto ordine verifica che invece siano in ordine
       $viewForDay=array_fill_keys($keysArrView, '');
       foreach($views as $view){
+        if($view->view_promoted==1){
+          $counterViewPromoted=$counterViewPromoted + 1;
+        }
         if($view->created_at > $thisWeek){
           array_push($viewsDone, $view);
           $nameDay=new Carbon($view->created_at);
           $timeStampDay=new Carbon($view->created_at);
           $nameDay=$timeStampDay->isoFormat('dddd');
           $viewForDay[$nameDay]++;
+
         }
       }
       $countViews=count($viewsDone);
-
+      
       $viewForDayArr=[];
       foreach($viewForDay as $dailyView){
        if($dailyView != null){
@@ -73,9 +77,9 @@ class StatisticsController extends Controller
           $createdAtPromMid=$createdAtProm->setTime(0,0,0);
           $timePromoted=($now->diffInDays($createdAtPromMid)) + 1;
           $counterTimeProm= $counterTimeProm + $timePromoted;
-          $counterViewsProm =$counterViewsProm +  $timePromoted;
+          
         }
-        $mediaPromViews=$counterViewsProm / $counterTimeProm ;
+        $mediaPromViews=$counterViewPromoted / $counterTimeProm ;
       }
       
 
@@ -89,8 +93,9 @@ class StatisticsController extends Controller
         "viewForDay"=>$viewForDayArr,
         "mediaViews"=>number_format((float)$mediaViews, 2,'.', ''),
         "timeCreation"=>$timeCreate,
-        "counterProm"=>$counterViewsProm,
-        "mediaPromViews"=>$mediaPromViews
+        "counterProm"=>$counterTimeProm,
+        "mediaPromViews"=>$mediaPromViews,
+  
       ]);
     }
 

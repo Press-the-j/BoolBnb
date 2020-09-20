@@ -14,7 +14,6 @@ class FlatInfosSeeder extends Seeder
     {
         $flat_info1= new FlatInfo();
         $flat_info1->flat_id=1;
-        $flat_info1->image_path='default';
         $flat_info1->description='questo è un tipo di flat';
         $flat_info1->city= 'Roma';
         $flat_info1->address= 'via del corso';

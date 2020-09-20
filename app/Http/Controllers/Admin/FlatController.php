@@ -171,7 +171,7 @@ class FlatController extends Controller
        $message->fill($dataMessage);
        $message->save();
 
-       return redirect()->route('admin.home');
+       return redirect()->route('admin.flats.index');
     }
 
     /**
