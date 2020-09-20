@@ -85111,7 +85111,8 @@ module.exports = function(module) {
 
 var _require = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"),
     cleanData = _require.cleanData,
-    ajax = _require.ajax;
+    ajax = _require.ajax,
+    data = _require.data;
 
 var Chart = __webpack_require__(/*! chart.js */ "./node_modules/chart.js/dist/Chart.js");
 
@@ -85683,19 +85684,41 @@ if ($('#flat-chart').length) {
   ajaxStatistics();
 }
 
+if ($("#flat-chart-pie").length) {
+  console.log('ciao');
+  ajaxStatisticsPie();
+}
+
 $('#flats-chart-select').on('change', function () {
   ajaxStatistics();
 });
 
 function ajaxStatistics() {
   var id = $('#flats-chart-select').val();
-  var url = window.location.origin + '/api/statistics/' + id;
+  var url = window.location.origin + '/api/statistics/weekly/' + id;
   $.ajax({
     url: url,
     type: "GET",
     success: function success(result) {
       console.log(result);
       makeWeeklyChart(result);
+      getDataViews(result);
+    },
+    error: function error(err) {
+      console.log(err);
+    }
+  });
+}
+
+function ajaxStatisticsPie() {
+  var id = $('#user-id-pieChart').val();
+  var url = window.location.origin + '/api/statistics/pie/' + id;
+  $.ajax({
+    url: url,
+    type: "GET",
+    success: function success(result) {
+      console.log(result);
+      makePieChart(result);
     },
     error: function error(err) {
       console.log(err);
@@ -85729,6 +85752,53 @@ function makeWeeklyChart(dataObj) {
       }
     }
   });
+}
+
+function getDataViews(dataObj) {
+  $(".tot-views").text(dataObj.counter);
+  $(".media-views").text(dataObj.mediaViews);
+  $(".promotion-time").text(dataObj.counterProm);
+  $(".media-promoted-views").text(dataObj.mediaPromViews);
+}
+
+function makePieChart(dataObj) {
+  var ctx = document.getElementById("flat-chart-pie");
+  var myPieChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      datasets: [{
+        data: dataObj.flats_views,
+        backgroundColor: getRandomColor(dataObj.flats_views)
+      }],
+      // These labels appear in the legend and in the tooltips when hovering different arcs
+      labels: dataObj.flats_titles
+    },
+    options: {
+      legend: {
+        display: true,
+        position: 'bottom',
+        align: 'start'
+      }
+    }
+  });
+}
+
+function getRandomColor() {
+  var color = [];
+
+  for (var y = 0; y < data.length; y++) {
+    var letters = '0123456789ABCDEF'.split('');
+    var thisColor = '#';
+
+    for (var i = 0; i < 6; i++) {
+      thisColor += letters[Math.floor(Math.random() * 16)];
+    }
+
+    color.push(thisColor);
+  }
+
+  console.log(color);
+  return color;
 }
 
 /***/ }),

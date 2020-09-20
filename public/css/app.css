@@ -15908,10 +15908,16 @@ input:-webkit-autofill:active {
   box-shadow: 0 0 1rem rgba(255, 110, 110, 0.25);
 }
 
-@media (min-width: 770px) {
+@media (min-width: 768px) {
   .container-admin {
-    padding-left: 23%;
+    padding-left: 25%;
   }
+}
+
+.btn-payment {
+  background-color: #FF7070;
+  color: white;
+  font-weight: bold;
 }
 
 .register-container {
@@ -16213,9 +16219,12 @@ input:-webkit-autofill:active {
 }
 
 @media (min-width: 1100px) {
-  .btn-filters .right-left-filters-search-wrapper .rightside-filters-search {
-    display: flex;
-    flex-wrap: wrap;
+  .wrapper-search {
+    text-align: center;
+  }
+
+  .btn-filters {
+    width: 704px;
   }
 
   .btn-filters .right-left-filters-search-wrapper .rightside-filters-search .checkbox-container {
@@ -16716,7 +16725,7 @@ input:-webkit-autofill:active {
   .box-message-wrapper .message-received-box .message-received-content {
     position: absolute;
     display: none;
-    width: 100%;
+    width: 80%;
   }
 
   .box-message-wrapper .message-received-box .message-received-content.active {
@@ -16729,8 +16738,44 @@ input:-webkit-autofill:active {
   }
 }
 
-.weekly-chart {
-  width: 500px;
+.row-chart {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.chart {
+  width: 80%;
+  margin-bottom: 2rem;
+}
+
+.row-chart {
+  margin-top: 2rem;
+}
+
+@media (min-width: 768px) {
+  .chart {
+    width: 48%;
+  }
+
+  .weekly-chart {
+    margin-right: 4%;
+  }
+
+  .row-chart {
+    margin-top: 2rem;
+  }
+}
+
+@media (min-width: 1060px) {
+  .row-chart {
+    flex-direction: row;
+    align-items: baseline;
+  }
+
+  .chart {
+    height: 100%;
+  }
 }
 
 .sidebar-admin {

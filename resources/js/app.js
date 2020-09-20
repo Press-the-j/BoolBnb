@@ -1,4 +1,4 @@
-const { cleanData, ajax } = require("jquery");
+const { cleanData, ajax, data } = require("jquery");
 var Chart = require('chart.js');
 var places = require('places.js');
 require("./bootstrap");
@@ -625,25 +625,50 @@ if($('#flat-chart').length){
   ajaxStatistics()
 }
 
+if($("#flat-chart-pie").length){
+  console.log('ciao');
+  ajaxStatisticsPie()
+}
+
 $('#flats-chart-select').on('change', function(){
   ajaxStatistics();
 })
 
+
 function ajaxStatistics(){
   let id= $('#flats-chart-select').val()
-  let url=window.location.origin + '/api/statistics/'+ id
+  let url=window.location.origin + '/api/statistics/weekly/'+ id
   $.ajax({
     url: url,
     type: "GET",
     success: function(result) {
       console.log(result);
       makeWeeklyChart(result);
+      getDataViews(result)
     },
     error: function(err) {
         console.log(err);
     }
   });
 }
+function ajaxStatisticsPie(){
+  let id=$('#user-id-pieChart').val()
+  let url=window.location.origin + '/api/statistics/pie/' + id
+  $.ajax({
+    url: url,
+    type: "GET",
+    success: function(result) {
+      console.log(result);
+      
+      makePieChart(result);
+    },
+    error: function(err) {
+        console.log(err);
+    }
+  });
+}
+
+
 
 
 function makeWeeklyChart(dataObj){
@@ -673,4 +698,48 @@ function makeWeeklyChart(dataObj){
         }
     }
   });
+}
+
+function getDataViews(dataObj){
+  $(".tot-views").text(dataObj.counter);
+  $(".media-views").text(dataObj.mediaViews);
+  $(".promotion-time").text(dataObj.counterProm);
+  $(".media-promoted-views").text(dataObj.mediaPromViews)
+}
+
+function makePieChart(dataObj){ 
+  var ctx= document.getElementById("flat-chart-pie") 
+  var myPieChart = new Chart(ctx, {
+    type: 'pie',
+    data : {
+      datasets: [{
+          data: dataObj.flats_views,
+          backgroundColor: getRandomColor(dataObj.flats_views),
+      }],
+  
+      // These labels appear in the legend and in the tooltips when hovering different arcs
+      labels: dataObj.flats_titles
+    },
+    options: {
+      legend: {
+        display:true,
+        position:'bottom',
+        align: 'start'
+      }
+    }
+  });
+}
+
+function getRandomColor() {
+  let color = [];
+  for(let y=0; y<data.length; y++){
+    var letters = '0123456789ABCDEF'.split('');
+    var thisColor= '#'
+    for (var i = 0; i < 6; i++ ) {
+        thisColor += letters[Math.floor(Math.random() * 16)];
+    }
+    color.push(thisColor)
+  }
+  console.log(color);
+  return color;
 }

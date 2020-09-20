@@ -6,7 +6,7 @@
 <div class="container container-admin">
   <div class="row justify-content-center">
       <div class="col-md-8">
-          <div class="card register-container">
+          <div class="card register-container my-5">
               <h1 class="card-header">Profilo</h1>
 
               <div class="card-body">

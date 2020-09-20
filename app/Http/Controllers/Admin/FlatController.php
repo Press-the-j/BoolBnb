@@ -13,6 +13,7 @@ use App\FlatInfo;
 use App\Service;
 use App\Promotion;
 use App\View;
+use App\Message;
 
 
 class FlatController extends Controller
@@ -161,8 +162,14 @@ class FlatController extends Controller
          $flat->services()->sync($data['services']);
        }
 
-
-
+       $message= new Message();
+       $dataMessage=[
+         "flat_id"=>$flatId,
+         "email_sender"=> "admin@boolbnb.com",
+         "content"=> "Benvenuto " . Auth::user()->name . ", lo staff di BoolBnb la ringrazia per aver inserito un annuncio sul nostro portale, per qualsiasi informazione ci può contattare all'email admin@infoBoolBnb.com",
+       ];
+       $message->fill($dataMessage);
+       $message->save();
 
        return redirect()->route('admin.home');
     }

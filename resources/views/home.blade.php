@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid index-container">
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md-8 wrapper-search">
       <div class="search-input-container">
         <input type="search" class="form-control  " id="search-input" placeholder="Cerca un appartamento...">
         <button id ="submit-search" class="btn btn-primary"><i class="fas fa-search"></i></button>

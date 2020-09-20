@@ -15,7 +15,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+   /*  public function index()
     {
 
     $flats=Flat::where('is_promoted', 1)->get();
@@ -43,7 +43,7 @@ class HomeController extends Controller
     }
 
     return view('home', compact('flats', 'services', 'allMessages', 'unreadMessages'));
-    }
+    } */
 
     
 }

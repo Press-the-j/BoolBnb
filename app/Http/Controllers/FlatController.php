@@ -19,8 +19,34 @@ class FlatController extends Controller
      */
     public function index()
     {
-     
 
+      $flat=Flat::where('id', 1)->first();
+      $createdAt=new Carbon( $flat->created_at);
+      $createdAtmid=$createdAt->setTime(0,0,0) ;
+      $now=Carbon::now()->setTime(0,0,0);
+      $timeCreate=($now->diffInDays($createdAt)) + 1;
+      
+      /* if($countViews){
+        $mediaViews= $countViews / $timeCreate;
+
+      } */
+      
+      $promotions=$flat->promotions;
+      $counterViewsProm=0;
+      $counterTimeProm=0;
+
+     
+      if(count($promotions) != 0){
+        foreach($promotions as $promotion){
+          $createdAtProm=new Carbon($promotion->pivot->started_at);
+          $createdAtPromMid=$createdAtProm->setTime(0,0,0);
+          $timePromoted=($now->diffInDays($createdAtPromMid)) + 1;
+          $counterTimeProm= $counterTimeProm + $timePromoted;
+          $counterViewsProm =$counterViewsProm +  $timePromoted;
+        }
+        $mediaPromViews=$counterViewsProm / $counterTimeProm ;
+      }
+      
 
     $flats=Flat::where('is_promoted', 1)->get();
     $services=Service::all();
